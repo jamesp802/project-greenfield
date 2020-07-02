@@ -1,5 +1,9 @@
 # project-greenfield
+productinfo
 =======
+=======
+
+master
 This is a mock-up of a client-facing retail web-portal.
 
 This was built as a team to integrate with a black-box API to provide a fully integrated full-stack retail web-portal.
@@ -9,5 +13,8 @@ React
 React.js
 Redux
 Express
+productinfo
 Axios
->>>>>>> dbe58d0c4ac8b16c1e3f4ff57d4ee8d77835ad26
+=======
+Axios
+master
