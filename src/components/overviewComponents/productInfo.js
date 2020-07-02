@@ -5,6 +5,98 @@ import {
 } from "../../actions/overviewActions/productInfoActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { DropdownButton, Button, ButtonGroup, Dropdown } from "react-bootstrap";
+
+import SizeDropDown from "./productInfoHelpers/sizeDropDown";
+import StyleDropDown from "./productInfoHelpers/styleDropDown";
+
+class ProductInfo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      style: {},
+      size: null,
+      quantity: 1,
+      selected: false,
+    };
+    this.changeHandler = this.changeHandler.bind(this);
+    this.changeStyle = this.changeStyle.bind(this);
+  }
+
+  changeHandler(e) {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  }
+
+  changeStyle(e) {
+    this.setState({
+      style: this.props.productStyleList.results[e.target.value]
+    })
+  }
+
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    this.props.fetchProductInfo(id);
+    this.props.fetchProductStyleList(id);
+  }
+
+  render() {
+    const { productInfo } = this.props;
+    const { productStyleList } = this.props;
+
+    let defaultStyle = productStyleList.results[0];
+    let selectedStyle = this.state.style;
+
+    console.log(this.state);
+    return (
+      <div className="overview container">
+        <div className="product-info">
+          {/* stars */}
+          {productInfo.category}
+          <h1>{productInfo.name}</h1>${selectedStyle.original_price ? selectedStyle.original_price : defaultStyle.original_price}
+        </div>
+        <div className="product-ui">
+          <b>style ></b> {this.state.style.name ? this.state.style.name : productStyleList.results[0].name}
+          {/* style snapshot component */}
+          <br />
+          <StyleDropDown
+            styleList={productStyleList.results}
+            changeHandler={this.changeStyle}
+          />
+          <SizeDropDown
+            style={
+              this.state.selected
+                ? this.state.style
+                : productStyleList.results[0]
+            }
+            changeHandler={this.changeHandler}
+          />
+        </div>
+      </div>
+    );
+  }
+}
+
+// CONTAINER //////////////////////////////
+
+const mapStateToProps = (state) => {
+  return {
+    productInfo: state.currentProductInfo,
+    productStyleList: state.currentProductStyleList,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchProductInfo: (id) => dispatch(fetchProductInfoAction(id)),
+    fetchProductStyleList: (id) => dispatch(fetchProductStyleListAction(id)),
+  };
+};
+// export default connect(null, null)(ProductInfo);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(ProductInfo)
+);
 
 // const EXAMPLEDATA = {
 //   id: 123,
@@ -43,75 +135,3 @@ import { withRouter } from "react-router-dom";
 //       skus: { XS: 2, S: 0, M: 27, L: 41, XL: 16, XXL: 35 },
 //     },
 // };
-
-class ProductInfo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      style: {},
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange (e) {
-    this.setState({
-      style: this.props.productStyleList.results[e.target.value]
-    })
-  }
-
-  componentDidMount() {
-    let id = this.props.match.params.id;
-    this.props.fetchProductInfo(id);
-    this.props.fetchProductStyleList(id);
-  }
-
-  render() {
-    const { productInfo } = this.props;
-    const { productStyleList } = this.props;
-    console.log(this.state);
-    return (
-      <div>
-        <h1>Product Info</h1>
-        <li>category: {productInfo.category}</li>
-        <li>name: {productInfo.name}</li>
-        <li>price: ${productInfo.default_price}</li>
-        <li>
-          overview:
-          <br />
-          description: {productInfo.description}
-          <br />
-          slogan: {productInfo.slogan}
-          <br />
-          features: {JSON.stringify(productInfo.features)}
-        </li>
-        styles:
-        <select onChange={this.handleChange}>
-          {this.props.productStyleList.results.map((style, index) => {
-            return <option key={index} value={index}>{style.name}</option>
-          })}
-        </select>
-
-      </div>
-    );
-  }
-}
-
-// CONTAINER //////////////////////////////
-
-const mapStateToProps = (state) => {
-  return {
-    productInfo: state.currentProductInfo,
-    productStyleList: state.currentProductStyleList,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    fetchProductInfo: (id) => dispatch(fetchProductInfoAction(id)),
-    fetchProductStyleList: (id) => dispatch(fetchProductStyleListAction(id)),
-  };
-};
-// export default connect(null, null)(ProductInfo);
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(ProductInfo)
-);

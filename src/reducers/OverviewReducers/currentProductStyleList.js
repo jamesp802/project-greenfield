@@ -1,5 +1,9 @@
 const currentProductStyleList = (state = {
-  results: [],
+  results: [
+    {
+      skus: {}
+    }
+  ],
 }, action) => {
   switch (action.type) {
     case "PRODUCT_STYLE_LIST":
