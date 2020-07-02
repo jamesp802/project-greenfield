@@ -1,9 +1,10 @@
-import React from "react";
-import axios from "axios";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from "./Home";
-import Product from "./Product";
+import Home from './Home';
+import Product from './Product';
+import Reviews from './Reviews/ReviewList';
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         <Switch>
           <Route path="/product/:id">
             <Product />
+          </Route>
+          <Route path="/reviews">
+            <Reviews />
           </Route>
           <Route path="/">
             <Home />
