@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 const ReviewTile = (props) => {
   return (
     <div>
-      {/* {JSON.stringify(props.reviews[0])} */}
       {props.reviews.map((review) => {
         return (
           <React.Fragment>
