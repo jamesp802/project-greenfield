@@ -7,6 +7,7 @@ class ReviewsList extends React.Component {
   componentDidMount() {
     this.props.getData(`http://18.224.200.47/reviews/1/list`);
   }
+
   render() {
     return (
       <div>
@@ -18,7 +19,7 @@ class ReviewsList extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.reviews,
+    reviews: state.reviews.reviewsData,
   };
 };
 
@@ -28,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewTile);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsList);
 
 /* const mapStateToProps = (state) => {
   return {};

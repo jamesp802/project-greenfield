@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 const ReviewTile = (props) => {
   return (
     <div>
-      {this.props.data.results.map((review) => {
+      {/* {JSON.stringify(props.reviews[0])} */}
+      {props.reviews.map((review) => {
         return (
           <React.Fragment>
             <h1 className="reviewTitle">{review.summary}</h1>
-            <span>{review.rating}</span>
-            <span>{review.date}</span>
+            <span>Rating: {review.rating} | </span>
+            <span>Date: {review.date}</span>
             <br />
             <p>{review.body}</p>
             <br />
@@ -22,4 +23,16 @@ const ReviewTile = (props) => {
   );
 };
 
-export default ReviewTile;
+const mapStateToProps = (state) => {
+  return {
+    reviews: state.reviews.reviewsData,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getData: (url) => dispatch(getReviews(url)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewTile);

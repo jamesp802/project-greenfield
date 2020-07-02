@@ -1,10 +1,19 @@
-const data = (state = [], action) => {
+const initialState = {
+  reviewsData: [],
+  review: {},
+};
+
+const reviewReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_REVIEWS':
-      return action.reviews;
+      console.log('reducer state merge: ', {
+        ...state,
+        reviewsData: action.reviews.results,
+      });
+      return { ...state, reviewsData: action.reviews.results };
     default:
       return state;
   }
 };
 
-export default data;
+export default reviewReducer;
