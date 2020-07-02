@@ -5,7 +5,7 @@ import ReviewTile from './ReviewTile';
 
 class ReviewsList extends React.Component {
   componentDidMount() {
-    this.props.getData(`http://18.224.200.47/reviews/1/list`);
+    this.props.getData(`http://18.224.200.47/reviews/4/list`);
   }
 
   render() {
