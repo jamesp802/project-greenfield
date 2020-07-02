@@ -5,12 +5,16 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./Home";
 import Product from "./Product";
 import Questions from './questions/Questions'
+import ProductInfo from "./overviewComponents/productInfo";
 
 function App() {
   return (
     <div>
       <Router>
         <Switch>
+          <Route path="/productinfo/:id">
+            <ProductInfo />
+          </Route>
           <Route path="/product/:id">
             <Product />
           </Route>

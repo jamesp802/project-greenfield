@@ -1,6 +1,14 @@
 # Project Greenfield
 
 ## [Scripts](/package.json)
+=======
+# project-greenfield
+productinfo
+=======
+=======
+
+This is a mock-up of a client-facing retail web-portal.
+
 
 These are the scripts in package JSON
 
