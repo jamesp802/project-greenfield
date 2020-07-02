@@ -2,8 +2,10 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from './Home';
-import Product from './Product';
+import Home from "./Home";
+import Product from "./Product";
+import Questions from './questions/Questions'
+import ProductInfo from "./overviewComponents/productInfo";
 import Reviews from './Reviews/ReviewList';
 
 function App() {
@@ -11,11 +13,16 @@ function App() {
     <div>
       <Router>
         <Switch>
+          <Route path="/productinfo/:id">
+            <ProductInfo />
+          </Route>
           <Route path="/product/:id">
             <Product />
           </Route>
           <Route path="/reviews">
             <Reviews />
+          <Route path="/questions">
+            <Questions />
           </Route>
           <Route path="/">
             <Home />
