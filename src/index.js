@@ -7,6 +7,7 @@ import rootReducer from './reducers';
 
 import App from './components/App';
 import './styles.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 console.log(store.getState())
