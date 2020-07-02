@@ -20,16 +20,21 @@ const ReviewTile = (props) => {
             <br />
             <p>{review.body}</p>
             <br />
-            <p>
-              {review.photos.map((photo) => {
-                return (
-                  <img
-                    src={photo.url}
-                    style={{ maxWidth: '100%', height: 'auto' }}
-                  ></img>
-                );
-              })}
-            </p>
+            {review.photos.length > 0 ? (
+              <p>
+                {review.photos.map((photo) => {
+                  return (
+                    <img
+                      src={photo.url}
+                      style={{ maxWidth: '100%', height: 'auto' }}
+                    ></img>
+                  );
+                })}
+              </p>
+            ) : (
+              <p>Insert photos!</p>
+            )}
+
             <p>this is the footer </p>
             <hr />
           </React.Fragment>
