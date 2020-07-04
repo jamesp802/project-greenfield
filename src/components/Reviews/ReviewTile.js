@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Stars from './Stars';
 
 const ReviewTile = (props) => {
   return (
@@ -15,8 +16,8 @@ const ReviewTile = (props) => {
       {props.reviews.map((review, i) => {
         return (
           <React.Fragment key={i}>
-            <span style={{ display: 'inline-block', marginRight: '50%' }}>
-              Rating (stars): {review.rating}
+            <span style={{ display: 'inline-block', marginRight: '20%' }}>
+              <Stars ratings={review.rating} />
             </span>
             <span style={{ display: 'inline-block' }}>Date: {review.date}</span>
             <br />
