@@ -1,17 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Stars from './Stars';
+import SortingView from './SortingView';
 
 const ReviewTile = (props) => {
   return (
     <div>
-      {props.reviews.length} reviews, sorted by:{' '}
-      <select>
-        <option>test1</option>
-        <option>test2</option>
-        <option>test3</option>
-      </select>
-      <br />
+      <SortingView />
       <br />
       {props.reviews.map((review, i) => {
         return (
