@@ -1,20 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getReviews } from '../../actions/ReviewActions/actions';
-import ReviewTile from './ReviewTile';
-import Stars from './Stars';
+import RatingsBreakdown from './RatingsBreakdown';
+import ReviewsList from './ReviewsList';
 
-class ReviewsList extends React.Component {
+class RatingsAndReviews extends React.Component {
   componentDidMount() {
     this.props.getData(`http://18.224.200.47/reviews/4/list`);
   }
 
   render() {
     return (
-      <div>
-        <div>{/* <Stars /> */}</div>
-        <div>
-          <ReviewTile />
+      <div className="ratingsAndReviews">
+        <div style={{ width: '33%', display: 'inline-block' }}>
+          <RatingsBreakdown />
+        </div>
+        <div style={{ width: '66%', display: 'inline-block' }}>
+          <ReviewsList />
         </div>
       </div>
     );
@@ -33,14 +35,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsList);
-
-/* const mapStateToProps = (state) => {
-  return {};
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {};
-};
-
-export default connect(null, null)(ReviewsList); */
+export default connect(mapStateToProps, mapDispatchToProps)(RatingsAndReviews);

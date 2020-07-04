@@ -6,7 +6,7 @@ import Home from './Home';
 import Product from './Product';
 import Questions from './questions/Questions';
 import ProductInfo from './overviewComponents/productInfo';
-import Reviews from './Reviews/ReviewList';
+import RatingsAndReviews from './Reviews/RatingsAndReviews';
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             <Product />
           </Route>
           <Route path="/reviews">
-            <Reviews />
+            <RatingsAndReviews />
           </Route>
           <Route path="/questions">
             <Questions />
