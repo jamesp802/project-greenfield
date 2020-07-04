@@ -1,10 +1,19 @@
 import React from 'react';
 import RatingSummary from './RatingSummary';
+import StarBreakdown from './StarBreakdown';
 
 const RatingsBreakdown = (props) => {
   return (
     <div>
-      <RatingSummary />
+      <div>
+        <RatingSummary />
+      </div>
+      <br />
+      <span>100% of reviews recommend this product</span>
+      <br />
+      <div>
+        <StarBreakdown />
+      </div>
     </div>
   );
 };

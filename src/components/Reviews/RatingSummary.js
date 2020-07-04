@@ -7,7 +7,7 @@ const RatingSummary = (props) => {
       <div>
         <span style={{ fontSize: 35, display: 'inline-block' }}>3.5 </span>{' '}
         <span style={{ display: 'inline-block' }}>
-          <Stars ratings={2.5} />
+          <Stars ratings={3.5} />
         </span>
       </div>
     </div>
