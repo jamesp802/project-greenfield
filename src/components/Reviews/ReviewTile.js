@@ -1,22 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Stars from './Stars';
+import SortingView from './SortingView';
 
 const ReviewTile = (props) => {
   return (
     <div>
-      {props.reviews.length} reviews, sorted by:{' '}
-      <select>
-        <option>test1</option>
-        <option>test2</option>
-        <option>test3</option>
-      </select>
-      <br />
+      <SortingView />
       <br />
       {props.reviews.map((review, i) => {
         return (
           <React.Fragment key={i}>
-            <span style={{ display: 'inline-block', marginRight: '50%' }}>
-              Rating (stars): {review.rating}
+            <span style={{ display: 'inline-block', marginRight: '20%' }}>
+              <Stars ratings={review.rating} />
             </span>
             <span style={{ display: 'inline-block' }}>Date: {review.date}</span>
             <br />
@@ -30,17 +26,21 @@ const ReviewTile = (props) => {
             <p>{review.body}</p>
             <br />
             {review.photos.length > 0 ? (
-              <p>
+              <span>
                 {review.photos.map((photo, i) => {
                   return (
                     <img
                       key={i}
                       src={photo.url}
-                      style={{ maxWidth: '100%', height: 'auto' }}
+                      style={{
+                        maxWidth: '150px',
+                        height: 'auto',
+                        display: 'inline-block',
+                      }}
                     ></img>
                   );
                 })}
-              </p>
+              </span>
             ) : (
               <p>Insert photos!</p>
             )}
