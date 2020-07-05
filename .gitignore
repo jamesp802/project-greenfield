@@ -1,5 +1,6 @@
 bundle.js
 node_modules
+package-lock.json
 
 # misc
 .DS_Store
