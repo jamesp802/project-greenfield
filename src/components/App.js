@@ -21,6 +21,7 @@ function App() {
           </Route>
           <Route path="/reviews">
             <Reviews />
+          </Route>
           <Route path="/questions">
             <Questions />
           </Route>

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getReviews } from '../../actions/ReviewActions/actions';
 import ReviewTile from './ReviewTile';
-import Stars from './Stars';
+// import Stars from './Stars';
 
 class ReviewsList extends React.Component {
   componentDidMount() {
