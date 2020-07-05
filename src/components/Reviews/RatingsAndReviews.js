@@ -12,10 +12,15 @@ class RatingsAndReviews extends React.Component {
   render() {
     return (
       <div className="ratingsAndReviews">
-        <div style={{ width: '33%', display: 'inline-block' }}>
+        <div
+          style={{
+            width: '30%',
+            float: 'left',
+          }}
+        >
           <RatingsBreakdown />
         </div>
-        <div style={{ width: '66%', display: 'inline-block' }}>
+        <div style={{ width: '60%', display: 'inline-block', marginLeft: 20 }}>
           <ReviewsList />
         </div>
       </div>

@@ -26,17 +26,21 @@ const ReviewTile = (props) => {
             <p>{review.body}</p>
             <br />
             {review.photos.length > 0 ? (
-              <p>
+              <span>
                 {review.photos.map((photo, i) => {
                   return (
                     <img
                       key={i}
                       src={photo.url}
-                      style={{ maxWidth: '100%', height: 'auto' }}
+                      style={{
+                        maxWidth: '150px',
+                        height: 'auto',
+                        display: 'inline-block',
+                      }}
                     ></img>
                   );
                 })}
-              </p>
+              </span>
             ) : (
               <p>Insert photos!</p>
             )}

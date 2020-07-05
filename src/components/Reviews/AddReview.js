@@ -73,20 +73,26 @@ class AddReview extends React.Component {
             About the [Product Name Here]
           </Modal.Header>
           <br />
-          <Modal.Body>
+          <Modal.Body
+            style={{
+              maxHeight: 'calc(100vh - 210px)',
+              overflowY: 'auto',
+            }}
+          >
             <form onSubmit={(e) => this.handleSubmit(e)}>
               <div>
                 <label>Overall rating: </label> <br />
+                {/* STARS RATINGS */}
                 <Ratings
                   rating={this.state.rating}
                   widgetRatedColors="black"
                   changeRating={this.changeRating}
                 >
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
+                  <Ratings.Widget widgetDimension="15px" />
+                  <Ratings.Widget widgetDimension="15px" />
+                  <Ratings.Widget widgetDimension="15px" />
+                  <Ratings.Widget widgetDimension="15px" />
+                  <Ratings.Widget widgetDimension="15px" />
                 </Ratings>
                 <span style={{ display: 'inline-block', marginLeft: '25px' }}>
                   {this.state.ratingShow ? (
@@ -95,18 +101,8 @@ class AddReview extends React.Component {
                     <p></p>
                   )}
                 </span>
-                {/* </div>
-              <br />
-              <div>
-                <p>Do you recommend this product? </p>
-                <br />
-                <input type="radio">
-                  <label for="male">Yes</label>
-                </input>
-                <input label="no" type="radio" name="recNo"></input>
-              </div>
-              <div> */}
-                <div className="radio">
+                {/* THIS IS RECOMMENDATION */}
+                <div className="checkbox-inline">
                   <p>Do you recommend this product?</p>
                   <label>
                     <input type="radio" name="radiobutton" />
@@ -119,59 +115,75 @@ class AddReview extends React.Component {
                     No
                   </label>
                 </div>
-                <label>Body: </label> <br />
-                <input
-                  type="textarea"
-                  name="body"
-                  value={this.state.body}
-                  onChange={(e) => this.handleChange(e)}
-                ></input>
+                {/* THESE ARE CHARACTERISTICS */}
+                <div>
+                  <p>Select Characteristics</p>
+                  {['Size', 'Width', 'Comfort', 'Quality', 'Length', 'Fit'].map(
+                    (char) => {
+                      return (
+                        <div>
+                          <label style={{ display: 'inline-flex' }}>
+                            <input type="checkbox" name="checkboxbutton" />
+                            {char}
+                          </label>
+                        </div>
+                      );
+                    }
+                  )}
+                </div>
+                {/* THIS IS REVIEW SUMMARY */}
+                <div>
+                  <p>Review Summary:</p>
+                  <textarea
+                    maxLength="50"
+                    placeholder="Example: Best purchase ever!"
+                  ></textarea>
+                </div>
+                {/* REVIEW BODY */}
+                <div>
+                  <p>Review Body: </p>
+                  <textarea
+                    maxLength="1000"
+                    minLength="50"
+                    rows="4"
+                    cols="50"
+                    placeholder="Why did you like the product or not?"
+                  ></textarea>
+                </div>
+                <br />
+                {/* photo upload */}
+                <div>
+                  <Form.File
+                    id="exampleFormControlFile1"
+                    label="Upload up to 5 pictures! "
+                  />
+                </div>
+                <br />
+                {/* nickname */}
+                <div>
+                  <p>Username:</p>
+                  <textarea
+                    maxLength="60"
+                    placeholder="Example: jackson11!"
+                  ></textarea>
+                  <span style={{ display: 'block', fontSize: '12px' }}>
+                    For privacy reasons, do not use your full name or email
+                    address
+                  </span>
+                </div>
+                {/* email */}
+                <div>
+                  <p>Email:</p>
+                  <textarea
+                    maxLength="60"
+                    placeholder="Example: jackson11@email.com"
+                  ></textarea>
+                  <span style={{ display: 'block', fontSize: '12px' }}>
+                    For authentication reasons, you will not be emailed
+                  </span>
+                </div>
               </div>
             </form>
-            {/* <Form>
-              <Form.Group>
-                <Form.Label>Overall rating: </Form.Label> <br />
-                <Ratings
-                  rating={this.state.rating}
-                  widgetRatedColors="black"
-                  changeRating={this.changeRating}
-                >
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                  <Ratings.Widget />
-                </Ratings>
-                <span style={{ display: 'inline-block', marginLeft: '25px' }}>
-                  {this.state.ratingShow ? (
-                    <p>{this.state.ratingDefiniton}</p>
-                  ) : (
-                    <p></p>
-                  )}
-                </span>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Do you recommend this product?</Form.Label>
-                <div type={`inline-radio`} className="mb-3">
-                  <Form.Check inline label="Yes" id={1} />
-                  <Form.Check inline label="No" id={2} />
-                </div>
-              </Form.Group>
-              <Form.Group controlId="exampleForm.ControlSelect2">
-                <Form.Label>Example multiple select</Form.Label>
-                <Form.Control as="select" multiple>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="exampleForm.ControlTextarea1">
-                <Form.Label>Example textarea</Form.Label>
-                <Form.Control as="textarea" rows="3" />
-              </Form.Group>
-            </Form> */}
             <br />
           </Modal.Body>
           <Modal.Footer>
@@ -179,7 +191,7 @@ class AddReview extends React.Component {
               Close
             </Button>
             <Button variant="primary" onClick={() => this.handleShow()}>
-              Submit
+              Submit Review!
             </Button>
           </Modal.Footer>
         </Modal>
