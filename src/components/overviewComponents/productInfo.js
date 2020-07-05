@@ -8,7 +8,9 @@ import { withRouter } from "react-router-dom";
 import { DropdownButton, Button, ButtonGroup, Dropdown } from "react-bootstrap";
 
 import SizeDropDown from "./productInfoHelpers/sizeDropDown";
-import StyleDropDown from "./productInfoHelpers/styleDropDown";
+import QuantityDropDown from "./productInfoHelpers/quantitySelect";
+import SnapshotGallery from "./productInfoHelpers/snapshotGallery";
+import PhotoGallery from "./productInfoHelpers/photoGallery";
 
 class ProductInfo extends React.Component {
   constructor(props) {
@@ -29,10 +31,10 @@ class ProductInfo extends React.Component {
     });
   }
 
-  changeStyle(e) {
+  changeStyle(index) {
     this.setState({
-      style: this.props.productStyleList.results[e.target.value]
-    })
+      style: this.props.productStyleList.results[index],
+    });
   }
 
   componentDidMount() {
@@ -50,28 +52,48 @@ class ProductInfo extends React.Component {
 
     console.log(this.state);
     return (
-      <div className="overview container">
+      <div className="overview">
+        <PhotoGallery
+          photos={
+            selectedStyle.photos ? selectedStyle.photos : defaultStyle.photos
+          }
+        />
         <div className="product-info">
-          {/* stars */}
-          {productInfo.category}
-          <h1>{productInfo.name}</h1>${selectedStyle.original_price ? selectedStyle.original_price : defaultStyle.original_price}
-        </div>
-        <div className="product-ui">
-          <b>style ></b> {this.state.style.name ? this.state.style.name : productStyleList.results[0].name}
-          {/* style snapshot component */}
+          Star Rating <i>reviews</i>
           <br />
-          <StyleDropDown
-            styleList={productStyleList.results}
+          {productInfo.category}
+          <br />
+          <h1>{productInfo.name}</h1>$
+          {selectedStyle.original_price
+            ? selectedStyle.original_price
+            : defaultStyle.original_price}
+          <br />
+          <br />
+          <b>style ></b>{" "}
+          {this.state.style.name
+            ? this.state.style.name
+            : productStyleList.results[0].name}
+          <SnapshotGallery
+            styles={productStyleList.results}
             changeHandler={this.changeStyle}
           />
-          <SizeDropDown
-            style={
-              this.state.selected
-                ? this.state.style
-                : productStyleList.results[0]
-            }
-            changeHandler={this.changeHandler}
-          />
+          <div className="product-ui">
+            <SizeDropDown
+              style={
+                this.state.selected
+                  ? this.state.style
+                  : productStyleList.results[0]
+              }
+              changeHandler={this.changeHandler}
+            />
+            <QuantityDropDown />
+            <div>
+              <Button variant="light" className="addToCart">
+                Add to Bag
+              </Button>
+            </div>
+          </div>
+          {/** product description and features */}
         </div>
       </div>
     );
@@ -126,8 +148,7 @@ export default withRouter(
 //             "https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80",
 //         },
 //         {
-//           thumbnail_url:
-//             "https://images.unsplash.com/photo-1553830591-d8632a99e6ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+//
 //           url:
 //             "https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80",
 //         },

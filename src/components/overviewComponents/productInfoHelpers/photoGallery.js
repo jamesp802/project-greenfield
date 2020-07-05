@@ -1,29 +1,142 @@
 import React from "react";
-import {Button} from 'react-bootstrap';
-// import { connect } from "react-redux";
+import {
+  ArrowRight,
+  ArrowLeft,
+  ChevronCompactDown,
+  ChevronCompactUp,
+} from "react-bootstrap-icons";
 
-const photoGallery = ({photos}) => (
-  <div>
+class PhotoGallery extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayIndex: 0,
+      extend: 0,
+      extendUpClassName: "hidden",
+    };
+    this.changeDisplayIndex = this.changeDisplayIndex.bind(this);
+    this.extendThumbnailsDown = this.extendThumbnailsDown.bind(this);
+    this.extendThumbnailsUp = this.extendThumbnailsUp.bind(this);
+  }
 
-  </div>
-)
+  changeDisplayIndex(index) {
+    this.setState({
+      displayIndex: index,
+    });
+  }
 
-// // CONTAINER //////////////////////////////
+  carouselIndex(direction) {
+    let displayIndex = this.state.displayIndex;
+    if (direction === "right") {
+      if (displayIndex < this.props.photos.length - 1) {
+        this.setState({
+          displayIndex: (displayIndex += 1),
+        });
+      } else {
+        this.setState({
+          displayIndex: 0,
+        });
+      }
+    } else if (direction === "left") {
+      if (displayIndex === 0) {
+        this.setState({
+          displayIndex: this.props.photos.length - 1,
+        });
+      } else {
+        this.setState({
+          displayIndex: (displayIndex -= 1),
+        });
+      }
+    }
+  }
 
-// const mapStateToProps = (state) => {
-//   return {
-//     productInfo: state.currentProductInfo,
-//     productStyleList: state.currentProductStyleList,
-//   };
-// };
+  extendThumbnailsDown() {
+    let extend = this.state.extend + 7;
+    this.setState({
+      extend: extend,
+      extendUpClassName: "extend-up-displayed",
+    });
+  }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     fetchProductInfo: (id) => dispatch(fetchProductInfoAction(id)),
-//     fetchProductStyleList: (id) => dispatch(fetchProductStyleListAction(id)),
-//   };
-// };
-// // export default connect(null, null)(ProductInfo);
-// export default withRouter(
-//   connect(mapStateToProps, mapDispatchToProps)(ProductInfo)
-// );
+  extendThumbnailsUp() {
+    let extend = this.state.extend - 7;
+    if (extend === 0) {
+      this.setState({
+        extendUpClassName: "hidden",
+      });
+    }
+
+    this.setState({
+      extend: extend,
+    });
+  }
+
+  render() {
+    return (
+      <div className="photo-gallery">
+        <img
+          className="photo-gallery-display-image"
+          src={this.props.photos[this.state.displayIndex].url}
+        />
+        <ArrowRight
+          className="right-chevron"
+          onClick={() => {
+            this.carouselIndex("right");
+          }}
+        />
+        <ArrowLeft
+          className="left-chevron"
+          onClick={() => {
+            this.carouselIndex("left");
+          }}
+        />
+        <ul className="thumbnail-gallery-container">
+          <li>
+            <ChevronCompactUp
+              className={this.state.extendUpClassName}
+              onClick={this.extendThumbnailsUp}
+            />
+          </li>
+          {this.props.photos
+            .slice(this.state.extend, this.state.extend + 8)
+            .map((photo, i) => {
+              if (i < 7) {
+                if (this.state.displayIndex === i) {
+                  return (
+                    <li key={i}>
+                      <img
+                        onClick={() => this.changeDisplayIndex(i)}
+                        className={"thumbnail-gallery-item selected"}
+                        src={photo.url}
+                      />
+                    </li>
+                  );
+                } else if (this.state.displayIndex !== i) {
+                  return (
+                    <li key={i}>
+                      <img
+                        onClick={() => this.changeDisplayIndex(i)}
+                        className={"thumbnail-gallery-item"}
+                        src={photo.url}
+                      />
+                    </li>
+                  );
+                }
+              } else if (i === 7) {
+                return (
+                  <li key={i}>
+                    <ChevronCompactDown
+                      className="down-chevron"
+                      onClick={this.extendThumbnailsDown}
+                    />
+                  </li>
+                );
+              }
+            })}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default PhotoGallery;
