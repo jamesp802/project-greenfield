@@ -1,10 +1,14 @@
-const currentProductStyleList = (state = {
-  results: [
-    {
-      skus: {}
-    }
-  ],
-}, action) => {
+const currentProductStyleList = (
+  state = {
+    results: [
+      {
+        skus: {},
+        photos: [{ url: "", thumbnail: "" }],
+      },
+    ],
+  },
+  action
+) => {
   switch (action.type) {
     case "PRODUCT_STYLE_LIST":
       return action.styleList;

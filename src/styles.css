@@ -1,0 +1,145 @@
+/* OVERVIEW */
+#root {
+  font-size: 10px;
+}
+
+.overview {
+  /* display: flex;
+  align-content: flex-start; */
+  margin: 40px;
+}
+
+/* PHOTO GALLERY DISPLAY AND THUMBNAIL SELECTOR */
+
+.photo-gallery {
+  float: left;
+  width: 350px;
+  height: 350px;
+  margin-right: 20px;
+  position: relative;
+}
+
+.thumbnail-gallery-container {
+  list-style: none;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 0px;
+}
+
+.photo-gallery-display-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail-gallery-item {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  border: lightgray solid 1px;
+  cursor: pointer;
+}
+
+.selected {
+  border-bottom: rgb(88, 88, 88) solid 4px;
+}
+
+.right-chevron {
+  position: absolute;
+  bottom: 160px;
+  cursor: pointer;
+  right: 10px;
+  width: 30px;
+  height: 20px;
+  color: lightgray;
+}
+
+.left-chevron {
+  position: absolute;
+  bottom: 160px;
+  cursor: pointer;
+  left: 35px;
+  width: 30px;
+  height: 20px;
+  color: lightgray;
+}
+
+.down-chevron {
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  margin: auto;
+  color: lightgray;
+}
+
+.hidden {
+  display: none;
+}
+
+.extend-up-displayed {
+  cursor: pointer;
+  width: 30px;
+  height: 20px;
+  margin: auto;
+  color: lightgray;
+}
+
+/* Product Info */
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info h1 {
+  font-size: 20px;
+}
+
+/* Style select and Snapshots */
+
+.snapshot-gallery {
+  width: 200px;
+  height: 45px;
+  /* padding-top: 10px; */
+  padding-bottom: 10px;
+  overflow-y: scroll;
+}
+
+.thumbnail-gallery-item {
+  width: 35px;
+  height: 35px;
+}
+
+.snapshots {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  border: 1px solid lightgray;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* product user interface */
+
+.product-ui {
+  padding-top: 20px;
+  display: flex;
+  position: relative;
+  height: 125px;
+}
+
+.size-selector-switch {
+  width: 150px;
+  padding-right: 10px;
+}
+
+.quantity-selector-switch {
+  width: 100px;
+}
+
+.addToCart {
+  width: 250px;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+}

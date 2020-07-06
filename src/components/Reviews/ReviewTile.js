@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Stars from './Stars';
+<<<<<<< HEAD
+=======
+import SortingView from './SortingView';
+>>>>>>> c60c39fe9c81bf49efd6b02c862afa03e51635b2
 
 const ReviewTile = (props) => {
   return (
     <div>
-      {props.reviews.length} reviews, sorted by:{' '}
-      <select>
-        <option>test1</option>
-        <option>test2</option>
-        <option>test3</option>
-      </select>
-      <br />
+      <SortingView />
       <br />
       {props.reviews.map((review, i) => {
         return (
@@ -31,17 +29,21 @@ const ReviewTile = (props) => {
             <p>{review.body}</p>
             <br />
             {review.photos.length > 0 ? (
-              <p>
+              <span>
                 {review.photos.map((photo, i) => {
                   return (
                     <img
                       key={i}
                       src={photo.url}
-                      style={{ maxWidth: '100%', height: 'auto' }}
+                      style={{
+                        maxWidth: '150px',
+                        height: 'auto',
+                        display: 'inline-block',
+                      }}
                     ></img>
                   );
                 })}
-              </p>
+              </span>
             ) : (
               <p>Insert photos!</p>
             )}

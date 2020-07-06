@@ -1,6 +1,8 @@
 import React from "react";
 import axios from 'axios';
 
+import { Container, Row, Col } from "react-bootstrap";
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
@@ -20,12 +22,12 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit}>
-          <input
+        <form onSubmit={this.props.addQuestion}>
+          <input  className='search-bar-row'
             type="text"
             label="search"
             onChange={this.handleChange}
-            placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
+            placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."
           ></input>
         </form>
       </div>

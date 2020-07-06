@@ -2,7 +2,6 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const SizeDropDown = ({ style, changeHandler }) => {
-
   let inStockSizes = [];
 
   for (let size in style.skus) {
@@ -12,18 +11,25 @@ const SizeDropDown = ({ style, changeHandler }) => {
   }
 
   if (inStockSizes.length === 0) {
-    inStockSizes.push('Out of Stock');
+    inStockSizes.push("Out of Stock");
   }
-
 
   return (
     <div>
-      <Form>
+      <Form className='size-selector-switch'>
         <Form.Group>
-          <Form.Label>Size:</Form.Label>
-          <Form.Control as="select" id='size' onChange={changeHandler}>
+          <Form.Control
+            as="select"
+            id="size"
+            onChange={changeHandler}
+          >
+            <option value="" disabled defaultValue>Size</option>
             {inStockSizes.map((size, i) => {
-                return <option value={size} key={i}>{size}</option>
+              return (
+                <option value={size} key={i}>
+                  {size}
+                </option>
+              );
             })}
           </Form.Control>
         </Form.Group>
