@@ -124,7 +124,8 @@
 .product-ui {
   padding-top: 20px;
   display: flex;
-  align-content: flex-start;
+  position: relative;
+  height: 125px;
 }
 
 .size-selector-switch {
@@ -139,4 +140,6 @@
 .addToCart {
   width: 250px;
   height: 50px;
+  position: absolute;
+  bottom: 0px;
 }
