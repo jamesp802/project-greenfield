@@ -1,4 +1,6 @@
 import React from "react";
+import AnswersList from './AnswersList'
+import {getDate} from "./questionsHelpers"
 
 const QuestionsList = ({ questions }) => (
   <div>
@@ -9,8 +11,13 @@ const QuestionsList = ({ questions }) => (
             <div key={index}>
               <div className='questions-container-row'><strong>Q: {question.question_body}</strong></div>
               <span className="helpful-span answer">Helpful? <a>Yes</a> ({question.question_helpfulness}) | <a>Add Answer</a></span>
-              <div>
-                {Object.keys(question.answers).sort(compare).slice(0,2).map((answer, index) => {
+              <div><strong>A: </strong>
+              <span>
+                <AnswersList answers={question.answers}/>
+                </span>
+                </div>
+              {/* <div>
+                {Object.keys(question.answers).slice(0,2).map((answer, index) => {
                   const item = question.answers[answer];
                   return <div  key={answer}> <strong>A:</strong> <div className='answer-body'> {item.body}
                   <div>{item.photos.map((photo, index)=> {
@@ -18,7 +25,7 @@ const QuestionsList = ({ questions }) => (
                   <div className='answerer-info'>by {item.answerer_name}, {getDate(item.date)}</div>
                   <span className="helpful-span report">Helpful? <a>Yes</a> ({item.helpfulness}) | <a>Report</a></span></div>;
                 })}
-              </div>
+              </div> */}
             </div>
           );
         })}{" "}
@@ -33,32 +40,21 @@ const QuestionsList = ({ questions }) => (
   </div>
 );
 
-const getDate = (date) => {
-  const month = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+// const compare = (b, a) => {
+//   const helpfulnessA = a.helpfulness;
+//   const helpfulnessB = b.helpfulness;
 
-  const newDate = date.split('T').slice(0,1).join();
-
-  const dateArray = newDate.split('-');
-
-  return month[Number(dateArray[1]) - 1] + " " + Number(dateArray[2]) + ", " + dateArray[0]
-}
-
-const compare = (b, a) => {
-  const helpfulnessA = a.helpfulness;
-  const helpfulnessB = b.helpfulness;
-
-  let comparison = 0;
-  if (helpfulnessA > helpfulnessB) {
-    comparison = 1;
-  } else if (helpfulnessB > helpfulnessA) {
-    comparison = -1;
-  }
-  return comparison;
-};
+//   let comparison = 0;
+//   if (helpfulnessA > helpfulnessB) {
+//     comparison = 1;
+//   } else if (helpfulnessB > helpfulnessA) {
+//     comparison = -1;
+//   }
+//   return comparison;
+// };
 
 export default QuestionsList;
 
-//TODO: each question will have helpful | add answer;
 //TODO: answers will also include the user, date | helpful | report;
 //TODO: if photos exist, photos will be rendered below answer;
 //TODO: load more answers button;
