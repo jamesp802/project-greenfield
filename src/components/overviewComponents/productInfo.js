@@ -87,11 +87,9 @@ class ProductInfo extends React.Component {
               changeHandler={this.changeHandler}
             />
             <QuantityDropDown />
-            <div>
-              <Button variant="light" className="addToCart">
-                Add to Bag
-              </Button>
-            </div>
+            <Button variant="light" className="addToCart">
+              Add to Bag
+            </Button>
           </div>
           {/** product description and features */}
         </div>
