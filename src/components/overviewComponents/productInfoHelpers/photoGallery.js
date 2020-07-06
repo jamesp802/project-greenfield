@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ChevronCompactDown,
   ChevronCompactUp,
+  ArrowsFullscreen
 } from "react-bootstrap-icons";
 
 class PhotoGallery extends React.Component {
@@ -90,6 +91,7 @@ class PhotoGallery extends React.Component {
             this.carouselIndex("left");
           }}
         />
+        <ArrowsFullscreen className={`fullscreen-button`} onClick={this.props.changeDisplay}/>
         <ul className="thumbnail-gallery-container">
           <li>
             <ChevronCompactUp
