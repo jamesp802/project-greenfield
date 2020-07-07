@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getReviews } from '../../actions/ReviewActions/actions';
-import RatingsBreakdown from './RatingsBreakdown';
-import ReviewsList from './ReviewsList';
+import RatingsBreakdown from './reviewRatingsHelpers/RatingsBreakdown';
+import ReviewsList from './reviewRatingsHelpers/ReviewsList';
+import './reviewsStyle.css';
 
 class RatingsAndReviews extends React.Component {
+  // add state and method
   componentDidMount() {
     this.props.getData(`http://18.224.200.47/reviews/4/list`);
   }
 
   render() {
     return (
-      <div className="ratingsAndReviews">
-        <div
-          style={{
-            width: '30%',
-            float: 'left',
-          }}
-        >
+      <div className="ratingsReviewContainer">
+        <div className="ratingsBreakdown">
           <RatingsBreakdown />
         </div>
-        <div style={{ width: '60%', display: 'inline-block', marginLeft: 20 }}>
+        <div className="reviewsList">
           <ReviewsList />
         </div>
       </div>
