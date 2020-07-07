@@ -27,8 +27,18 @@ class AnswersList extends React.Component {
 
   moreAnswers() {
     return(
-    <span onClick={() => this.setState({more: true})}>LOAD MORE ANSWERS</span>)
+    <span className='more-answers helpful-submit' onClick={() => this.setState({more: true})}>LOAD MORE ANSWERS</span>)
   }
+
+  // markHelpful(event) {
+    // const answer_id = event.target.value
+    // axios.put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
+  // }
+
+  // reportAnswer(event) {
+    // const answer_id = event.target.value
+    // axios.put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
+  // }
 
 
   render() {
@@ -52,8 +62,8 @@ class AnswersList extends React.Component {
                   );
                 })}
               </div>
-              <div className='answerer-info'>by {answer.answerer_name}, {getDate(answer.date)}</div>
-              <span className="helpful-span report">Helpful? <a>Yes</a> ({answer.helpfulness}) | <a>Report</a></span>
+              <div className='answerer-info'>by {answer.answerer_name === "Seller" ? <strong>{answer.answerer_name}</strong> : answer.answerer_name}, {getDate(answer.date)}</div>
+              <span className="helpful-span report">Helpful? <a className='helpful-submit'>Yes</a> ({answer.helpfulness}) | <a className='helpful-submit'>Report</a></span>
             </div>
           );
         })}
@@ -63,6 +73,8 @@ class AnswersList extends React.Component {
   }
 }
 
-
-
 export default AnswersList;
+
+//TODO: conditional render of reported & helpful buttons;
+//TODO: re-factor answers list to use API request IOT ensure that reported answers are not provided;
+//TODO: add add-answer modal;

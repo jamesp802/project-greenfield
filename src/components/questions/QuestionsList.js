@@ -10,7 +10,7 @@ const QuestionsList = ({ questions }) => (
           return (
             <div key={index}>
               <div className='questions-container-row'><strong>Q: {question.question_body}</strong></div>
-              <span className="helpful-span answer">Helpful? <a>Yes</a> ({question.question_helpfulness}) | <a>Add Answer</a></span>
+              <span className="helpful-span answer">Helpful? <a className='helpful-submit'>Yes</a> ({question.question_helpfulness}) | <a className='helpful-submit'>Add Answer</a></span>
               <div><strong>A: </strong>
               <span>
                 <AnswersList answers={question.answers}/>
@@ -40,21 +40,27 @@ const QuestionsList = ({ questions }) => (
   </div>
 );
 
-// const compare = (b, a) => {
-//   const helpfulnessA = a.helpfulness;
-//   const helpfulnessB = b.helpfulness;
-
-//   let comparison = 0;
-//   if (helpfulnessA > helpfulnessB) {
-//     comparison = 1;
-//   } else if (helpfulnessB > helpfulnessA) {
-//     comparison = -1;
-//   }
-//   return comparison;
-// };
-
 export default QuestionsList;
 
-//TODO: answers will also include the user, date | helpful | report;
-//TODO: if photos exist, photos will be rendered below answer;
-//TODO: load more answers button;
+//TODO: refactor as stateful to allow for add answer, vote helpful, report question;
+//TODO: add add question modal;
+
+  // addAnswer() {
+  //   axios.post(`http://18.224.200.47/qa/${question_id}/answers`)
+  // }
+
+    // markHelpful() {
+  // axios.put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
+  // }
+
+    // reportQuestion(event) {
+  //   event.preventDefault();
+  //   // let value = event.target.value;
+  //   axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
+  //   .then(() => {
+  //     console.log('reported')
+  //   })
+  //   .catch(err => {
+  //     console.error(err);
+  //   })
+  // }

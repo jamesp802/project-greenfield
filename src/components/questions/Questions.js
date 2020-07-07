@@ -29,7 +29,6 @@ class Questions extends React.Component {
   }
 
   getQuestions() {
-    // event.preventDefault();
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
@@ -62,22 +61,6 @@ class Questions extends React.Component {
 
   }
 
-  // reportQuestion(event) {
-  //   event.preventDefault();
-  //   // let value = event.target.value;
-  //   axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
-  //   .then(() => {
-  //     console.log('reported')
-  //   })
-  //   .catch(err => {
-  //     console.error(err);
-  //   })
-  // }
-
-  // markHelpful() {
-  // axios.put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
-  // }
-
   // addQuestion(data) {
   //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
   //     params: {
@@ -94,9 +77,7 @@ class Questions extends React.Component {
     });
   }
 
-  // addAnswer() {
-  //   axios.post(`http://18.224.200.47/qa/${question_id}/answers`)
-  // }
+
 
   render() {
     return (
