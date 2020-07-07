@@ -15,10 +15,13 @@ class Questions extends React.Component {
       moreQuestions: 0,
       moreAnswers: 0,
       product_id: 5,
+      input: ''
     };
 
     this.getQuestions = this.getQuestions.bind(this);
-    this.addQuestion = this.addQuestion.bind(this);
+    // this.addQuestion = this.addQuestion.bind(this);
+    this.searchQuestions = this.searchQuestions.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +29,6 @@ class Questions extends React.Component {
   }
 
   getQuestions() {
-    // event.preventDefault();
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
@@ -42,39 +44,46 @@ class Questions extends React.Component {
       });
   }
 
-  reportQuestion(event) {
-    event.preventDefault();
-    // let value = event.target.value;
-    axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
-    .then(() => {
-      console.log('reported')
-    })
-    .catch(err => {
-      console.error(err);
-    })
-  }
-
-  markHelpful() {
-  axios.put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
-  }
-
-  addQuestion(data) {
-    axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
-      params: {
-        body: data,
+  handleChange(event) {
+    const value = event.target.value;
+    this.setState({
+      input: value,
+    },() => {
+      if (this.state.input.length >= 3) {
+        this.searchQuestions(this.state.input);
+      } else if (this.state.input.length < 3) {
+        let resultsSlice = this.state.questions.slice(0,4).sort(compare);
+        this.setState({
+          results: resultsSlice
+        })
       }
-    })
+    });
+
   }
 
-  addAnswer() {
-    axios.post(`http://18.224.200.47/qa/${question_id}/answers`)
+  // addQuestion(data) {
+  //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
+  //     params: {
+  //       body: data,
+  //     }
+  //   })
+  // }
+
+  searchQuestions(value) {
+    let resultsArray = this.state.results;
+    resultsArray = resultsArray.filter(question => question.question_body.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    this.setState({
+      results: resultsArray
+    });
   }
+
+
 
   render() {
     return (
       <div className='questions-answers-container'>
         <h4 className='main-header'>QUESTIONS & ANSWERS </h4>
-        <Search addQuestion={this.addQuestion} />
+        <Search handleChange={this.handleChange} />
         <QuestionsList questions={this.state.results} />
       </div>
     );
@@ -99,3 +108,10 @@ export default Questions;
 //TODO: Build a questions list;
 //UP TO two answers should load;
 //BOTH should have a 'load more {questions/answers}' function
+
+
+//votes persist in localStorage
+  //elements that are likely to be used heavily client-side and don't need to be 'controlled' (authentication) can be
+    //cache-control
+//component should accordion (how much to display?)
+//add a question can be a modal pop-up;
