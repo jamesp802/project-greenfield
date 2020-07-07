@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { getDate, compare } from "./questionsHelpers";
+import { getDate, compareAnswers } from "./questionsHelpers";
 
 class AnswersList extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class AnswersList extends React.Component {
 
   getAnswers() {
     axios
-      .get(`http://18.224.200.47/qa/7/answers`)
+      .get(`http://18.224.200.47/qa/${this.props.question_id}/answers`)
       .then(({ data }) => {
         this.setState({
           answers: data.results,
@@ -55,15 +55,33 @@ class AnswersList extends React.Component {
     );
   }
 
-  // markHelpful(event) {
-  // const answer_id = event.target.value
-  // axios.put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
-  // }
+  markHelpful(event) {
+    const answer_id = event.target.value;
+    axios
+      .put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
+      .then(() => {
+        this.setState({
+          helpful: true,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
-  // reportAnswer(event) {
-  // const answer_id = event.target.value
-  // axios.put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
-  // }
+  reportAnswer(event) {
+    const answer_id = event.target.value;
+    axios
+      .put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
+      .then(() => {
+        this.setState({
+          reported: true,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   pullSeller(array) {
     for (let i = array.length - 1; i >= 0; i--) {
@@ -78,8 +96,8 @@ class AnswersList extends React.Component {
   render() {
     let answersArray = [];
     this.state.more
-      ? (answersArray = this.state.answers.sort(compare))
-      : (answersArray = this.state.answers.slice(0, 2).sort(compare));
+      ? (answersArray = this.state.answers.sort(compareAnswers))
+      : (answersArray = this.state.answers.slice(0, 2).sort(compareAnswers));
     answersArray = this.pullSeller(answersArray);
     return (
       <div>

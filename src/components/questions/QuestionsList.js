@@ -1,12 +1,23 @@
 import React from "react";
 import AnswersList from "./AnswersList";
 import { getDate } from "./questionsHelpers";
+import QuestionsModal from "./QuestionsModal";
+import { Button } from "react-bootstrap";
 
 // const QuestionsList = ({ questions }) => (
 
 class QuestionsList extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showModal: false,
+    };
+  }
+
+  setModalShow() {
+    this.state.showModal
+      ? this.setState({ showModal: false })
+      : this.setState({ showModal: true });
   }
 
   render() {
@@ -52,10 +63,19 @@ class QuestionsList extends React.Component {
           </div>
           <div className="answers-container"> {/*up to two displayed*/}</div>
         </div>
-        <button className="questions-answers-button">
+        {this.props.questions.length > 0 ? <button className="questions-answers-button" onClick={() => this.props.moreQuestions()}>
           MORE ANSWERED QUESTIONS
+        </button> : null}
+        <button
+          className="questions-answers-button"
+          variant="primary"
+          onClick={() => this.setModalShow()}
+        >
+          ADD A QUESTION +
         </button>
-        <button className="questions-answers-button">ADD A QUESTION +</button>
+        <div>
+          <QuestionsModal show={this.state.showModal} onHide={() => this.setModalShow()} />
+        </div>
       </div>
     );
   }
@@ -84,3 +104,11 @@ export default QuestionsList;
 //     console.error(err);
 //   })
 // }
+
+  // addQuestion(data) {
+  //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
+  //     params: {
+  //       body: data,
+  //     }
+  //   })
+  // }

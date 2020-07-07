@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Search from "./Search";
 import QuestionsList from "./QuestionsList";
 import axios from "axios";
-
+import {compareQuestions} from './questionsHelpers';
 import "./questionsStyles.css";
 
 class Questions extends React.Component {
@@ -19,9 +19,9 @@ class Questions extends React.Component {
     };
 
     this.getQuestions = this.getQuestions.bind(this);
-    // this.addQuestion = this.addQuestion.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.moreQuestions = this.moreQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -33,7 +33,7 @@ class Questions extends React.Component {
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
         console.log(data.results);
-        let resultsSlice = data.results.slice(0, 4).sort(compare);
+        let resultsSlice = data.results.slice(0, 4).sort(compareQuestions);
         this.setState({
           questions: data.results,
           results: resultsSlice,
@@ -54,7 +54,7 @@ class Questions extends React.Component {
         if (this.state.input.length >= 3) {
           this.searchQuestions(this.state.input);
         } else if (this.state.input.length < 3) {
-          let resultsSlice = this.state.questions.slice(0, 4).sort(compare);
+          let resultsSlice = this.state.questions.slice(0, 4).sort(compareQuestions);
           this.setState({
             results: resultsSlice,
           });
@@ -62,14 +62,6 @@ class Questions extends React.Component {
       }
     );
   }
-
-  // addQuestion(data) {
-  //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
-  //     params: {
-  //       body: data,
-  //     }
-  //   })
-  // }
 
   searchQuestions(value) {
     let resultsArray = this.state.questions;
@@ -82,29 +74,23 @@ class Questions extends React.Component {
     });
   }
 
+  moreQuestions() {
+    const questions = this.state.questions;
+    this.setState({
+      results: questions
+    })
+  }
+
   render() {
     return (
       <div className="questions-answers-container">
         <h4 className="main-header">QUESTIONS & ANSWERS </h4>
         <Search handleChange={this.handleChange} />
-        <QuestionsList questions={this.state.results} />
+        <QuestionsList questions={this.state.results} moreQuestions={this.moreQuestions}/>
       </div>
     );
   }
 }
-
-const compare = (b, a) => {
-  const helpfulnessA = a.question_helpfulness;
-  const helpfulnessB = b.question_helpfulness;
-
-  let comparison = 0;
-  if (helpfulnessA > helpfulnessB) {
-    comparison = 1;
-  } else if (helpfulnessB > helpfulnessA) {
-    comparison = -1;
-  }
-  return comparison;
-};
 
 export default Questions;
 
