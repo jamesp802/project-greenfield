@@ -15,7 +15,7 @@ class Questions extends React.Component {
       moreQuestions: 0,
       moreAnswers: 0,
       product_id: 5,
-      input: ''
+      input: "",
     };
 
     this.getQuestions = this.getQuestions.bind(this);
@@ -46,19 +46,21 @@ class Questions extends React.Component {
 
   handleChange(event) {
     const value = event.target.value;
-    this.setState({
-      input: value,
-    },() => {
-      if (this.state.input.length >= 3) {
-        this.searchQuestions(this.state.input);
-      } else if (this.state.input.length < 3) {
-        let resultsSlice = this.state.questions.slice(0,4).sort(compare);
-        this.setState({
-          results: resultsSlice
-        })
+    this.setState(
+      {
+        input: value,
+      },
+      () => {
+        if (this.state.input.length >= 3) {
+          this.searchQuestions(this.state.input);
+        } else if (this.state.input.length < 3) {
+          let resultsSlice = this.state.questions.slice(0, 4).sort(compare);
+          this.setState({
+            results: resultsSlice,
+          });
+        }
       }
-    });
-
+    );
   }
 
   // addQuestion(data) {
@@ -70,19 +72,20 @@ class Questions extends React.Component {
   // }
 
   searchQuestions(value) {
-    let resultsArray = this.state.results;
-    resultsArray = resultsArray.filter(question => question.question_body.toLowerCase().indexOf(value.toLowerCase()) !== -1);
+    let resultsArray = this.state.questions;
+    resultsArray = resultsArray.filter(
+      (question) =>
+        question.question_body.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    );
     this.setState({
-      results: resultsArray
+      results: resultsArray,
     });
   }
 
-
-
   render() {
     return (
-      <div className='questions-answers-container'>
-        <h4 className='main-header'>QUESTIONS & ANSWERS </h4>
+      <div className="questions-answers-container">
+        <h4 className="main-header">QUESTIONS & ANSWERS </h4>
         <Search handleChange={this.handleChange} />
         <QuestionsList questions={this.state.results} />
       </div>
@@ -109,9 +112,8 @@ export default Questions;
 //UP TO two answers should load;
 //BOTH should have a 'load more {questions/answers}' function
 
-
 //votes persist in localStorage
-  //elements that are likely to be used heavily client-side and don't need to be 'controlled' (authentication) can be
-    //cache-control
+//elements that are likely to be used heavily client-side and don't need to be 'controlled' (authentication) can be
+//cache-control
 //component should accordion (how much to display?)
 //add a question can be a modal pop-up;
