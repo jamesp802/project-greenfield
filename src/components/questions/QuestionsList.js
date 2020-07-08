@@ -12,12 +12,22 @@ class QuestionsList extends React.Component {
     this.state = {
       showModal: false,
     };
+    this.addQuestion = this.addQuestion.bind(this);
   }
 
   setModalShow() {
     this.state.showModal
       ? this.setState({ showModal: false })
       : this.setState({ showModal: true });
+  }
+
+    addQuestion(event) {
+  //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
+  //     params: {
+  //       body: data,
+  //     }
+  //   })
+  console.log(event.target.value);
   }
 
   render() {
@@ -74,7 +84,7 @@ class QuestionsList extends React.Component {
           ADD A QUESTION +
         </button>
         <div>
-          <QuestionsModal show={this.state.showModal} onHide={() => this.setModalShow()} />
+          <QuestionsModal show={this.state.showModal} onHide={() => this.setModalShow()} addQuestion={this.addQuestion}/>
         </div>
       </div>
     );
@@ -105,10 +115,4 @@ export default QuestionsList;
 //   })
 // }
 
-  // addQuestion(data) {
-  //   axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
-  //     params: {
-  //       body: data,
-  //     }
-  //   })
-  // }
+
