@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Stars from './Stars';
-import SortingView from './SortingView';
 import getDate from './reviewHelpers';
 
 const ReviewTile = (props) => {
   return (
-    <div>
-      <SortingView />
-      {/* {JSON.stringify(props.reviews)} */}
-      <br />
+    <div className="review-tile">
       {props.reviews.map((review, i) => {
         return (
           <React.Fragment key={i}>

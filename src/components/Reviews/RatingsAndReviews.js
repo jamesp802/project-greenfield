@@ -11,9 +11,12 @@ class RatingsAndReviews extends Component {
     this.state = {
       filtered: false,
       starCount: [],
+      numOfReviews: 2,
+      showMore: true,
     };
     this.handleClick = this.handleClick.bind(this);
     this.changeView = this.changeView.bind(this);
+    this.loadMoreReviews = this.loadMoreReviews.bind(this);
   }
 
   componentDidMount() {
@@ -24,12 +27,32 @@ class RatingsAndReviews extends Component {
     this.setState({
       filtered: false,
       starCount: [],
+      numOfReviews: this.state.numOfReviews + 2,
     });
+  }
+
+  loadMoreReviews() {
+    if (this.props.reviews.length > this.state.numOfReviews) {
+      this.setState({
+        numOfReviews: this.state.numOfReviews + 2,
+      });
+    } else {
+      this.setState({
+        showMore: false,
+      });
+    }
   }
 
   renderView() {
     if (!this.state.filtered) {
-      return <ReviewsList reviews={this.props.reviews} />;
+      let reviews = this.props.reviews.slice(0, this.state.numOfReviews);
+      return (
+        <ReviewsList
+          show={this.state.showMore}
+          clickHandler={this.loadMoreReviews}
+          reviews={reviews}
+        />
+      );
     } else {
       let filtered = this.props.reviews.filter((review) =>
         this.state.starCount.includes(review.rating)

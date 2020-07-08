@@ -60,3 +60,17 @@
   width: 100%;
   background: grey;
 }
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.more-reviews-btn {
+  margin-right: 5%;
+}
+
+.review-tile {
+  overflow-y: scroll;
+  max-height: 1000px;
+}
