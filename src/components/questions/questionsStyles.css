@@ -53,3 +53,16 @@
 .answerer-info {
   font-size: smaller;
 }
+
+.more-answers {
+  font-size: smaller;
+}
+
+.helpful-submit:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.disclaimer {
+  font-size: smaller;
+}

@@ -4,7 +4,9 @@ import {
   ArrowLeft,
   ChevronCompactDown,
   ChevronCompactUp,
+  ArrowsFullscreen,
 } from "react-bootstrap-icons";
+import Zoom from "./zoom";
 
 class PhotoGallery extends React.Component {
   constructor(props) {
@@ -13,10 +15,13 @@ class PhotoGallery extends React.Component {
       displayIndex: 0,
       extend: 0,
       extendUpClassName: "hidden",
+      zoomView: false,
+      image: "",
     };
     this.changeDisplayIndex = this.changeDisplayIndex.bind(this);
     this.extendThumbnailsDown = this.extendThumbnailsDown.bind(this);
     this.extendThumbnailsUp = this.extendThumbnailsUp.bind(this);
+    this.changeZoomView = this.changeZoomView.bind(this);
   }
 
   changeDisplayIndex(index) {
@@ -71,12 +76,31 @@ class PhotoGallery extends React.Component {
     });
   }
 
+  changeZoomView() {
+    let zoom = !this.state.zoomView;
+    this.setState({
+      zoomView: zoom,
+    });
+  }
+
   render() {
     return (
       <div className="photo-gallery">
         <img
-          className="photo-gallery-display-image"
+          className={
+            this.state.zoomView ? "hidden" : "photo-gallery-display-image"
+          }
+          onClick={this.props.fullscreen ? this.changeZoomView : null}
           src={this.props.photos[this.state.displayIndex].url}
+        />
+        <Zoom
+          img={this.props.photos[this.state.displayIndex].url}
+          zoomScale={3}
+          height={350}
+          width={700}
+          hidden={this.state.zoomView}
+          fullscreen={this.props.fullscreen}
+          changeZoomView={this.changeZoomView}
         />
         <ArrowRight
           className="right-chevron"
@@ -90,7 +114,17 @@ class PhotoGallery extends React.Component {
             this.carouselIndex("left");
           }}
         />
-        <ul className="thumbnail-gallery-container">
+        <ArrowsFullscreen
+          className={`fullscreen-button`}
+          onClick={this.props.changeDisplay}
+        />
+        <ul
+          className={
+            this.props.fullscreen
+              ? "full-screen thumbnails"
+              : "thumbnail-gallery-container"
+          }
+        >
           <li>
             <ChevronCompactUp
               className={this.state.extendUpClassName}

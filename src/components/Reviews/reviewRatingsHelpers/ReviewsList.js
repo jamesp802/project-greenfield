@@ -2,12 +2,11 @@ import React from 'react';
 import ReviewTile from './ReviewTile';
 import AddReview from './AddReview';
 
-
 const ReviewsList = (props) => {
   return (
     <div>
       <div>
-        <ReviewTile />
+        <ReviewTile reviews={props.reviews} />
         <AddReview />
       </div>
     </div>

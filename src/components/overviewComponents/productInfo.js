@@ -11,6 +11,7 @@ import SizeDropDown from "./productInfoHelpers/sizeDropDown";
 import QuantityDropDown from "./productInfoHelpers/quantitySelect";
 import SnapshotGallery from "./productInfoHelpers/snapshotGallery";
 import PhotoGallery from "./productInfoHelpers/photoGallery";
+import Description from "./productInfoHelpers/productDescription";
 
 class ProductInfo extends React.Component {
   constructor(props) {
@@ -20,9 +21,12 @@ class ProductInfo extends React.Component {
       size: null,
       quantity: 1,
       selected: false,
+      fullscreen: false,
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
+    this.photoDisplayRender = this.photoDisplayRender.bind(this);
+    this.changeDisplay = this.changeDisplay.bind(this);
   }
 
   changeHandler(e) {
@@ -43,6 +47,43 @@ class ProductInfo extends React.Component {
     this.props.fetchProductStyleList(id);
   }
 
+  changeDisplay() {
+    let bool = !this.state.fullscreen;
+    this.setState({
+      fullscreen: bool,
+    });
+  }
+
+  photoDisplayRender() {
+    let defaultStyle = this.props.productStyleList.results[0];
+    let selectedStyle = this.state.style;
+
+    if (this.state.fullscreen === false) {
+      return (
+        <div className="default-carousel">
+          <PhotoGallery
+            photos={
+              selectedStyle.photos ? selectedStyle.photos : defaultStyle.photos
+            }
+            changeDisplay={this.changeDisplay}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div className="fullscreen-carousel">
+          <PhotoGallery
+            photos={
+              selectedStyle.photos ? selectedStyle.photos : defaultStyle.photos
+            }
+            changeDisplay={this.changeDisplay}
+            fullscreen={true}
+          />
+        </div>
+      );
+    }
+  }
+
   render() {
     const { productInfo } = this.props;
     const { productStyleList } = this.props;
@@ -50,49 +91,53 @@ class ProductInfo extends React.Component {
     let defaultStyle = productStyleList.results[0];
     let selectedStyle = this.state.style;
 
-    console.log(this.state);
     return (
-      <div className="overview">
-        <PhotoGallery
-          photos={
-            selectedStyle.photos ? selectedStyle.photos : defaultStyle.photos
-          }
-        />
-        <div className="product-info">
-          Star Rating <i>reviews</i>
-          <br />
-          {productInfo.category}
-          <br />
-          <h1>{productInfo.name}</h1>$
-          {selectedStyle.original_price
-            ? selectedStyle.original_price
-            : defaultStyle.original_price}
-          <br />
-          <br />
-          <b>style ></b>{" "}
-          {this.state.style.name
-            ? this.state.style.name
-            : productStyleList.results[0].name}
-          <SnapshotGallery
-            styles={productStyleList.results}
-            changeHandler={this.changeStyle}
-          />
-          <div className="product-ui">
-            <SizeDropDown
-              style={
-                this.state.selected
-                  ? this.state.style
-                  : productStyleList.results[0]
-              }
-              changeHandler={this.changeHandler}
+      <div>
+        <div className="overview container">
+          {this.photoDisplayRender()}
+          <div
+            className={`product-info ${this.state.fullscreen ? "hidden" : ""}`}
+          >
+            Star Rating <i>reviews</i>
+            <br />
+            {productInfo.category}
+            <br />
+            <h1>{productInfo.name}</h1>$
+            {selectedStyle.original_price
+              ? selectedStyle.original_price
+              : defaultStyle.original_price}
+            <br />
+            <br />
+            <b>style ></b>{" "}
+            {this.state.style.name
+              ? this.state.style.name
+              : productStyleList.results[0].name}
+            <SnapshotGallery
+              styles={productStyleList.results}
+              changeHandler={this.changeStyle}
             />
-            <QuantityDropDown />
-            <Button variant="light" className="addToCart">
-              Add to Bag
-            </Button>
+            <div className="product-ui">
+              <SizeDropDown
+                style={
+                  this.state.selected
+                    ? this.state.style
+                    : productStyleList.results[0]
+                }
+                changeHandler={this.changeHandler}
+              />
+              <QuantityDropDown />
+              <Button variant="light" className="addToCart">
+                Add to Bag
+              </Button>
+            </div>
+            {/** product description and features */}
           </div>
-          {/** product description and features */}
         </div>
+        <Description
+          features={productInfo.features}
+          description={productInfo.description}
+          slogan={productInfo.slogan}
+        />
       </div>
     );
   }
