@@ -70,14 +70,14 @@ class RatingsAndReviews extends Component {
   render() {
     return (
       <div className="ratingsReviewContainer">
-        <div className="ratingsBreakdown">
+        {/* <div className="ratingsBreakdown">
           <RatingsBreakdown
             changeView={this.changeView}
             stars={this.state.starCount}
             filtered={this.state.filtered}
             handleClick={this.handleClick}
           />
-        </div>
+        </div> */}
         <div className="reviewsList">{this.renderView()}</div>
       </div>
     );

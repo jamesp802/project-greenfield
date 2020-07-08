@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Stars from './Stars';
 import SortingView from './SortingView';
+import getDate from './reviewHelpers';
 
 const ReviewTile = (props) => {
   return (
@@ -15,7 +16,9 @@ const ReviewTile = (props) => {
             <span style={{ display: 'inline-block', marginRight: '20%' }}>
               <Stars ratings={review.rating} />
             </span>
-            <span style={{ display: 'inline-block' }}>Date: {review.date}</span>
+            <span style={{ display: 'inline-block' }}>
+              {getDate(review.date)}
+            </span>
             <br />
             <span style={{ display: 'block' }}>
               <strong className="reviewTitle">{review.summary}</strong>

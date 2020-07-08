@@ -1,6 +1,7 @@
 import React from 'react';
 import ReviewTile from './ReviewTile';
 import AddReview from './AddReview';
+import Button from 'react-bootstrap/Button';
 
 const ReviewsList = (props) => {
   return (
@@ -8,6 +9,12 @@ const ReviewsList = (props) => {
       <div>
         <ReviewTile reviews={props.reviews} />
         <AddReview />
+        {props.reviews.length > 2 ? (
+          <Button style={{ marginRight: '50px' }}>More Reviews</Button>
+        ) : null}
+        <Button variant="primary" onClick={() => this.handleShow()}>
+          Add Review +
+        </Button>
       </div>
     </div>
   );

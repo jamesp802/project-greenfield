@@ -64,10 +64,6 @@ class AddReview extends React.Component {
   render() {
     return (
       <div>
-        <Button style={{ marginRight: '50px' }}>More Reviews</Button>
-        <Button variant="primary" onClick={() => this.handleShow()}>
-          Add Review +
-        </Button>
         <Modal show={this.state.show} onHide={this.handleShow}>
           <Modal.Header>
             <Modal.Title>Write Your Review</Modal.Title>
