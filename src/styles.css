@@ -197,3 +197,7 @@
 .description-text {
   width: 400px;
 }
+
+.zoomImg {
+  will-change: transform;
+}
