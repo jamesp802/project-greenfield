@@ -9,19 +9,18 @@ const ReviewTile = (props) => {
       {props.reviews.map((review, i) => {
         return (
           <React.Fragment key={i}>
-            <span style={{ display: 'inline-block', marginRight: '20%' }}>
-              <Stars ratings={review.rating} />
-            </span>
-            <span style={{ display: 'inline-block' }}>
-              {getDate(review.date)}
-            </span>
+            <div className="stars-user-date">
+              <span style={{ display: 'inline-block', marginRight: '20%' }}>
+                <Stars ratings={review.rating} />
+              </span>
+              <span style={{ display: 'inline-block', float: 'right' }}>
+                {review.reviewer_name}, {getDate(review.date)}
+              </span>
+            </div>
             <br />
-            <span style={{ display: 'block' }}>
+            <p id="review-summary">
               <strong className="reviewTitle">{review.summary}</strong>
-            </span>
-            <span style={{ display: 'inline-block' }}>
-              Username: {review.reviewer_name}
-            </span>
+            </p>
             <br />
             <p>{review.body}</p>
             <br />
@@ -29,21 +28,22 @@ const ReviewTile = (props) => {
               <span>
                 {review.photos.map((photo, i) => {
                   return (
-                    <img
-                      key={i}
-                      src={photo.url}
-                      style={{
-                        maxWidth: '150px',
-                        height: 'auto',
-                        display: 'inline-block',
-                      }}
-                    ></img>
+                    <a href={photo.url}>
+                      <img
+                        class="img-thumbnail"
+                        key={i}
+                        src={photo.url}
+                        style={{
+                          width: '100px',
+                          height: '100px',
+                          display: 'inline-block',
+                        }}
+                      ></img>
+                    </a>
                   );
                 })}
               </span>
-            ) : (
-              <p>Insert photos!</p>
-            )}
+            ) : null}
 
             <p>this is the footer </p>
             <hr />
