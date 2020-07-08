@@ -6,7 +6,7 @@ const ReviewsList = (props) => {
   return (
     <div>
       <div>
-        <ReviewTile />
+        <ReviewTile reviews={props.reviews} />
         <AddReview />
       </div>
     </div>

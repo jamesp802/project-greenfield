@@ -120,9 +120,9 @@ class AddReview extends React.Component {
                 <div>
                   <p>Select Characteristics</p>
                   {['Size', 'Width', 'Comfort', 'Quality', 'Length', 'Fit'].map(
-                    (char) => {
+                    (char, i) => {
                       return (
-                        <div>
+                        <div key={i}>
                           <label style={{ display: 'inline-flex' }}>
                             <input type="checkbox" name="checkboxbutton" />
                             {char}

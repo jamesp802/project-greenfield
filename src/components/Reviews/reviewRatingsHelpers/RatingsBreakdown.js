@@ -1,6 +1,7 @@
 import React from 'react';
 import RatingSummary from './RatingSummary';
 import StarBreakdown from './StarBreakdown';
+import CharBreakdown from './CharBreakdown';
 import axios from 'axios';
 
 class RatingsBreakdown extends React.Component {
@@ -64,9 +65,15 @@ class RatingsBreakdown extends React.Component {
         <div>100% of reviews recommend this product</div>
         <br />
         <StarBreakdown
+          changeView={this.props.changeView}
+          stars={this.props.stars}
+          filtered={this.props.filtered}
           ratings={this.state.ratings}
           numOfRatings={this.state.numOfRatings}
+          handleClick={this.props.handleClick}
         />
+        <br />
+        <CharBreakdown />
       </div>
     );
   }
