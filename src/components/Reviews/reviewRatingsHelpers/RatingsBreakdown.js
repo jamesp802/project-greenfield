@@ -64,8 +64,12 @@ class RatingsBreakdown extends React.Component {
         <div>100% of reviews recommend this product</div>
         <br />
         <StarBreakdown
+          changeView={this.props.changeView}
+          stars={this.props.stars}
+          filtered={this.props.filtered}
           ratings={this.state.ratings}
           numOfRatings={this.state.numOfRatings}
+          handleClick={this.props.handleClick}
         />
       </div>
     );

@@ -7,6 +7,7 @@ const ReviewTile = (props) => {
   return (
     <div>
       <SortingView />
+      {/* {JSON.stringify(props.reviews)} */}
       <br />
       {props.reviews.map((review, i) => {
         return (
@@ -54,16 +55,18 @@ const ReviewTile = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    reviews: state.reviews.reviewsData,
-  };
-};
+export default ReviewTile;
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getData: (url) => dispatch(getReviews(url)),
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     reviews: state.reviews.reviewsData,
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewTile);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     getData: (url) => dispatch(getReviews(url)),
+//   };
+// };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(ReviewTile);

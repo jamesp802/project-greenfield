@@ -13,7 +13,12 @@ const StarBreakdown = (props) => {
           let percentage = (amount / totalReviews) * 100;
           return (
             <React.Fragment key={i}>
-              <span className="progress-label-left">{star} stars</span>
+              <span
+                className="progress-label-left"
+                onClick={(e) => props.handleClick(e)}
+              >
+                {star} stars
+              </span>
               <span className="progress-label-right">{amount}</span>
               <ProgressBar now={percentage} variant="success" />
               <br />
@@ -21,6 +26,21 @@ const StarBreakdown = (props) => {
           );
         })}
       </div>
+      {props.filtered ? (
+        <>
+          <p>
+            Current filters applied:{' '}
+            {props.stars.map((star, i) => (
+              <span key={i}>"{star} stars", </span>
+            ))}
+          </p>
+          <p className="remove-filter" onClick={props.changeView}>
+            Remove All Filters
+          </p>
+        </>
+      ) : (
+        <p>not filtered</p>
+      )}
       <br />
       <div className="charBar">
         <ProgressBar>

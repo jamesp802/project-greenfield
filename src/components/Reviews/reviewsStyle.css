@@ -9,10 +9,6 @@
 .ratingsBreakdown {
   padding: 10px;
   flex: 1;
-  /* width: '33%'; */
-  /* justify-content: space-between; */
-
-  /* float: 'left'; */
 }
 
 .progress-label-left {
@@ -30,11 +26,6 @@
   margin-left: 1em;
 }
 
-/* .charBar {
-  background-color: purple;
-  color: white;
-} */
-
 .reviewsList {
   flex: 2;
   /* display: flex; */
@@ -43,3 +34,13 @@
   /* display: 'inline-block'; */
   margin-left: 15%;
 }
+
+.remove-filter:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+/* .charBar {
+  background-color: purple;
+  color: white;
+} */
