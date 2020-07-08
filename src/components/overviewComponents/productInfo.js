@@ -77,6 +77,7 @@ class ProductInfo extends React.Component {
               selectedStyle.photos ? selectedStyle.photos : defaultStyle.photos
             }
             changeDisplay={this.changeDisplay}
+            fullscreen={true}
           />
         </div>
       );
@@ -90,7 +91,6 @@ class ProductInfo extends React.Component {
     let defaultStyle = productStyleList.results[0];
     let selectedStyle = this.state.style;
 
-    console.log(this.state);
     return (
       <div>
         <div className="overview container">
