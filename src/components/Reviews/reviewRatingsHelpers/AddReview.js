@@ -67,8 +67,8 @@ class AddReview extends React.Component {
         <Button variant="primary" onClick={() => this.handleShow()}>
           Add Review +
         </Button>
-        <Modal show={this.state.show} onHide={this.handleShow}>
-          <Modal.Header close>
+        <Modal show={this.state.show} onHide={() => this.handleShow()}>
+          <Modal.Header closeButton>
             <Modal.Title>Write Your Review</Modal.Title>
             About the [Product Name Here]
           </Modal.Header>
