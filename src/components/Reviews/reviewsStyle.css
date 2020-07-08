@@ -34,13 +34,29 @@
   /* display: 'inline-block'; */
   margin-left: 15%;
 }
-
-.remove-filter:hover {
-  color: black;
+.remove-filter {
   text-decoration: underline;
 }
+.remove-filter:hover {
+  color: lightslategray;
+}
 
-/* .charBar {
-  background-color: purple;
-  color: white;
-} */
+.char-bar-label {
+  display: flex;
+  justify-content: center;
+}
+
+.char-bar-label-left {
+  display: 'inline-block';
+  float: left;
+}
+
+.char-bar-label-right {
+  display: 'inline-block';
+  float: right;
+}
+
+.rating-bar-filler {
+  width: 100%;
+  background: grey;
+}

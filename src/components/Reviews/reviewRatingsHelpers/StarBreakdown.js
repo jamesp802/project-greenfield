@@ -1,6 +1,5 @@
 import React from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import { CaretDownFill } from 'react-bootstrap-icons';
 import '../reviewsStyle.css';
 
 const StarBreakdown = (props) => {
@@ -39,15 +38,8 @@ const StarBreakdown = (props) => {
           </p>
         </>
       ) : (
-        <p>not filtered</p>
+        <span></span>
       )}
-      <br />
-      <div className="charBar">
-        <ProgressBar>
-          <ProgressBar now={35} />
-          <CaretDownFill />
-        </ProgressBar>
-      </div>
     </>
   );
 };

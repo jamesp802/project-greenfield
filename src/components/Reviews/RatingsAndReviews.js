@@ -15,7 +15,7 @@ class RatingsAndReviews extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.changeView = this.changeView.bind(this);
   }
-  // add state and method
+
   componentDidMount() {
     this.props.getData(`http://18.224.200.47/reviews/4/list`);
   }
@@ -34,7 +34,6 @@ class RatingsAndReviews extends Component {
       let filtered = this.props.reviews.filter((review) =>
         this.state.starCount.includes(review.rating)
       );
-      console.log('filtered reviews: ', filtered);
       return <ReviewsList reviews={filtered} />;
     }
   }
@@ -46,15 +45,9 @@ class RatingsAndReviews extends Component {
 
     let star = Number(starCount.target.textContent.slice(0, 1));
     if (!this.state.starCount.includes(star)) {
-      this.setState(
-        {
-          starCount: [...this.state.starCount, star],
-        },
-        () => {
-          console.log('star var: ', star);
-          console.log('new state: ', this.state);
-        }
-      );
+      this.setState({
+        starCount: [...this.state.starCount, star],
+      });
     } else {
       let removed = this.state.starCount.filter(
         (currStar) => currStar !== star
@@ -75,7 +68,6 @@ class RatingsAndReviews extends Component {
   }
 
   render() {
-    console.log('RATINGS AND REVIEWS STATE: ', this.props.reviews);
     return (
       <div className="ratingsReviewContainer">
         <div className="ratingsBreakdown">
