@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Stars from './Stars';
-<<<<<<< HEAD
-=======
 import SortingView from './SortingView';
->>>>>>> c60c39fe9c81bf49efd6b02c862afa03e51635b2
 
 const ReviewTile = (props) => {
   return (
