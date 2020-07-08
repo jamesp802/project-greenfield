@@ -4,20 +4,34 @@ import '../reviewsStyle.css';
 
 const CharBreakdown = (props) => {
   return (
-    <div className="rating-bar-container" style={{ width: '100px' }}>
+    <div
+      className="rating-bar-container"
+      style={{ /* width: '100%', height: '10px', */ background: 'lightgrey' }}
+    >
       <div
         className="rating-bar-filler"
-        style={{ position: 'relative', width: '100%', background: 'grey' }}
+        style={{
+          position: 'relative',
+          height: '10px',
+          width: '100%',
+          background: 'red',
+        }}
       >
-        <div style={{ position: 'absolute', right: '50%' }}>
+        <span style={{ position: 'absolute', right: '50%' }}>
           <CaretDownFill />
-        </div>
+        </span>
       </div>
     </div>
   );
 };
 
 export default CharBreakdown;
+{
+  /*  <div>
+        <label className="char-bar-label-left">low</label>
+        <label className="char-bar-label-right">high</label>
+      </div> */
+}
 
 {
   /* <div className="char-bar-container">

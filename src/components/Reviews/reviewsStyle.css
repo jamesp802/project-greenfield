@@ -56,7 +56,15 @@
   float: right;
 }
 
-.rating-bar-filler {
-  width: 100%;
-  background: grey;
+/* .rating-bar-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: ;
+} */
+
+/* .rating-bar-filler {
+  position: 'relative';
+  height: '10px';
+  background: 'lightgrey';
 }
+ */
