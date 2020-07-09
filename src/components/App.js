@@ -1,32 +1,24 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import Home from './Home';
-import Product from './Product';
-import Questions from './questions/Questions';
+// import Home from './Home';
+// import Product from './Product';
+// import Questions from './questions/Questions';
 import ProductInfo from './overviewComponents/productInfo';
-import RatingsAndReviews from './Reviews/RatingsAndReviews';
+// import RatingsAndReviews from './Reviews/RatingsAndReviews';
 
 function App() {
   return (
     <div>
       <Router>
         <Switch>
-          <Route path="/productinfo/:id">
+          <Route path="/product/:id">
             <ProductInfo />
           </Route>
-          <Route path="/product/:id">
-            <Product />
-          </Route>
-          <Route path="/reviews">
-            <RatingsAndReviews />
-          </Route>
-          <Route path="/questions">
-            <Questions />
-          </Route>
           <Route path="/">
-            <Home />
+            <h1>Navigate to /product/:id</h1>
+            ex. localhost:3000/product/5
           </Route>
         </Switch>
       </Router>

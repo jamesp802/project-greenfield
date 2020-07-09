@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const config = {
   entry: "./src/index.js", //identify entry point for webpack
@@ -32,6 +33,9 @@ const config = {
   resolve: {
     extensions: [".js", ".jsx"],
   },
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
 };
 
 module.exports = config;

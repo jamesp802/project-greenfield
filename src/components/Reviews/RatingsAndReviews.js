@@ -99,7 +99,7 @@ class RatingsAndReviews extends Component {
 
   render() {
     return (
-      <div className="ratingsReviewContainer">
+      <div id='anchor' className="ratingsReviewContainer container">
         <div className="ratingsBreakdown">
           <RatingsBreakdown
             changeView={this.changeView}

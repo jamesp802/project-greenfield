@@ -78,7 +78,7 @@ class Zoom extends Component {
 
     return (
       <div
-        style={{ ...this.outerDivStyle, height: `350px` }}
+        style={{ ...this.outerDivStyle, height: `300px` }}
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
         onMouseMove={this.handleMouseMovement}

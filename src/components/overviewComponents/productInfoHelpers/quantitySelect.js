@@ -11,7 +11,7 @@ const QuantityDropDown = ({ skus, size }) => {
     quantity.push(i);
   }
   return (
-    <div>
+    <div id='quantity-selector-click'>
       <Form className="quantity-selector-switch">
         <Form.Group>
           <Form.Control as="select" id="quantity">

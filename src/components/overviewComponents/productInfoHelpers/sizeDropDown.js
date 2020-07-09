@@ -15,7 +15,7 @@ const SizeDropDown = ({ style, changeHandler, sizeSelected }) => {
   }
 
   return (
-    <div>
+    <div id='size-selector-click'>
       <Form className="size-selector-switch">
         <Form.Group>
           <Form.Control as="select" id="size" onChange={changeHandler}>

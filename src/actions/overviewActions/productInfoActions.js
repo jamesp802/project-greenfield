@@ -28,3 +28,8 @@ export const fetchProductStyleListAction = (id) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
+
+export const metaDataAction = (elementId) => ({
+  type: "META DATA",
+  metaData: elementId,
+})
