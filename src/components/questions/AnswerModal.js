@@ -29,7 +29,7 @@ class AnswerModal extends React.Component {
           photos: photos,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         alert("Thank you for submitting your answer");
       })
       .catch((err) => {

@@ -30,7 +30,11 @@ class AnswersList extends React.Component {
   getAnswers() {
     const { question_id } = this.props;
     axios
-      .get(`http://18.224.200.47/qa/${question_id}/answers`)
+      .get(`http://18.224.200.47/qa/${question_id}/answers`, {
+        params: {
+          count: 10
+        }
+      })
       .then(({ data }) => {
         this.setState({
           answers: data.results,
