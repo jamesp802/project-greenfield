@@ -5,7 +5,20 @@ import {
 } from "../../actions/overviewActions/productInfoActions";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { DropdownButton, Button, ButtonGroup, Dropdown } from "react-bootstrap";
+import {
+  DropdownButton,
+  Button,
+  ButtonGroup,
+  Dropdown,
+  Navbar,
+  Container,
+  Form,
+  FormControl
+} from "react-bootstrap";
+
+import {
+  Search
+} from "react-bootstrap-icons";
 
 import SizeDropDown from "./productInfoHelpers/sizeDropDown";
 import QuantityDropDown from "./productInfoHelpers/quantitySelect";
@@ -13,20 +26,32 @@ import SnapshotGallery from "./productInfoHelpers/snapshotGallery";
 import PhotoGallery from "./productInfoHelpers/photoGallery";
 import Description from "./productInfoHelpers/productDescription";
 
+import Selectors from "./productInfoHelpers/selectors";
+import PricingNameReviews from "./productInfoHelpers/pricingNameReviews";
+
 class ProductInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       style: {},
+      styleIndex: 0,
       size: null,
       quantity: 1,
-      selected: false,
       fullscreen: false,
+      isZoomed: false,
+      warningSelectSize: false,
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.changeStyle = this.changeStyle.bind(this);
     this.photoDisplayRender = this.photoDisplayRender.bind(this);
     this.changeDisplay = this.changeDisplay.bind(this);
+    this.submitCart = this.submitCart.bind(this);
+  }
+
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    this.props.fetchProductInfo(id);
+    this.props.fetchProductStyleList(id);
   }
 
   changeHandler(e) {
@@ -38,20 +63,28 @@ class ProductInfo extends React.Component {
   changeStyle(index) {
     this.setState({
       style: this.props.productStyleList.results[index],
+      styleIndex: index,
     });
   }
 
-  componentDidMount() {
-    let id = this.props.match.params.id;
-    this.props.fetchProductInfo(id);
-    this.props.fetchProductStyleList(id);
-  }
-
-  changeDisplay() {
-    let bool = !this.state.fullscreen;
+  changeDisplay(fullscreenOrZoomKey) {
+    let bool = !this.state[fullscreenOrZoomKey];
     this.setState({
-      fullscreen: bool,
+      [fullscreenOrZoomKey]: bool,
     });
+  }
+
+  submitCart() {
+    if (this.state.size === null) {
+      this.setState({
+        warningSelectSize: true,
+      });
+    } else {
+      this.setState({
+        warningSelectSize: false,
+      });
+    }
+    //FIXME: post size, quantity and tokens to API
   }
 
   photoDisplayRender() {
@@ -78,6 +111,7 @@ class ProductInfo extends React.Component {
             }
             changeDisplay={this.changeDisplay}
             fullscreen={true}
+            isZoomed={this.state.isZoomed}
           />
         </div>
       );
@@ -92,45 +126,52 @@ class ProductInfo extends React.Component {
     let selectedStyle = this.state.style;
 
     return (
-      <div>
+      <div className="container">
+        <Navbar expand="lg" variant="light" bg="light">
+          <Container>
+            <Navbar.Brand href="#">PulsarShop</Navbar.Brand>
+            <Form inline>
+              <FormControl
+                type="text"
+                placeholder="Search"
+                size='sm'
+              />
+              <Button variant="outline-secondary" className='btn-sm'>
+                <Search />
+              </Button>
+            </Form>
+          </Container>
+        </Navbar>
         <div className="overview container">
           {this.photoDisplayRender()}
           <div
             className={`product-info ${this.state.fullscreen ? "hidden" : ""}`}
           >
-            Star Rating <i>reviews</i>
-            <br />
-            {productInfo.category}
-            <br />
-            <h1>{productInfo.name}</h1>$
-            {selectedStyle.original_price
-              ? selectedStyle.original_price
-              : defaultStyle.original_price}
-            <br />
-            <br />
-            <b>style ></b>{" "}
-            {this.state.style.name
-              ? this.state.style.name
-              : productStyleList.results[0].name}
-            <SnapshotGallery
+            <PricingNameReviews
+              productStyle={
+                this.state.style
+                  ? this.state.style
+                  : currentProductStyleList.results[0]
+              }
+              productInfo={productInfo}
               styles={productStyleList.results}
               changeHandler={this.changeStyle}
+              styleIndex={this.state.styleIndex}
+              rating={3}
             />
             <div className="product-ui">
-              <SizeDropDown
+              <Selectors
                 style={
                   this.state.selected
                     ? this.state.style
                     : productStyleList.results[0]
                 }
                 changeHandler={this.changeHandler}
+                size={this.state.size}
+                submitCart={this.submitCart}
+                warningSelectSize={this.state.warningSelectSize}
               />
-              <QuantityDropDown />
-              <Button variant="light" className="addToCart">
-                Add to Bag
-              </Button>
             </div>
-            {/** product description and features */}
           </div>
         </div>
         <Description
@@ -149,6 +190,7 @@ const mapStateToProps = (state) => {
   return {
     productInfo: state.currentProductInfo,
     productStyleList: state.currentProductStyleList,
+    rating: state.reviews
   };
 };
 
