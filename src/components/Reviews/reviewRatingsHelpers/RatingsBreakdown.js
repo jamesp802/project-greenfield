@@ -1,7 +1,7 @@
 import React from 'react';
 import RatingSummary from './RatingSummary';
 import StarBreakdown from './StarBreakdown';
-import CharBreakdown from './CharBreakdown';
+import { CharBreakdown } from './CharBreakdown';
 import axios from 'axios';
 
 class RatingsBreakdown extends React.Component {
@@ -23,9 +23,8 @@ class RatingsBreakdown extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://18.224.200.47/reviews/4/meta?count=30`)
+      .get(`http://18.224.200.47/reviews/13/meta?count=30`)
       .then(({ data }) => {
-        console.log('this is starBreakdown data: ', data);
         this.setState(
           {
             ratings: Object.assign({}, this.state.ratings, data.ratings),
@@ -34,18 +33,11 @@ class RatingsBreakdown extends React.Component {
             let totalReviews = this.getTotalReviews();
             let chars = Object.entries(data.characteristics);
 
-            this.setState(
-              {
-                numOfRatings: totalReviews,
-                recommended: data.recommended,
-                characteristics: chars,
-              },
-              () =>
-                console.log(
-                  'THESE ARE CHARACTERISTICS: ',
-                  this.state.characteristics
-                )
-            );
+            this.setState({
+              numOfRatings: totalReviews,
+              recommended: data.recommended,
+              characteristics: chars,
+            });
           }
         );
       })

@@ -2,7 +2,7 @@ import React from 'react';
 import { Check2 } from 'react-bootstrap-icons';
 import Modal from 'react-bootstrap/Modal';
 import Stars from './Stars';
-import getDate from './reviewHelpers';
+import { getDate } from './reviewHelpers';
 
 class ReviewTile extends React.Component {
   constructor(props) {

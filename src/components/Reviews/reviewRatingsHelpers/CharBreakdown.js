@@ -2,39 +2,39 @@ import React from 'react';
 import { CaretDownFill } from 'react-bootstrap-icons';
 import '../reviewsStyle.css';
 
-const CharBreakdown = (props) => {
-  let filterLow = (name) => {
-    if (name === 'Fit') {
-      return 'Runs tight';
-    } else if (name === 'Size') {
-      return 'A size too small';
-    } else if (name === 'Width') {
-      return 'Too narrow';
-    } else if (name === 'Comfort') {
-      return 'Uncomfortable';
-    } else if (name === 'Quality') {
-      return 'Poor';
-    } else if (name === 'Length') {
-      return 'Runs Short';
-    }
-  };
+export const filterLow = (name) => {
+  if (name === 'Fit') {
+    return 'Runs tight';
+  } else if (name === 'Size') {
+    return 'A size too small';
+  } else if (name === 'Width') {
+    return 'Too narrow';
+  } else if (name === 'Comfort') {
+    return 'Uncomfortable';
+  } else if (name === 'Quality') {
+    return 'Poor';
+  } else if (name === 'Length') {
+    return 'Runs Short';
+  }
+};
 
-  let filterHigh = (name) => {
-    if (name === 'Fit') {
-      return 'Runs long';
-    } else if (name === 'Size') {
-      return 'A size too wide';
-    } else if (name === 'Width') {
-      return 'Too wide';
-    } else if (name === 'Comfort') {
-      return 'Perfect';
-    } else if (name === 'Quality') {
-      return 'Perfect';
-    } else if (name === 'Length') {
-      return 'Runs long';
-    }
-  };
+export const filterHigh = (name) => {
+  if (name === 'Fit') {
+    return 'Runs long';
+  } else if (name === 'Size') {
+    return 'A size too wide';
+  } else if (name === 'Width') {
+    return 'Too wide';
+  } else if (name === 'Comfort') {
+    return 'Perfect';
+  } else if (name === 'Quality') {
+    return 'Perfect';
+  } else if (name === 'Length') {
+    return 'Runs long';
+  }
+};
 
+export const CharBreakdown = (props) => {
   return (
     <div className="char-bar-container">
       {props.characteristics.map((char, i) => (
@@ -79,5 +79,3 @@ const CharBreakdown = (props) => {
     </div>
   );
 };
-
-export default CharBreakdown;
