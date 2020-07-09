@@ -13,10 +13,14 @@ class AnswersList extends React.Component {
     };
     this.getAnswers = this.getAnswers.bind(this);
     this.pullSeller = this.pullSeller.bind(this);
+    // console.log(this.state.questions)
   }
 
   componentDidMount() {
     this.getAnswers();
+    this.setState({
+      qArray: this.props.qArray,
+    });
   }
 
   getAnswers() {
@@ -26,23 +30,12 @@ class AnswersList extends React.Component {
         this.setState({
           answers: data.results,
         });
-        console.log(this.state.answers);
+        // console.log(this.state.answers);
       })
       .catch((err) => {
         console.error(err);
       });
   }
-
-  // createArray() {
-  //   const results = [];
-  //   const keyArray = Object.keys(this.props.answers);
-  //   keyArray.forEach((key) => {
-  //     results.push(this.props.answers[key]);
-  //   });
-  //   this.setState({
-  //     answers: results,
-  //   });
-  // }
 
   moreAnswers() {
     return (
@@ -56,7 +49,7 @@ class AnswersList extends React.Component {
   }
 
   markHelpful(event) {
-    const answer_id = event.target.value;
+    const answer_id = event.target.getAttribute("value");
     axios
       .put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
       .then(() => {
@@ -70,7 +63,8 @@ class AnswersList extends React.Component {
   }
 
   reportAnswer(event) {
-    const answer_id = event.target.value;
+    const answer_id = event.target.getAttribute("value");
+    // console.log(answer_id)
     axios
       .put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
       .then(() => {
@@ -103,9 +97,9 @@ class AnswersList extends React.Component {
       <div>
         {answersArray.map((answer, index) => {
           return (
-            <div key={index}>
-              <em>{answer.body}</em>
-              <div>
+            <div key={index} id='answer-body'>
+              {answer.body}
+              {/* <div>
                 {answer.photos.map((photo) => {
                   return (
                     <img
@@ -116,7 +110,7 @@ class AnswersList extends React.Component {
                     ></img>
                   );
                 })}
-              </div>
+              </div> */}
               <div className="answerer-info">
                 by{" "}
                 {answer.answerer_name === "Seller" ? (
@@ -125,10 +119,13 @@ class AnswersList extends React.Component {
                   answer.answerer_name
                 )}
                 , {getDate(answer.date)}
-              </div>
               <span className="helpful-span report">
-                Helpful?{" "}
-                <a className="helpful-submit" value={answer.answer_id}>
+                {" "}| Helpful?{" "}
+                <a
+                  className="helpful-submit"
+                  value={answer.answer_id}
+                  onClick={(event) => this.reportAnswer(event)}
+                >
                   Yes
                 </a>{" "}
                 ({answer.helpfulness}) |{" "}
@@ -136,6 +133,7 @@ class AnswersList extends React.Component {
                   Report
                 </a>
               </span>
+              </div>
             </div>
           );
         })}
@@ -152,5 +150,3 @@ class AnswersList extends React.Component {
 export default AnswersList;
 
 //TODO: conditional render of reported & helpful buttons;
-//TODO: re-factor answers list to use API request IOT ensure that reported answers are not provided;
-//TODO: add add-answer modal;

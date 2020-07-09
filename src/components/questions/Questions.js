@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Search from "./Search";
 import QuestionsList from "./QuestionsList";
 import axios from "axios";
-import {compareQuestions} from './questionsHelpers';
+import { compareQuestions } from "./questionsHelpers";
 import "./questionsStyles.css";
 
 class Questions extends React.Component {
@@ -13,15 +13,14 @@ class Questions extends React.Component {
       questions: [],
       results: [],
       moreQuestions: 0,
-      moreAnswers: 0,
       product_id: 5,
       input: "",
     };
-
     this.getQuestions = this.getQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.moreQuestions = this.moreQuestions.bind(this);
+    this.sliceQuestions = this.sliceQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -32,8 +31,8 @@ class Questions extends React.Component {
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
-        console.log(data.results);
-        let resultsSlice = data.results.slice(0, 4).sort(compareQuestions);
+        // console.log(data.results);
+        let resultsSlice = this.sliceQuestions(data.results);
         this.setState({
           questions: data.results,
           results: resultsSlice,
@@ -42,6 +41,16 @@ class Questions extends React.Component {
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  sliceQuestions(data) {
+    if (this.state.moreQuestions === 0) {
+      return data.slice(0, 2).sort(compareQuestions);
+    } else if (this.state.moreQuestions === 1) {
+      return data.slice(0, 4).sort(compareQuestions);
+    } else {
+      return this.state.questions;
+    }
   }
 
   handleChange(event) {
@@ -54,7 +63,7 @@ class Questions extends React.Component {
         if (this.state.input.length >= 3) {
           this.searchQuestions(this.state.input);
         } else if (this.state.input.length < 3) {
-          let resultsSlice = this.state.questions.slice(0, 4).sort(compareQuestions);
+          let resultsSlice = this.sliceQuestions(this.state.questions);
           this.setState({
             results: resultsSlice,
           });
@@ -76,9 +85,21 @@ class Questions extends React.Component {
 
   moreQuestions() {
     const questions = this.state.questions;
-    this.setState({
-      results: questions
-    })
+    if (this.state.moreQuestions < 2) {
+      this.setState(
+        {
+          moreQuestions: this.state.moreQuestions + 1,
+        },
+        () =>
+          this.setState({
+            results: this.sliceQuestions(questions),
+          })
+      );
+    } else {
+      this.setState({
+        results: questions,
+      });
+    }
   }
 
   render() {
@@ -86,7 +107,11 @@ class Questions extends React.Component {
       <div className="questions-answers-container">
         <h4 className="main-header">QUESTIONS & ANSWERS </h4>
         <Search handleChange={this.handleChange} />
-        <QuestionsList questions={this.state.results} moreQuestions={this.moreQuestions}/>
+        <QuestionsList
+        product_id={this.state.product_id}
+          questions={this.state.results}
+          moreQuestions={this.moreQuestions}
+        />
       </div>
     );
   }
@@ -94,12 +119,5 @@ class Questions extends React.Component {
 
 export default Questions;
 
-//TODO: Build a questions list;
-//UP TO two answers should load;
-//BOTH should have a 'load more {questions/answers}' function
-
 //votes persist in localStorage
-//elements that are likely to be used heavily client-side and don't need to be 'controlled' (authentication) can be
-//cache-control
-//component should accordion (how much to display?)
-//add a question can be a modal pop-up;
+
