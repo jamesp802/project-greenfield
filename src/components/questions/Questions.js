@@ -22,6 +22,7 @@ class Questions extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.moreQuestions = this.moreQuestions.bind(this);
     this.sliceQuestions = this.sliceQuestions.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +32,11 @@ class Questions extends React.Component {
 
   getQuestions() {
     axios
-      .get(`http://18.224.200.47/qa/${this.state.product_id}`)
+      .get(`http://18.224.200.47/qa/${this.state.product_id}`, {
+        params: {
+          count: 10
+        }
+      })
       .then(({ data }) => {
         console.log(data.results);
         let resultsSlice = this.sliceQuestions(data.results);
@@ -102,6 +107,10 @@ class Questions extends React.Component {
         results: questions,
       });
     }
+  }
+
+  handleClick(target) {
+    console.log(target);
   }
 
   render() {
