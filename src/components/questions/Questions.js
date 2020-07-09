@@ -15,6 +15,7 @@ class Questions extends React.Component {
       moreQuestions: 0,
       product_id: this.props.productId || 5,
       input: "",
+      product_name: this.props.name,
     };
     this.getQuestions = this.getQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
@@ -109,7 +110,7 @@ class Questions extends React.Component {
         <h4 className="main-header">{"QUESTIONS & ANSWERS"} </h4>
         <Search handleChange={this.handleChange} />
         <QuestionsList
-          product_name={this.state.product_id}
+          product_name={this.state.product_name}
           product_id={this.state.product_id}
           questions={this.state.results}
           moreQuestions={this.moreQuestions}

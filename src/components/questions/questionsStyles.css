@@ -7,6 +7,11 @@
   height: 50px;
 }
 
+.search-bar-img {
+  /* margin-right: 25%; */
+  /* position: relative; */
+}
+
 .questions-container {
   display: flex;
   flex-flow: column nowrap;
@@ -55,8 +60,9 @@
 
 #answer-body {
   font-size: smaller;
-  margin-bottom: 2%;
-  margin-top: 1%;
+  margin: 1.5% 0% 2% 2%;
+  /* margin-bottom: 2%;
+  margin-top: 1%; */
   color: rgba(41, 47, 53, 0.986)
 }
 

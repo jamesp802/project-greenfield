@@ -32,7 +32,7 @@ class Search extends React.Component {
             onChange={this.props.handleChange}
             placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."
           ></input>
-          {/* <img src="./68213.png"/> */}
+          <img className='search-bar-img' src="https://i.ya-webdesign.com/images/magnifying-glass-3.svg" height="30px" width="40px"/>
         </form>
       </div>
     );

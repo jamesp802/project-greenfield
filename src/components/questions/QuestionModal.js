@@ -24,11 +24,9 @@ class QuestionModal extends React.Component {
     // console.log(product_id);
     axios
       .post(`http://18.224.200.47/qa/${product_id}`, {
-        data: {
-          body: body,
-          name: name,
-          email: email,
-        },
+        body: body,
+        name: name,
+        email: email,
       })
       .then(() => {
         alert("Thank you for submitting your question!");
@@ -75,7 +73,7 @@ class QuestionModal extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>About [Product Name]</h5>
+          <h5>About {this.props.product_name}</h5>
           <form>
             <label>
               <div>
