@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Ratings from 'react-ratings-declarative';
 import Form from 'react-bootstrap/Form';
-import Stars from './Stars';
 
 class AddReview extends React.Component {
   constructor(props) {

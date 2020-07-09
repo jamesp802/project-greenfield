@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Check2 } from 'react-bootstrap-icons';
 import Modal from 'react-bootstrap/Modal';
 import Stars from './Stars';
 import getDate from './reviewHelpers';
-import { render } from 'react-dom';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -17,7 +16,6 @@ class ReviewTile extends React.Component {
   }
 
   showModal(e) {
-    console.log('this is e.target: ', e.target.src);
     this.setState({
       show: true,
       photo: e.target.src,
@@ -50,14 +48,26 @@ class ReviewTile extends React.Component {
               </p>
               <br />
               <p>{review.body}</p>
-              <br />
+              {review.recommend ? (
+                <p>
+                  <span>
+                    <Check2 />
+                  </span>{' '}
+                  I recommend this product
+                </p>
+              ) : null}
+              {review.response ? (
+                <div className="response">
+                  <strong>Reponse:</strong> {review.response}
+                </div>
+              ) : null}
               {review.photos.length > 0 ? (
                 <span>
                   {review.photos.map((photo, i) => {
                     return (
-                      <>
+                      <React.Fragment key={i}>
                         <img
-                          class="img-thumbnail"
+                          className="img-thumbnail"
                           key={i}
                           src={photo.url}
                           style={{
@@ -70,16 +80,21 @@ class ReviewTile extends React.Component {
                         <Modal show={this.state.show} onHide={this.closeModal}>
                           <Modal.Header closeButton></Modal.Header>
                           <Modal.Body>
-                            <img src={this.state.photo} class="img-fluid"></img>
+                            <img
+                              src={this.state.photo}
+                              className="img-fluid"
+                            ></img>
                           </Modal.Body>
                         </Modal>
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </span>
               ) : null}
-
-              <p>this is the footer </p>
+              <p className="helpful">
+                Helpful? <a href="#">Yes</a> ({review.helpfulness}) |{' '}
+                <a href="#">Report</a>{' '}
+              </p>
               <hr />
             </React.Fragment>
           );
@@ -90,17 +105,3 @@ class ReviewTile extends React.Component {
 }
 
 export default ReviewTile;
-
-// const mapStateToProps = (state) => {
-//   return {
-//     reviews: state.reviews.reviewsData,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     getData: (url) => dispatch(getReviews(url)),
-//   };
-// };
-
-// export default connect(mapStateToProps, mapDispatchToProps)(ReviewTile);

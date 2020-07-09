@@ -19,8 +19,12 @@ class RatingsAndReviews extends Component {
     this.loadMoreReviews = this.loadMoreReviews.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getData(`http://18.224.200.47/reviews/4/list`);
+  componentDidMount(params) {
+    if (params) {
+      this.props.getData(`http://18.224.200.47/reviews/13/list${params}`);
+    } else {
+      this.props.getData(`http://18.224.200.47/reviews/13/list`);
+    }
   }
 
   changeView() {
@@ -93,14 +97,14 @@ class RatingsAndReviews extends Component {
   render() {
     return (
       <div className="ratingsReviewContainer">
-        {/* <div className="ratingsBreakdown">
+        <div className="ratingsBreakdown">
           <RatingsBreakdown
             changeView={this.changeView}
             stars={this.state.starCount}
             filtered={this.state.filtered}
             handleClick={this.handleClick}
           />
-        </div> */}
+        </div>
         <div className="reviewsList">{this.renderView()}</div>
       </div>
     );

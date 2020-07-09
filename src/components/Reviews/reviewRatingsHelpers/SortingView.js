@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 
 const SortingView = (props) => {
   return (
-    <div>
+    <h6 className="sorting">
       {props.reviews.length} reviews, sorted by:
       <select>
-        {['Relevance', 'Helpful', 'Newest'].map((option) => (
+        {['relevance', 'helpful', 'newest'].map((option) => (
           <option>{option}</option>
         ))}
       </select>
-    </div>
+    </h6>
   );
 };
 
