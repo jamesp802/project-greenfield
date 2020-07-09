@@ -21,6 +21,7 @@ class QuestionModal extends React.Component {
   addQuestion() {
     const { body, name, email } = this.state;
     const { product_id } = this.props;
+    // console.log(product_id);
     axios
       .post(`http://18.224.200.47/qa/${product_id}`, {
         data: {
