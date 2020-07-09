@@ -21,7 +21,7 @@ class RatingsAndReviews extends Component {
   }
 
   componentDidMount() {
-    this.props.getData(`http://18.224.200.47/reviews/13/list`);
+    this.props.getData(`http://18.224.200.47/reviews/13/list?count=30`);
   }
 
   changeView() {

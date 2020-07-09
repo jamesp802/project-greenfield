@@ -35,6 +35,7 @@
 }
 .remove-filter:hover {
   color: lightslategray;
+  cursor: pointer;
 }
 
 .char-bar-filler {
