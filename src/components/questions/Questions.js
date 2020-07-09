@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Search from "./Search";
 import QuestionsList from "./QuestionsList";
 import axios from "axios";
-
+import { compareQuestions } from "./questionsHelpers";
 import "./questionsStyles.css";
 
 class Questions extends React.Component {
@@ -13,12 +13,14 @@ class Questions extends React.Component {
       questions: [],
       results: [],
       moreQuestions: 0,
-      moreAnswers: 0,
       product_id: 5,
+      input: "",
     };
-
     this.getQuestions = this.getQuestions.bind(this);
-    this.addQuestion = this.addQuestion.bind(this);
+    this.searchQuestions = this.searchQuestions.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.moreQuestions = this.moreQuestions.bind(this);
+    this.sliceQuestions = this.sliceQuestions.bind(this);
   }
 
   componentDidMount() {
@@ -26,12 +28,11 @@ class Questions extends React.Component {
   }
 
   getQuestions() {
-    // event.preventDefault();
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
-        console.log(data.results);
-        let resultsSlice = data.results.slice(0, 4).sort(compare);
+        // console.log(data.results);
+        let resultsSlice = this.sliceQuestions(data.results);
         this.setState({
           questions: data.results,
           results: resultsSlice,
@@ -42,60 +43,81 @@ class Questions extends React.Component {
       });
   }
 
-  reportQuestion(event) {
-    event.preventDefault();
-    // let value = event.target.value;
-    axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
-    .then(() => {
-      console.log('reported')
-    })
-    .catch(err => {
-      console.error(err);
-    })
+  sliceQuestions(data) {
+    if (this.state.moreQuestions === 0) {
+      return data.slice(0, 2).sort(compareQuestions);
+    } else if (this.state.moreQuestions === 1) {
+      return data.slice(0, 4).sort(compareQuestions);
+    } else {
+      return this.state.questions;
+    }
   }
 
-  markHelpful() {
-  axios.put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
-  }
-
-  addQuestion(data) {
-    axios.post(`http://18.224.200.47/qa/${this.state.product_id}`, {
-      params: {
-        body: data,
+  handleChange(event) {
+    const value = event.target.value;
+    this.setState(
+      {
+        input: value,
+      },
+      () => {
+        if (this.state.input.length >= 3) {
+          this.searchQuestions(this.state.input);
+        } else if (this.state.input.length < 3) {
+          let resultsSlice = this.sliceQuestions(this.state.questions);
+          this.setState({
+            results: resultsSlice,
+          });
+        }
       }
-    })
+    );
   }
 
-  addAnswer() {
-    axios.post(`http://18.224.200.47/qa/${question_id}/answers`)
+  searchQuestions(value) {
+    let resultsArray = this.state.questions;
+    resultsArray = resultsArray.filter(
+      (question) =>
+        question.question_body.toLowerCase().indexOf(value.toLowerCase()) !== -1
+    );
+    this.setState({
+      results: resultsArray,
+    });
+  }
+
+  moreQuestions() {
+    const questions = this.state.questions;
+    if (this.state.moreQuestions < 2) {
+      this.setState(
+        {
+          moreQuestions: this.state.moreQuestions + 1,
+        },
+        () =>
+          this.setState({
+            results: this.sliceQuestions(questions),
+          })
+      );
+    } else {
+      this.setState({
+        results: questions,
+      });
+    }
   }
 
   render() {
     return (
-      <div className='questions-answers-container'>
-        <h4 className='main-header'>QUESTIONS & ANSWERS </h4>
-        <Search addQuestion={this.addQuestion} />
-        <QuestionsList questions={this.state.results} />
+      <div className="questions-answers-container">
+        <h4 className="main-header">QUESTIONS & ANSWERS </h4>
+        <Search handleChange={this.handleChange} />
+        <QuestionsList
+        product_id={this.state.product_id}
+          questions={this.state.results}
+          moreQuestions={this.moreQuestions}
+        />
       </div>
     );
   }
 }
 
-const compare = (b, a) => {
-  const helpfulnessA = a.question_helpfulness;
-  const helpfulnessB = b.question_helpfulness;
-
-  let comparison = 0;
-  if (helpfulnessA > helpfulnessB) {
-    comparison = 1;
-  } else if (helpfulnessB > helpfulnessA) {
-    comparison = -1;
-  }
-  return comparison;
-};
-
 export default Questions;
 
-//TODO: Build a questions list;
-//UP TO two answers should load;
-//BOTH should have a 'load more {questions/answers}' function
+//votes persist in localStorage
+

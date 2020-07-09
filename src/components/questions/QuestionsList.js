@@ -1,64 +1,173 @@
 import React from "react";
+import AnswersList from "./AnswersList";
+import { getDate } from "./questionsHelpers";
+import QuestionModal from "./QuestionModal";
+import AnswerModal from "./AnswerModal";
+import { Button } from "react-bootstrap";
 
-const QuestionsList = ({ questions }) => (
-  <div>
-    <div>
-      <div className="questions-container">
-        {questions.map((question, index) => {
-          return (
-            <div key={index}>
-              <div className='questions-container-row'><strong>Q: {question.question_body}</strong></div>
-              <span className="helpful-span answer">Helpful? <a>Yes</a> ({question.question_helpfulness}) | <a>Add Answer</a></span>
-              <div>
-                {Object.keys(question.answers).sort(compare).slice(0,2).map((answer, index) => {
-                  const item = question.answers[answer];
-                  return <div  key={answer}> <strong>A:</strong> <div className='answer-body'> {item.body}
-                  <div>{item.photos.map((photo, index)=> {
-                    return <img key={index} src={photo} width="100px" height="100px"></img>})}</div></div>
-                  <div className='answerer-info'>by {item.answerer_name}, {getDate(item.date)}</div>
-                  <span className="helpful-span report">Helpful? <a>Yes</a> ({item.helpfulness}) | <a>Report</a></span></div>;
-                })}
-              </div>
-            </div>
-          );
-        })}{" "}
-        {/*up to four displayed*/}
-      </div>
-      <div className="answers-container"> {/*up to two displayed*/}</div>
-    </div>
-    <button className="questions-answers-button">
-      MORE ANSWERED QUESTIONS
-    </button>
-    <button className="questions-answers-button">ADD A QUESTION  +</button>
-  </div>
-);
-
-const getDate = (date) => {
-  const month = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-  const newDate = date.split('T').slice(0,1).join();
-
-  const dateArray = newDate.split('-');
-
-  return month[Number(dateArray[1]) - 1] + " " + Number(dateArray[2]) + ", " + dateArray[0]
-}
-
-const compare = (b, a) => {
-  const helpfulnessA = a.helpfulness;
-  const helpfulnessB = b.helpfulness;
-
-  let comparison = 0;
-  if (helpfulnessA > helpfulnessB) {
-    comparison = 1;
-  } else if (helpfulnessB > helpfulnessA) {
-    comparison = -1;
+class QuestionsList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      questions: this.props.questions,
+      showQuestionModal: false,
+      showAnswerModal: false,
+      helpful: false,
+      question: {},
+    };
+    this.markHelpful = this.markHelpful.bind(this);
+    this.addAnswer = this.addAnswer.bind(this);
   }
-  return comparison;
-};
+
+  componentDidMount() {
+    const result = localStorage.getItem(`${this.props.questions.question_id}`);
+    // console.log(result);
+    // this.setState(
+    //   {
+    //     helpful: result,
+    //   }
+    // );
+    // console.log(this.props)
+  }
+
+  setQuestionModalShow() {
+    this.state.showQuestionModal
+      ? this.setState({ showQuestionModal: false })
+      : this.setState({ showQuestionModal: true });
+  }
+
+  setAnswerModalShow() {
+    this.state.showAnswerModal
+      ? this.setState({ showAnswerModal: false })
+      : this.setState({ showAnswerModal: true });
+  }
+
+  addAnswer(event) {
+    let question = [];
+    question.push(event.target.getAttribute("question_body"));
+    question.push(event.target.getAttribute("question_id"));
+    console.log(question);
+    this.setState(
+      {
+        question: question,
+      },
+      () => this.setAnswerModalShow()
+    );
+  }
+
+  markHelpful(event) {
+    console.log(event.target.getAttribute('value'));
+    const question_id = event.target.getAttribute("value");
+    //   axios
+    // .put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
+    //     .then(() => {
+    //       this.setState({
+    //         helpful: true,
+    //       });
+    //     })
+    // .then(() => {
+    //   localStorage.setItem(`${question_id}`, `helpful`)
+    // })
+    //     .catch((err) => {
+    //       console.error(err);
+    //     });
+  }
+
+  render() {
+    const { questions } = this.props;
+    return (
+      <div>
+        <div>
+          <div className="questions-container">
+            {questions.map((question, index) => {
+              return (
+                <div key={index}>
+                  <div id="questions-container-row">
+                    <div>
+                      <strong>Q: {question.question_body}</strong>
+                    </div>
+                    <div className="helpful-span answer">
+                      Helpful?{" "}
+                      <a
+                        className="helpful-submit"
+                        value={question.question_id}
+                        onClick={(event) => this.markHelpful(event)}
+                      >
+                        Yes
+                      </a>{" "}
+                      ({question.question_helpfulness}) |{" "}
+                      <a
+                        className="helpful-submit"
+                        question_id={question.question_id}
+                        question_body={question.question_body}
+                        onClick={(event) => this.addAnswer(event)}
+                      >
+                        Add Answer
+                      </a>
+                    </div>
+                  </div>
+                  <div>
+                    <AnswerModal
+                      show={this.state.showAnswerModal}
+                      onHide={() => this.setAnswerModalShow()}
+                      product_name={this.props.product_id}
+                      question={this.state.question}
+                    />
+                  </div>
+                  <div id="answers-container">
+                    <strong>A: </strong>
+                    <span>
+                      <AnswersList
+                        // className="answer-body"
+                        answers={question.answers}
+                        question_id={question.question_id}
+                      />
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {this.props.questions.length > 0 ? (
+          <button
+            className="questions-answers-button"
+            onClick={this.props.moreQuestions}
+          >
+            MORE ANSWERED QUESTIONS
+          </button>
+        ) : null}
+        <button
+          className="questions-answers-button"
+          variant="primary"
+          onClick={() => this.setQuestionModalShow()}
+        >
+          ADD A QUESTION +
+        </button>
+        <div>
+          <QuestionModal
+            show={this.state.showQuestionModal}
+            onHide={() => this.setQuestionModalShow()}
+            addQuestion={this.addQuestion}
+            product_id={this.props.product_id}
+            product_name={this.props.product_name}
+          />
+        </div>
+      </div>
+    );
+  }
+}
 
 export default QuestionsList;
 
-//TODO: each question will have helpful | add answer;
-//TODO: answers will also include the user, date | helpful | report;
-//TODO: if photos exist, photos will be rendered below answer;
-//TODO: load more answers button;
+// reportQuestion(event) {
+//   event.preventDefault();
+//   // let value = event.target.value;
+//   axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
+//   .then(() => {
+//     console.log('reported')
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   })
+// }
