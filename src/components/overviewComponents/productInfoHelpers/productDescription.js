@@ -5,11 +5,11 @@ const Description = ({ description, features, slogan }) => {
     return (
       <div className="description-features-container container">
         <div className="description-container">
-          <span>
+          <div>
             <h1 className="description-slogan">{slogan}</h1>
-            <p className="description-text">{description}</p>
+            <p>{description}</p>
             <img className='social-media-icon' src='https://yourwriter.net/wp-content/uploads/2013/09/socialicons.jpg'/>
-          </span>
+          </div>
           <ul className="features-list">
             {features.map((feature, i) => {
               return (

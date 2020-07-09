@@ -92,8 +92,8 @@ class PhotoGallery extends React.Component {
         <Zoom
           img={this.props.photos[this.state.displayIndex].url}
           zoomScale={3}
-          height={350}
-          width={660}
+          height={300}
+          width={689}
           hidden={this.props.isZoomed}
           fullscreen={this.props.fullscreen}
           changeDisplay={this.props.changeDisplay}
@@ -103,12 +103,15 @@ class PhotoGallery extends React.Component {
           onClick={() => {
             this.carouselIndex("right");
           }}
+          id='photo-click'
         />
         <ArrowLeft
           className="left-chevron"
+          style={this.props.fullscreen ? {left: '10px'} : {}}
           onClick={() => {
             this.carouselIndex("left");
           }}
+          id='photo-click'
         />
         <ArrowsFullscreen
           className={this.props.fullscreen ? 'fullscreen-button' : 'hidden'}

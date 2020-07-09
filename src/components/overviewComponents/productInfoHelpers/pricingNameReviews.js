@@ -15,22 +15,21 @@ const PricingNameReviews = ({
     <>
       <div className="overview-stars">
         <Ratings rating={rating} widgetRatedColors="black">
-          <Ratings.Widget widgetDimension="10px" widgetSpacing="0px" />
-          <Ratings.Widget widgetDimension="10px" widgetSpacing="0px" />
-          <Ratings.Widget widgetDimension="10px" widgetSpacing="0px" />
-          <Ratings.Widget widgetDimension="10px" widgetSpacing="0px" />
-          <Ratings.Widget widgetDimension="10px" widgetSpacing="0px" />
+          <Ratings.Widget widgetDimension="12px" widgetSpacing="0px" />
+          <Ratings.Widget widgetDimension="12px" widgetSpacing="0px" />
+          <Ratings.Widget widgetDimension="12px" widgetSpacing="0px" />
+          <Ratings.Widget widgetDimension="12px" widgetSpacing="0px" />
+          <Ratings.Widget widgetDimension="12px" widgetSpacing="0px" />
         </Ratings>
         {"  "}
-        <a href='#anchor' style={{paddingLeft: '5px', paddingTop: '2px'}}>reviews</a>
+        <a className='review-anchor-link' style={{color: 'blue', textDecorationLine: 'underline'}}onClick={() => {document.getElementById('anchor').scrollIntoView()}}>Read All Reviews</a>
       </div>
       <br />
       {productInfo.category}
       <br />
-      <h1>{productInfo.name}</h1>${productStyle.original_price}
+      <h1>{productInfo.name}</h1>${styleIndex === 0 ? productInfo.default_price : productStyle.original_price}
       <br />
-      <br />
-      <b>style ></b> {productStyle.name ? productStyle.name : styles[0].name}
+      <b>Style ></b> {productStyle.name ? productStyle.name : styles[0].name}
       <SnapshotGallery
         styles={styles}
         changeHandler={changeHandler}

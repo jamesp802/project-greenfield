@@ -13,7 +13,7 @@ class Questions extends React.Component {
       questions: [],
       results: [],
       moreQuestions: 0,
-      product_id: 5,
+      product_id: this.props.productId || 5,
       input: "",
     };
     this.getQuestions = this.getQuestions.bind(this);
@@ -25,6 +25,7 @@ class Questions extends React.Component {
 
   componentDidMount() {
     this.getQuestions();
+    console.log("QUESTIONS", this.state.product_id);
   }
 
   getQuestions() {
@@ -104,8 +105,8 @@ class Questions extends React.Component {
 
   render() {
     return (
-      <div className="questions-answers-container">
-        <h4 className="main-header">QUESTIONS & ANSWERS </h4>
+      <div className="questions-answers-container container">
+        <h4 className="main-header">{"QUESTIONS & ANSWERS"} </h4>
         <Search handleChange={this.handleChange} />
         <QuestionsList
           product_name={this.state.product_id}

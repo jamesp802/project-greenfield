@@ -4,7 +4,7 @@ import React from "react";
 const SnapshotGallery = ({ styles, changeHandler, styleIndex }) => {
   console.log(styleIndex)
   return (
-    <div className="snapshot-gallery">
+    <div className="snapshot-gallery" id='style-selector-click'>
       {styles.map((style, i) => {
         if (i === styleIndex) {
           return (

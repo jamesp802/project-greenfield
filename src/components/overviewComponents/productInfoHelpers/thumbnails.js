@@ -20,7 +20,11 @@ const Thumbnails = (props) => {
         {photos.map((photo, i) => {
           if (i === displayIndex) {
             return (
-              <img src={photo.url} className="fullscreen-selected-thumbnail" />
+              <img
+                src={photo.url}
+                id="photo-click"
+                className="fullscreen-selected-thumbnail"
+              />
             );
           } else {
             return (
@@ -28,6 +32,7 @@ const Thumbnails = (props) => {
                 src={photo.url}
                 className="fullscreen-nonselected-thumbnail"
                 onClick={() => changeDisplayIndex(i)}
+                id="photo-click"
               />
             );
           }

@@ -22,6 +22,8 @@ class RatingsAndReviews extends Component {
 
   componentDidMount() {
     this.props.getData(`http://18.224.200.47/reviews/13/list`);
+    console.log('REVIEWS:',this.props.productId);
+
   }
 
   changeView() {
@@ -99,7 +101,7 @@ class RatingsAndReviews extends Component {
 
   render() {
     return (
-      <div className="ratingsReviewContainer">
+      <div id='anchor' className="ratingsReviewContainer container">
         <div className="ratingsBreakdown">
           <RatingsBreakdown
             changeView={this.changeView}
