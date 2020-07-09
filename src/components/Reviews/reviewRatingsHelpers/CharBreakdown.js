@@ -39,8 +39,8 @@ const CharBreakdown = (props) => {
 
   return (
     <div className="char-bar-container">
-      {props.characteristics.map((char) => (
-        <>
+      {props.characteristics.map((char, i) => (
+        <React.Fragment key={i}>
           <label
             style={{
               display: 'flex',
@@ -76,7 +76,7 @@ const CharBreakdown = (props) => {
             </label>
           ) : null}
           <br />
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

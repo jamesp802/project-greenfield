@@ -15,7 +15,6 @@ class ReviewTile extends React.Component {
     };
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.handleHelp = this.handleHelp.bind(this);
     this.editState = this.editState.bind(this);
   }
 
@@ -33,16 +32,9 @@ class ReviewTile extends React.Component {
   }
 
   editState() {
-    this.setState(
-      {
-        reviewsForHelp: [...this.state.reviewsForHelp, this.props.reviews],
-      },
-      () =>
-        console.log(
-          'THIS IS REVIEWS MERGED INTO REVIEWSHELP: ',
-          this.props.reviews
-        )
-    );
+    this.setState({
+      reviewsForHelp: [...this.state.reviewsForHelp, this.props.reviews],
+    });
   }
 
   showModal(e) {
@@ -56,15 +48,6 @@ class ReviewTile extends React.Component {
     this.setState({
       show: false,
     });
-  }
-
-  handleHelp(numOfHelps) {
-    console.log('this is numOFHELPS AFTER CLICK: ', numOfHelps);
-    console.log(this.state);
-    // this.setState({
-    //   helpful: numOfHelps + 1,
-    //   addedHelp: true,
-    // });
   }
 
   render() {
@@ -137,7 +120,6 @@ class ReviewTile extends React.Component {
                     <span
                       className="add-help"
                       style={{ textDecoration: 'underline' }}
-                      onClick={this.handleHelp}
                     >
                       Yes
                     </span>
@@ -148,19 +130,13 @@ class ReviewTile extends React.Component {
                     <span
                       className="add-help"
                       style={{ textDecoration: 'underline' }}
-                      onClick={this.handleHelp}
                     >
                       Yes
                     </span>
                     ({review.helpfulness + 1})
                   </>
                 )}{' '}
-                |
-                {console.log(
-                  'this is current helfulness: ',
-                  this.state.helpful
-                )}{' '}
-                <a href="#">Report</a>
+                | <a href="#">Report</a>
               </p>
               <hr />
             </React.Fragment>
