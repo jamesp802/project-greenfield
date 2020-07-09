@@ -101,7 +101,7 @@ class RatingsAndReviews extends Component {
             handleClick={this.handleClick}
           />
         </div>
-        {/* <div className="reviewsList">{this.renderView()}</div> */}
+        <div className="reviewsList">{this.renderView()}</div>
       </div>
     );
   }

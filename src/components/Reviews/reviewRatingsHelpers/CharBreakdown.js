@@ -75,7 +75,6 @@ const CharBreakdown = (props) => {
               Perfect
             </label>
           ) : null}
-
           <br />
         </>
       ))}
