@@ -19,12 +19,8 @@ class RatingsAndReviews extends Component {
     this.loadMoreReviews = this.loadMoreReviews.bind(this);
   }
 
-  componentDidMount(params) {
-    if (params) {
-      this.props.getData(`http://18.224.200.47/reviews/13/list${params}`);
-    } else {
-      this.props.getData(`http://18.224.200.47/reviews/13/list`);
-    }
+  componentDidMount() {
+    this.props.getData(`http://18.224.200.47/reviews/13/list`);
   }
 
   changeView() {
