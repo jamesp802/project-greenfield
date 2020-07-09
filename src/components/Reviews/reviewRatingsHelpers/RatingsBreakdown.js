@@ -14,6 +14,7 @@ class RatingsBreakdown extends React.Component {
       avgRatings: 0,
       recommended: {},
       avgRecPercent: 0,
+      characteristics: [],
     };
     this.getTotalReviews = this.getTotalReviews.bind(this);
     this.getRatingsAvg = this.getRatingsAvg.bind(this);
@@ -31,10 +32,20 @@ class RatingsBreakdown extends React.Component {
           },
           () => {
             let totalReviews = this.getTotalReviews();
-            this.setState({
-              numOfRatings: totalReviews,
-              recommended: data.recommended,
-            });
+            let chars = Object.entries(data.characteristics);
+
+            this.setState(
+              {
+                numOfRatings: totalReviews,
+                recommended: data.recommended,
+                characteristics: chars,
+              },
+              () =>
+                console.log(
+                  'THESE ARE CHARACTERISTICS: ',
+                  this.state.characteristics
+                )
+            );
           }
         );
       })
@@ -105,7 +116,7 @@ class RatingsBreakdown extends React.Component {
           handleClick={this.props.handleClick}
         />
         <br />
-        <CharBreakdown />
+        <CharBreakdown characteristics={this.state.characteristics} />
       </div>
     );
   }

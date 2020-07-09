@@ -37,6 +37,10 @@
   color: lightslategray;
 }
 
+.char-bar-filler {
+  background-color: 'lightgrey';
+}
+
 .char-bar-label {
   display: flex;
   justify-content: center;
