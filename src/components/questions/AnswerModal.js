@@ -74,7 +74,7 @@ class AnswerModal extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>[Product Name]: {this.props.question[0]}</h5>
+          <h5>{this.props.product_name}: {this.props.question[0]}</h5>
           <form>
             <label>
               <div>
