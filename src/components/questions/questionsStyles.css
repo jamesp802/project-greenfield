@@ -23,15 +23,16 @@
 
 .questions-answers-button {
   font-weight: bold;
+  font-size: small;
   background-color: white;
-  color: slategray;
+  color: rgba(0, 0, 0, 0.918);
   padding: 20px 30px 20px 30px;
   margin-right: 20px;
 }
 
 #questions-container-row {
   display: grid;
-  grid-template-columns: 60%  40%;
+  grid-template-columns: 60% 40%;
   margin-right: 25%;
   margin-top: 5px;
   font-size: medium;
@@ -54,24 +55,29 @@
 
 #answer-body {
   font-size: smaller;
-  font-color: lighter;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
+  margin-top: 1%;
+  color: rgba(41, 47, 53, 0.986)
 }
 
 .answer {
-justify-self: flex-end;}
+  justify-self: flex-end;
+}
 
 .answerer-info {
-  margin-top: 1%;
+  margin-top: 1.5%;
   font-size: smaller;
+  color:  rgba(86, 92, 99, 0.966)
 }
 
 .more-answers {
-  font-size: smaller;
+  font-weight: bold;
+  font-size: x-small;
 }
 
 .helpful-submit:hover {
   text-decoration: underline;
+  font-weight: bold;
   cursor: pointer;
 }
 
