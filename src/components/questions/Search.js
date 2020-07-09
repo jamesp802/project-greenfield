@@ -32,6 +32,7 @@ class Search extends React.Component {
             onChange={this.props.handleChange}
             placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."
           ></input>
+          {/* <img src="./68213.png"/> */}
         </form>
       </div>
     );

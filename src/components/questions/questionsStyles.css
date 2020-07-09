@@ -29,28 +29,40 @@
   margin-right: 20px;
 }
 
-.questions-container-row {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-start;
+#questions-container-row {
+  display: grid;
+  grid-template-columns: 60%  40%;
+  margin-right: 25%;
   margin-top: 5px;
+  font-size: medium;
+  /* flex-flow: row wrap-reverse;
+  align-content: space-between; */
+  /* align-items: flex-start; */
+}
+
+#answers-container {
+  margin-top: 1%;
+  font-size: medium;
+  display: grid;
+  grid-template-columns: 2% 40%;
 }
 
 .helpful-span {
+  font-size: x-small;
+  margin-bottom: 0.5%;
+}
+
+#answer-body {
   font-size: smaller;
-  margin-bottom: .5%;
+  font-color: lighter;
+  margin-bottom: 5%;
 }
 
-.answer-body {
-  font-size: medium;
-}
-
-.answer{
-  align-self: flex-start;
-  justify-self: flex-end;
-}
+.answer {
+justify-self: flex-end;}
 
 .answerer-info {
+  margin-top: 1%;
   font-size: smaller;
 }
 
