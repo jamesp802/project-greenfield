@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   fetchProductInfoAction,
@@ -13,7 +14,6 @@ import PhotoGallery from "./productInfoHelpers/photoGallery";
 import Description from "./productInfoHelpers/productDescription";
 import Selectors from "./productInfoHelpers/selectors";
 import PricingNameReviews from "./productInfoHelpers/pricingNameReviews";
-
 import QuestionsWidget from "../questions/Questions";
 import ReviewsWidget from "../Reviews/RatingsAndReviews";
 
