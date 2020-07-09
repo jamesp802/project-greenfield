@@ -121,7 +121,7 @@ class QuestionsList extends React.Component {
                     <AnswerModal
                       show={this.state.showAnswerModal}
                       onHide={() => this.setAnswerModalShow()}
-                      product_name={this.props.product_id}
+                      product_name={this.props.product_name}
                       question={this.state.question}
                     />
                   </div>
@@ -129,7 +129,7 @@ class QuestionsList extends React.Component {
                     <strong>A: </strong>
                     <span>
                       <AnswersList
-                        qArray={this.props.questions}
+                        qArray={this.state.questions}
                         answers={question.answers}
                         question_id={question.question_id}
                       />
