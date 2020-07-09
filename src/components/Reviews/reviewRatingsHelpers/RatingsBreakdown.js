@@ -11,13 +11,19 @@ class RatingsBreakdown extends React.Component {
       ratings: {},
       numOfRatings: 0,
       currentRating: 0,
+      avgRatings: 0,
+      recommended: {},
+      avgRecPercent: 0,
+      characteristics: [],
     };
     this.getTotalReviews = this.getTotalReviews.bind(this);
+    this.getRatingsAvg = this.getRatingsAvg.bind(this);
+    this.getRecAvg = this.getRecAvg.bind(this);
   }
 
   componentDidMount() {
     axios
-      .get('http://18.224.200.47/reviews/4/meta')
+      .get('http://18.224.200.47/reviews/13/meta')
       .then(({ data }) => {
         console.log('this is starBreakdown data: ', data);
         this.setState(
@@ -25,14 +31,27 @@ class RatingsBreakdown extends React.Component {
             ratings: Object.assign({}, this.state.ratings, data.ratings),
           },
           () => {
-            console.log('state after object assignment: ', this.state.ratings);
             let totalReviews = this.getTotalReviews();
-            console.log('TOTAL REVIEWS', totalReviews);
-            this.setState({
-              numOfRatings: totalReviews,
-            });
+            let chars = Object.entries(data.characteristics);
+
+            this.setState(
+              {
+                numOfRatings: totalReviews,
+                recommended: data.recommended,
+                characteristics: chars,
+              },
+              () =>
+                console.log(
+                  'THESE ARE CHARACTERISTICS: ',
+                  this.state.characteristics
+                )
+            );
           }
         );
+      })
+      .then(() => {
+        this.getRatingsAvg();
+        this.getRecAvg();
       })
       .catch((err) => console.log(err));
   }
@@ -47,22 +66,46 @@ class RatingsBreakdown extends React.Component {
     }
   }
 
-  /* getRatingsAvg() {
-    return Object.keys(this.state.ratings).reduce(
-      (acc, currVal) => acc + currVal
+  getRatingsAvg() {
+    let weightedRatings = () => {
+      let result = 0;
+      for (let key in this.state.ratings) {
+        result += key * this.state.ratings[key];
+      }
+      return result;
+    };
+    let ratings = weightedRatings();
+    let numOfRatings = Object.values(this.state.ratings).reduce(
+      (acc, prev) => acc + prev
     );
-  } */
+    let avg = ratings / numOfRatings;
+    this.setState({
+      avgRatings: avg,
+    });
+  }
+
+  getRecAvg() {
+    let totalRecs = Object.values(this.state.recommended).reduce(
+      (acc, prev) => acc + prev
+    );
+    let positiveRecs = this.state.recommended['0'];
+    let avgRec = (positiveRecs / totalRecs) * 100;
+
+    this.setState({
+      avgRecPercent: avgRec,
+    });
+  }
 
   render() {
     return (
       <div>
         <h6>Ratings & Reviews</h6>
         <RatingSummary
-        // ratings={this.state.ratings}
-        // numOfRatings={this.state.numOfRatings}
+          avgRatings={this.state.avgRatings}
+          numOfRatings={this.state.numOfRatings}
         />
         <br />
-        <div>100% of reviews recommend this product</div>
+        <div>{this.state.avgRecPercent}% of reviews recommend this product</div>
         <br />
         <StarBreakdown
           changeView={this.props.changeView}
@@ -73,24 +116,10 @@ class RatingsBreakdown extends React.Component {
           handleClick={this.props.handleClick}
         />
         <br />
-        <CharBreakdown />
+        <CharBreakdown characteristics={this.state.characteristics} />
       </div>
     );
   }
 }
 
 export default RatingsBreakdown;
-
-/* const mapStateToProps = (state) => {
-  return {
-    reviews: state.reviews.reviewsData,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getData: (url) => dispatch(getReviews(url)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(RatingsBreakdown); */

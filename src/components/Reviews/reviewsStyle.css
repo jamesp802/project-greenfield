@@ -28,17 +28,17 @@
 
 .reviewsList {
   flex: 2;
-  /* display: flex; */
-  /* width: '66%'; */
-  /* justify-content: space-between; */
-  /* display: 'inline-block'; */
-  margin-left: 15%;
+  margin-left: 4em;
 }
 .remove-filter {
   text-decoration: underline;
 }
 .remove-filter:hover {
   color: lightslategray;
+}
+
+.char-bar-filler {
+  background-color: 'lightgrey';
 }
 
 .char-bar-label {
@@ -59,4 +59,56 @@
 .rating-bar-filler {
   width: 100%;
   background: grey;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.more-reviews-btn {
+  margin-right: 5%;
+  border: 1px, solid, black;
+}
+
+.review-tile {
+  overflow-y: scroll;
+  max-height: 1000px;
+}
+
+#review-summary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60ch;
+}
+
+.response {
+  background: lightgrey;
+  height: 50px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.helpful {
+  margin-top: 10px;
+}
+
+select {
+  border: none;
+  text-decoration: underline;
+}
+
+.sorting {
+  margin-top: 25px;
+}
+
+.add-help:hover {
+  color: lightslategray;
+}
+
+.char-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
