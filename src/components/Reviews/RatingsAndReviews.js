@@ -17,6 +17,7 @@ class RatingsAndReviews extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.changeView = this.changeView.bind(this);
     this.loadMoreReviews = this.loadMoreReviews.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +89,12 @@ class RatingsAndReviews extends Component {
         }
       );
     }
+  }
+
+  closeModal() {
+    this.setState({
+      filtered: false,
+    });
   }
 
   render() {

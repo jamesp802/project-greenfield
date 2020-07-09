@@ -106,3 +106,9 @@ select {
 .add-help:hover {
   color: lightslategray;
 }
+
+.char-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

@@ -13,8 +13,12 @@ class AddReview extends React.Component {
       rating: 0,
       ratingDefiniton: '',
       ratingShow: false,
+      rec: null,
+      file: null,
     };
     this.changeRating = this.changeRating.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.handlePhotoChange = this.handlePhotoChange.bind(this);
   }
 
   changeRating(newRating) {
@@ -55,9 +59,20 @@ class AddReview extends React.Component {
   }
 
   handleShow() {
-    console.log('clicked!');
     this.setState({
-      show: !this.state.show,
+      show: true,
+    });
+  }
+
+  handlePhotoChange(event) {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0]),
+    });
+  }
+
+  closeModal() {
+    this.setState({
+      show: false,
     });
   }
 
@@ -71,21 +86,22 @@ class AddReview extends React.Component {
         >
           Add Review +
         </Button>
-        <Modal show={this.state.show} onHide={this.handleShow}>
-          <Modal.Header>
+        <Modal show={this.state.show} onHide={this.closeModal}>
+          <Modal.Header closeButton>
             <Modal.Title>Write Your Review</Modal.Title>
-            About the [Product Name Here]
           </Modal.Header>
-          <br />
           <Modal.Body
             style={{
               maxHeight: 'calc(100vh - 210px)',
               overflowY: 'auto',
             }}
           >
+            About the [Product Name Here]
             <form onSubmit={(e) => this.handleSubmit(e)}>
               <div>
-                <label>Overall rating: </label> <br />
+                <br />
+                <label>1) Overall rating:* </label>
+                <br />
                 {/* STARS RATINGS */}
                 <Ratings
                   rating={this.state.rating}
@@ -107,7 +123,8 @@ class AddReview extends React.Component {
                 </span>
                 {/* THIS IS RECOMMENDATION */}
                 <div className="checkbox-inline">
-                  <p>Do you recommend this product?</p>
+                  <br />
+                  <p>2) Do you recommend this product?*</p>
                   <label>
                     <input type="radio" name="radiobutton" />
                     Yes
@@ -121,31 +138,41 @@ class AddReview extends React.Component {
                 </div>
                 {/* THESE ARE CHARACTERISTICS */}
                 <div>
-                  <p>Select Characteristics</p>
+                  <p>3) Select Characteristics Ratings*</p>
                   {['Size', 'Width', 'Comfort', 'Quality', 'Length', 'Fit'].map(
                     (char, i) => {
                       return (
                         <div key={i}>
-                          <label style={{ display: 'inline-flex' }}>
+                          <p style={{ textDecoration: 'underline' }}>{char}</p>
+                          <div className="char-select">
+                            <label>1</label>
                             <input type="checkbox" name="checkboxbutton" />
-                            {char}
-                          </label>
+                            <label>2</label>
+                            <input type="checkbox" name="checkboxbutton" />
+                            <label>3</label>
+                            <input type="checkbox" name="checkboxbutton" />
+                            <label>4</label>
+                            <input type="checkbox" name="checkboxbutton" />
+                            <label>5</label>
+                            <input type="checkbox" name="checkboxbutton" />
+                          </div>
                         </div>
                       );
                     }
                   )}
                 </div>
-                {/* THIS IS REVIEW SUMMARY */}
+                <br />
+                {/*THIS IS REVIEW SUMMARY*/}{' '}
                 <div>
-                  <p>Review Summary:</p>
+                  <p>4) Review Summary:</p>
                   <textarea
-                    maxLength="50"
+                    maxLength="60"
                     placeholder="Example: Best purchase ever!"
                   ></textarea>
                 </div>
                 {/* REVIEW BODY */}
                 <div>
-                  <p>Review Body: </p>
+                  <p>5) Review Body:* </p>
                   <textarea
                     maxLength="1000"
                     minLength="50"
@@ -157,15 +184,25 @@ class AddReview extends React.Component {
                 <br />
                 {/* photo upload */}
                 <div>
-                  <Form.File
+                  {/* <Form.File
                     id="exampleFormControlFile1"
                     label="Upload up to 5 pictures! "
+                  /> */}
+                  <input type="file" onChange={this.handlePhotoChange} />
+                  <img
+                    className="img-thumbnail"
+                    style={{
+                      width: '50px',
+                      height: '50px',
+                      display: 'inline-block',
+                    }}
+                    src={this.state.file}
                   />
                 </div>
                 <br />
                 {/* nickname */}
                 <div>
-                  <p>Username:</p>
+                  <p>6) Nickname:*</p>
                   <textarea
                     maxLength="60"
                     placeholder="Example: jackson11!"
@@ -175,9 +212,10 @@ class AddReview extends React.Component {
                     address
                   </span>
                 </div>
+                <br />
                 {/* email */}
                 <div>
-                  <p>Email:</p>
+                  <p>7) Email:*</p>
                   <textarea
                     maxLength="60"
                     placeholder="Example: jackson11@email.com"
@@ -191,7 +229,7 @@ class AddReview extends React.Component {
             <br />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => this.handleShow()}>
+            <Button variant="secondary" onClick={this.closeModal}>
               Close
             </Button>
             <Button variant="primary" onClick={() => this.handleShow()}>
@@ -205,3 +243,12 @@ class AddReview extends React.Component {
 }
 
 export default AddReview;
+
+{
+  /* <div key={i}>
+                          <label style={{ display: 'inline-flex' }}>
+                            <input type="checkbox" name="checkboxbutton" />
+                            {char}
+                          </label>
+                        </div> */
+}
