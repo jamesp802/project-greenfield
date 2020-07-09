@@ -7,6 +7,7 @@ import {
   ArrowsFullscreen,
 } from "react-bootstrap-icons";
 import Zoom from "./zoom";
+import Thumbnails from "./thumbnails";
 
 class PhotoGallery extends React.Component {
   constructor(props) {
@@ -16,12 +17,10 @@ class PhotoGallery extends React.Component {
       extend: 0,
       extendUpClassName: "hidden",
       zoomView: false,
-      image: "",
     };
     this.changeDisplayIndex = this.changeDisplayIndex.bind(this);
     this.extendThumbnailsDown = this.extendThumbnailsDown.bind(this);
     this.extendThumbnailsUp = this.extendThumbnailsUp.bind(this);
-    this.changeZoomView = this.changeZoomView.bind(this);
   }
 
   changeDisplayIndex(index) {
@@ -76,31 +75,28 @@ class PhotoGallery extends React.Component {
     });
   }
 
-  changeZoomView() {
-    let zoom = !this.state.zoomView;
-    this.setState({
-      zoomView: zoom,
-    });
-  }
-
   render() {
     return (
       <div className="photo-gallery">
         <img
           className={
-            this.state.zoomView ? "hidden" : "photo-gallery-display-image"
+            this.props.isZoomed ? "hidden" : "photo-gallery-display-image"
           }
-          onClick={this.props.fullscreen ? this.changeZoomView : null}
+          onClick={
+            this.props.fullscreen
+              ? () => this.props.changeDisplay("isZoomed")
+              : () => this.props.changeDisplay("fullscreen")
+          }
           src={this.props.photos[this.state.displayIndex].url}
         />
         <Zoom
           img={this.props.photos[this.state.displayIndex].url}
           zoomScale={3}
           height={350}
-          width={700}
-          hidden={this.state.zoomView}
+          width={660}
+          hidden={this.props.isZoomed}
           fullscreen={this.props.fullscreen}
-          changeZoomView={this.changeZoomView}
+          changeDisplay={this.props.changeDisplay}
         />
         <ArrowRight
           className="right-chevron"
@@ -115,59 +111,19 @@ class PhotoGallery extends React.Component {
           }}
         />
         <ArrowsFullscreen
-          className={`fullscreen-button`}
-          onClick={this.props.changeDisplay}
+          className={this.props.fullscreen ? 'fullscreen-button' : 'hidden'}
+          onClick={() => this.props.changeDisplay("fullscreen")}
         />
-        <ul
-          className={
-            this.props.fullscreen
-              ? "full-screen thumbnails"
-              : "thumbnail-gallery-container"
-          }
-        >
-          <li>
-            <ChevronCompactUp
-              className={this.state.extendUpClassName}
-              onClick={this.extendThumbnailsUp}
-            />
-          </li>
-          {this.props.photos
-            .slice(this.state.extend, this.state.extend + 8)
-            .map((photo, i) => {
-              if (i < 7) {
-                if (this.state.displayIndex === i) {
-                  return (
-                    <li key={i}>
-                      <img
-                        onClick={() => this.changeDisplayIndex(i)}
-                        className={"thumbnail-gallery-item selected"}
-                        src={photo.url}
-                      />
-                    </li>
-                  );
-                } else if (this.state.displayIndex !== i) {
-                  return (
-                    <li key={i}>
-                      <img
-                        onClick={() => this.changeDisplayIndex(i)}
-                        className={"thumbnail-gallery-item"}
-                        src={photo.url}
-                      />
-                    </li>
-                  );
-                }
-              } else if (i === 7) {
-                return (
-                  <li key={i}>
-                    <ChevronCompactDown
-                      className="down-chevron"
-                      onClick={this.extendThumbnailsDown}
-                    />
-                  </li>
-                );
-              }
-            })}
-        </ul>
+        <Thumbnails
+            photos={this.props.photos}
+            fullscreen={this.props.fullscreen}
+            extend={this.state.extend}
+            displayIndex={this.state.displayIndex}
+            changeDisplayIndex={this.changeDisplayIndex}
+            extendUpClassName={this.state.extendUpClassName}
+            extendThumbnailsDown={this.extendThumbnailsDown}
+            extendThumbnailsUp={this.extendThumbnailsUp}
+        />
       </div>
     );
   }

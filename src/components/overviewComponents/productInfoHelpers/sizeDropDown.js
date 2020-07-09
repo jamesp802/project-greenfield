@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const SizeDropDown = ({ style, changeHandler }) => {
+const SizeDropDown = ({ style, changeHandler, sizeSelected }) => {
   let inStockSizes = [];
 
   for (let size in style.skus) {
@@ -16,14 +16,10 @@ const SizeDropDown = ({ style, changeHandler }) => {
 
   return (
     <div>
-      <Form className='size-selector-switch'>
+      <Form className="size-selector-switch">
         <Form.Group>
-          <Form.Control
-            as="select"
-            id="size"
-            onChange={changeHandler}
-          >
-            <option value="" disabled defaultValue>Size</option>
+          <Form.Control as="select" id="size" onChange={changeHandler}>
+            {sizeSelected ? null : <option selected disabled>Size</option>}
             {inStockSizes.map((size, i) => {
               return (
                 <option value={size} key={i}>

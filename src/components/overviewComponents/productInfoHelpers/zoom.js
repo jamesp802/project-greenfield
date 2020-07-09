@@ -83,8 +83,8 @@ class Zoom extends Component {
         onMouseOut={this.handleMouseOut}
         onMouseMove={this.handleMouseMovement}
         ref={this.imageRef}
-        className={this.props.hidden ? "photo-gallery-display-image" : 'hidden'}
-        onClick={this.props.fullscreen ? this.props.changeZoomView : null}
+        className={this.props.hidden ? "photo-gallery-display-image zoomPointer" : 'hidden'}
+        onClick={() => this.props.changeDisplay('isZoomed')}
       >
         <div
           style={{
@@ -92,6 +92,7 @@ class Zoom extends Component {
             ...this.innerDivStyle,
             transform: zoom ? `scale(${zoomScale})` : "scale(1.0)",
             backgroundImage: `url(${this.props.img})`,
+            cursor: 'zoom-out'
           }}
           className={styles.zoomImg}
         />

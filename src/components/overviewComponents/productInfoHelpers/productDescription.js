@@ -6,8 +6,9 @@ const Description = ({ description, features, slogan }) => {
       <div className="description-features-container container">
         <div className="description-container">
           <span>
-          <h1 className='description-slogan'>{slogan}</h1>
-          <p className="description-text">{description}</p>
+            <h1 className="description-slogan">{slogan}</h1>
+            <p className="description-text">{description}</p>
+            <img className='social-media-icon' src='https://yourwriter.net/wp-content/uploads/2013/09/socialicons.jpg'/>
           </span>
           <ul className="features-list">
             {features.map((feature, i) => {
@@ -19,7 +20,6 @@ const Description = ({ description, features, slogan }) => {
             })}
           </ul>
         </div>
-        {/* <div className="features-container"> */}
       </div>
     );
   } else {
