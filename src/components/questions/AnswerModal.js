@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { validateEmail } from "./questionsHelpers";
+import axios from "axios";
 
 class AnswerModal extends React.Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class AnswerModal extends React.Component {
       body: "",
       name: "",
       email: "",
+      photos: [],
     };
     this.addAnswer = this.addAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -17,23 +19,22 @@ class AnswerModal extends React.Component {
   }
 
   addAnswer() {
-    const question_id = this.state.question[1];
-    const { body, name, email } = this.state;
-    // axios
-    //   .post(`http://18.224.200.47/qa/${question_id}/answers`, {
-    //     data: {
-    //       body: body,
-    //       name: name,
-    //       email: email,
-    //     },
-    //   })
-    //   .then(() => {
-    //     alert("Thank you for submitting your answer");
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
-    console.log(this.state);
+    const question_id = this.props.question[1];
+    const { body, name, email, photos } = this.state;
+    axios
+      .post(`http://18.224.200.47/qa/${question_id}/answers`, {
+          body: body,
+          name: name,
+          email: email,
+          photos: photos,
+      })
+      .then((res) => {
+        console.log(res);
+        alert("Thank you for submitting your answer");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     this.props.onHide();
   }
 
@@ -125,13 +126,13 @@ class AnswerModal extends React.Component {
                 </div>
                 <br />
                 <div>
-                  <Form>
+                  {/* <Form>
                     <Form.File
                       id="custom-file"
                       label="Add up to 5 photos to your answer"
                       custom
                     />
-                  </Form>
+                  </Form> */}
                 </div>
               </div>
             </label>

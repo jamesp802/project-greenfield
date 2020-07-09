@@ -31,7 +31,7 @@ class Questions extends React.Component {
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`)
       .then(({ data }) => {
-        // console.log(data.results);
+        console.log(data.results);
         let resultsSlice = this.sliceQuestions(data.results);
         this.setState({
           questions: data.results,
@@ -108,7 +108,8 @@ class Questions extends React.Component {
         <h4 className="main-header">QUESTIONS & ANSWERS </h4>
         <Search handleChange={this.handleChange} />
         <QuestionsList
-        product_id={this.state.product_id}
+          product_name={this.state.product_id}
+          product_id={this.state.product_id}
           questions={this.state.results}
           moreQuestions={this.moreQuestions}
         />
@@ -120,4 +121,3 @@ class Questions extends React.Component {
 export default Questions;
 
 //votes persist in localStorage
-

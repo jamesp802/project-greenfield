@@ -8,8 +8,9 @@ class AnswersList extends React.Component {
     this.state = {
       answers: [],
       more: false,
-      helpful: false,
-      reported: false,
+      helpful: [],
+      reported: [],
+      qArray: [],
     };
     this.getAnswers = this.getAnswers.bind(this);
     this.pullSeller = this.pullSeller.bind(this);
@@ -18,14 +19,18 @@ class AnswersList extends React.Component {
 
   componentDidMount() {
     this.getAnswers();
-    this.setState({
-      qArray: this.props.qArray,
-    });
+    this.setState(
+      {
+        qArray: this.props.qArray,
+      },
+      console.log(this.state.qArray)
+    );
   }
 
   getAnswers() {
+    const { question_id } = this.props;
     axios
-      .get(`http://18.224.200.47/qa/${this.props.question_id}/answers`)
+      .get(`http://18.224.200.47/qa/${question_id}/answers`)
       .then(({ data }) => {
         this.setState({
           answers: data.results,
@@ -48,33 +53,62 @@ class AnswersList extends React.Component {
     );
   }
 
+  lessAnswers() {
+    return (
+      <span
+        className="more-answers helpful-submit"
+        onClick={() => this.setState({ more: false })}
+      >
+        COLLAPSE ANSWERS
+      </span>
+    );
+  }
+
   markHelpful(event) {
     const answer_id = event.target.getAttribute("value");
-    axios
-      .put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
-      .then(() => {
-        this.setState({
-          helpful: true,
+    const helpfulArray = this.state.helpful;
+    if (localStorage.getItem(`${answer_id} helpful`)) {
+      alert("You have already submitted a vote for this answer");
+    } else {
+      helpfulArray.push(answer_id);
+      axios
+        .put(`http://18.224.200.47/qa/answer/${answer_id}/helpful`)
+        .then(() => {
+          this.setState({
+            helpful: helpfulArray,
+          });
+        })
+        .then(() => {
+          localStorage.setItem(`${answer_id} helpful`, true);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }
   }
 
   reportAnswer(event) {
     const answer_id = event.target.getAttribute("value");
     // console.log(answer_id)
-    axios
-      .put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
-      .then(() => {
-        this.setState({
-          reported: true,
+    const reportedArray = this.state.reported;
+    if (localStorage.getItem(`${answer_id} reported`)) {
+      alert("You have already reported this answer");
+    } else {
+      reportedArray.push(answer_id);
+      axios
+        .put(`http://18.224.200.47/qa/answer/${answer_id}/report`)
+        .then(() => {
+          this.setState({
+            reported: reportedArray,
+          });
+        })
+        .then(() => {
+          localStorage.setItem(`${answer_id} reported`, true);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    }
   }
 
   pullSeller(array) {
@@ -97,7 +131,7 @@ class AnswersList extends React.Component {
       <div>
         {answersArray.map((answer, index) => {
           return (
-            <div key={index} id='answer-body'>
+            <div key={index} id="answer-body">
               {answer.body}
               {/* <div>
                 {answer.photos.map((photo) => {
@@ -119,20 +153,33 @@ class AnswersList extends React.Component {
                   answer.answerer_name
                 )}
                 , {getDate(answer.date)}
-              <span className="helpful-span report">
-                {" "}| Helpful?{" "}
-                <a
-                  className="helpful-submit"
-                  value={answer.answer_id}
-                  onClick={(event) => this.reportAnswer(event)}
-                >
-                  Yes
-                </a>{" "}
-                ({answer.helpfulness}) |{" "}
-                <a className="helpful-submit" value={answer.answer_id}>
-                  Report
-                </a>
-              </span>
+                <span className="helpful-span report">
+                  {" "}
+                  | Helpful?{" "}
+                  <a
+                    className="helpful-submit"
+                    value={answer.answer_id}
+                    onClick={(event) => {
+                      this.markHelpful(event);
+                    }}
+                  >
+                    Yes
+                  </a>{" "}
+                  (
+                  {!this.state.helpful.includes(`${answer.answer_id}`)
+                    ? answer.helpfulness
+                    : (answer.helpfulness += 1)}
+                  ) |{" "}
+                  <a
+                    className="helpful-submit"
+                    value={answer.answer_id}
+                    onClick={(event) => this.reportAnswer(event)}
+                  >
+                    {!this.state.reported.includes(`${answer.answer_id}`)
+                      ? "Report"
+                      : "Reported"}
+                  </a>
+                </span>
               </div>
             </div>
           );
@@ -140,6 +187,8 @@ class AnswersList extends React.Component {
         <div>
           {!this.state.more && this.state.answers.length > 2
             ? this.moreAnswers()
+            : this.state.more
+            ? this.lessAnswers()
             : null}
         </div>
       </div>

@@ -4,6 +4,7 @@ import { getDate } from "./questionsHelpers";
 import QuestionModal from "./QuestionModal";
 import AnswerModal from "./AnswerModal";
 import { Button } from "react-bootstrap";
+import axios from "axios";
 
 class QuestionsList extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class QuestionsList extends React.Component {
       questions: this.props.questions,
       showQuestionModal: false,
       showAnswerModal: false,
-      helpful: false,
+      helpful: [],
       question: {},
     };
     this.markHelpful = this.markHelpful.bind(this);
@@ -56,21 +57,27 @@ class QuestionsList extends React.Component {
   }
 
   markHelpful(event) {
-    console.log(event.target.getAttribute('value'));
+    // console.log(event.target.getAttribute("value"));
     const question_id = event.target.getAttribute("value");
-    //   axios
-    // .put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
-    //     .then(() => {
-    //       this.setState({
-    //         helpful: true,
-    //       });
-    //     })
-    // .then(() => {
-    //   localStorage.setItem(`${question_id}`, `helpful`)
-    // })
-    //     .catch((err) => {
-    //       console.error(err);
-    //     });
+    const helpfulArray = this.state.helpful;
+    if (localStorage.getItem(`${question_id} helpful`)) {
+      alert("You have already submitted a vote for this question");
+    } else {
+      helpfulArray.push(question_id);
+      axios
+        .put(`http://18.224.200.47/qa/question/${question_id}/helpful`)
+        .then(() => {
+          this.setState({
+            helpful: helpfulArray,
+          });
+        })
+        .then(() => {
+          localStorage.setItem(`${question_id} helpful`, true);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }
 
   render() {
@@ -95,7 +102,11 @@ class QuestionsList extends React.Component {
                       >
                         Yes
                       </a>{" "}
-                      ({question.question_helpfulness}) |{" "}
+                      (
+                      {this.state.helpful.includes(`${question.question_id}`)
+                        ? (question.question_helpfulness += 1)
+                        : question.question_helpfulness}
+                      ) |{" "}
                       <a
                         className="helpful-submit"
                         question_id={question.question_id}
@@ -118,7 +129,7 @@ class QuestionsList extends React.Component {
                     <strong>A: </strong>
                     <span>
                       <AnswersList
-                        // className="answer-body"
+                        qArray={this.props.questions}
                         answers={question.answers}
                         question_id={question.question_id}
                       />
