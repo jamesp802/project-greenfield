@@ -1,8 +1,6 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import Ratings from 'react-ratings-declarative';
-import Stars from './Stars';
 import Form from './ReviewForm';
 
 class AddReview extends React.Component {
@@ -27,7 +25,6 @@ class AddReview extends React.Component {
         rating: newRating,
       },
       () => {
-        console.log('curent state', this.state.rating);
         if (this.state.rating === 1) {
           this.setState({
             ratingDefiniton: 'Poor',
@@ -97,7 +94,12 @@ class AddReview extends React.Component {
             }}
           >
             About the [Product Name Here]
-            <Form />
+            <Form
+              rating={this.state.rating}
+              ratingShow={this.state.ratingShow}
+              changeRating={this.changeRating}
+              ratingDefiniton={this.state.ratingDefiniton}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.closeModal}>
@@ -114,12 +116,3 @@ class AddReview extends React.Component {
 }
 
 export default AddReview;
-
-{
-  /* <div key={i}>
-                          <label style={{ display: 'inline-flex' }}>
-                            <input type="checkbox" name="checkboxbutton" />
-                            {char}
-                          </label>
-                        </div> */
-}

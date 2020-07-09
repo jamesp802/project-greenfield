@@ -23,7 +23,7 @@ class RatingsBreakdown extends React.Component {
 
   componentDidMount() {
     axios
-      .get('http://18.224.200.47/reviews/13/meta')
+      .get(`http://18.224.200.47/reviews/4/meta?count=30`)
       .then(({ data }) => {
         console.log('this is starBreakdown data: ', data);
         this.setState(
@@ -105,7 +105,10 @@ class RatingsBreakdown extends React.Component {
           numOfRatings={this.state.numOfRatings}
         />
         <br />
-        <div>{this.state.avgRecPercent}% of reviews recommend this product</div>
+        <div>
+          {this.state.avgRecPercent.toFixed(0)}% of reviews recommend this
+          product
+        </div>
         <br />
         <StarBreakdown
           changeView={this.props.changeView}

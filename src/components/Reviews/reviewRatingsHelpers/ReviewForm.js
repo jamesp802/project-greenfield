@@ -25,9 +25,9 @@ class ReviewForm extends React.Component {
             <br />
             {/* STARS RATINGS */}
             <Ratings
-              rating={this.state.rating}
+              rating={this.props.rating}
               widgetRatedColors="black"
-              changeRating={this.changeRating}
+              changeRating={this.props.changeRating}
             >
               <Ratings.Widget widgetDimension="15px" />
               <Ratings.Widget widgetDimension="15px" />
@@ -36,8 +36,8 @@ class ReviewForm extends React.Component {
               <Ratings.Widget widgetDimension="15px" />
             </Ratings>
             <span style={{ display: 'inline-block', marginLeft: '25px' }}>
-              {this.state.ratingShow ? (
-                <p>{this.state.ratingDefiniton}</p>
+              {this.props.ratingShow ? (
+                <p>{this.props.ratingDefiniton}</p>
               ) : (
                 <p></p>
               )}

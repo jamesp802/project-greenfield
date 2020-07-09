@@ -1,8 +1,6 @@
 import React from 'react';
 import { CaretDownFill } from 'react-bootstrap-icons';
 import '../reviewsStyle.css';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import '../reviewsStyle.css';
 
 const CharBreakdown = (props) => {
   let filterLow = (name) => {
@@ -83,37 +81,3 @@ const CharBreakdown = (props) => {
 };
 
 export default CharBreakdown;
-/*  <>
-     {props.characteristics.map((char) => {
-       <p>{JSON.stringify(char[0])}</p>;
-     })}
-   </> */
-
-{
-  /* <div className="char-bar-container">
-    <label className="char-bar-label">Quality</label>
-    <div
-    className="char-bar-filler"
-    style={{ width: `50%`, backgroundColor: 'grey' }}
-    >
-    <span className="char-bar-icon">
-    <CaretDownFill style={{ float: 'right' }} />
-    </span>
-    </div>
-    <label className="char-bar-label-left">low</label>
-    <label className="char-bar-label-right">high</label>
-    </div> */
-}
-
-{
-  /* <div className="rating-bar-container" style={{ width: '100px' }}>
-    <div
-      className="rating-bar-filler"
-      style={{ position: 'relative', width: '100%', background: 'grey' }}
-    >
-      <div style={{ position: 'absolute', right: '50%' }}>
-        <CaretDownFill />
-      </div>
-    </div>
-  </div> */
-}
