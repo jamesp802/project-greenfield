@@ -6,8 +6,8 @@ const SortingView = (props) => {
     <h6 className="sorting">
       {props.reviews.length} reviews, sorted by:
       <select>
-        {['relevance', 'helpful', 'newest'].map((option) => (
-          <option>{option}</option>
+        {['relevance', 'helpful', 'newest'].map((option, i) => (
+          <option key={i}>{option}</option>
         ))}
       </select>
     </h6>

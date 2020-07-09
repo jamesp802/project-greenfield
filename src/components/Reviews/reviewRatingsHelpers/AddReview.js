@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Ratings from 'react-ratings-declarative';
 import Form from 'react-bootstrap/Form';
+import Stars from './Stars';
 
 class AddReview extends React.Component {
   constructor(props) {
@@ -63,11 +64,15 @@ class AddReview extends React.Component {
   render() {
     return (
       <div>
-        <Button variant="primary" onClick={() => this.handleShow()}>
+        <Button
+          style={{ borderColor: 'black' }}
+          variant="light"
+          onClick={() => this.handleShow()}
+        >
           Add Review +
         </Button>
-        <Modal show={this.state.show} onHide={() => this.handleShow()}>
-          <Modal.Header closeButton>
+        <Modal show={this.state.show} onHide={this.handleShow}>
+          <Modal.Header>
             <Modal.Title>Write Your Review</Modal.Title>
             About the [Product Name Here]
           </Modal.Header>

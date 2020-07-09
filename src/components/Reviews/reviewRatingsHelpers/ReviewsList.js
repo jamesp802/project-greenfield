@@ -13,13 +13,17 @@ const ReviewsList = (props) => {
         <ReviewTile reviews={props.reviews} />
         <div className="button-container">
           {props.show ? (
-            <Button className="more-reviews-btn" onClick={props.clickHandler}>
+            <Button
+              style={{ borderColor: 'black' }}
+              variant="light"
+              className="more-reviews-btn"
+              onClick={props.clickHandler}
+            >
               More Reviews
             </Button>
           ) : (
             <p></p>
           )}
-
           <AddReview />
         </div>
       </div>

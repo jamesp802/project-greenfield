@@ -9,10 +9,40 @@ class ReviewTile extends React.Component {
     super(props);
     this.state = {
       show: false,
+      addedHelp: false,
       photo: '',
+      reviewsForHelp: [],
     };
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleHelp = this.handleHelp.bind(this);
+    this.editState = this.editState.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState(
+      {
+        reviewsForHelp: this.props.reviews,
+      },
+      () =>
+        console.log(
+          'THIS IS REVIEWS MERGED INTO REVIEWSHELP: ',
+          this.state.reviewsForHelp
+        )
+    );
+  }
+
+  editState() {
+    this.setState(
+      {
+        reviewsForHelp: [...this.state.reviewsForHelp, this.props.reviews],
+      },
+      () =>
+        console.log(
+          'THIS IS REVIEWS MERGED INTO REVIEWSHELP: ',
+          this.props.reviews
+        )
+    );
   }
 
   showModal(e) {
@@ -26,6 +56,15 @@ class ReviewTile extends React.Component {
     this.setState({
       show: false,
     });
+  }
+
+  handleHelp(numOfHelps) {
+    console.log('this is numOFHELPS AFTER CLICK: ', numOfHelps);
+    console.log(this.state);
+    // this.setState({
+    //   helpful: numOfHelps + 1,
+    //   addedHelp: true,
+    // });
   }
 
   render() {
@@ -92,8 +131,36 @@ class ReviewTile extends React.Component {
                 </span>
               ) : null}
               <p className="helpful">
-                Helpful? <a href="#">Yes</a> ({review.helpfulness}) |{' '}
-                <a href="#">Report</a>{' '}
+                Helpful?{' '}
+                {!this.state.addedHelp ? (
+                  <>
+                    <span
+                      className="add-help"
+                      style={{ textDecoration: 'underline' }}
+                      onClick={this.handleHelp}
+                    >
+                      Yes
+                    </span>
+                    ({review.helpfulness})
+                  </>
+                ) : (
+                  <>
+                    <span
+                      className="add-help"
+                      style={{ textDecoration: 'underline' }}
+                      onClick={this.handleHelp}
+                    >
+                      Yes
+                    </span>
+                    ({review.helpfulness + 1})
+                  </>
+                )}{' '}
+                |
+                {console.log(
+                  'this is current helfulness: ',
+                  this.state.helpful
+                )}{' '}
+                <a href="#">Report</a>
               </p>
               <hr />
             </React.Fragment>

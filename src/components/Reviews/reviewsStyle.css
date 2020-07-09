@@ -64,6 +64,7 @@
 
 .more-reviews-btn {
   margin-right: 5%;
+  border: 1px, solid, black;
 }
 
 .review-tile {
@@ -96,4 +97,8 @@ select {
 
 .sorting {
   margin-top: 25px;
+}
+
+.add-help:hover {
+  color: lightslategray;
 }

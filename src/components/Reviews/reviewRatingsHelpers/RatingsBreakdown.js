@@ -17,7 +17,7 @@ class RatingsBreakdown extends React.Component {
 
   componentDidMount() {
     axios
-      .get('http://18.224.200.47/reviews/4/meta')
+      .get('http://18.224.200.47/reviews/13/meta')
       .then(({ data }) => {
         console.log('this is starBreakdown data: ', data);
         this.setState(
