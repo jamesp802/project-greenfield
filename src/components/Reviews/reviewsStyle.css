@@ -19,6 +19,7 @@
 
 .progress-label-left:hover {
   color: lightgrey;
+  cursor: pointer;
 }
 
 .progress-label-right {

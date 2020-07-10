@@ -8,7 +8,7 @@ const ReviewsList = (props) => {
   return (
     <div>
       <div>
-        <SortingView />
+        <SortingView productId={props.productId} />
         <br />
         <ReviewTile reviews={props.reviews} />
         <div className="button-container">
@@ -24,7 +24,7 @@ const ReviewsList = (props) => {
           ) : (
             <p></p>
           )}
-          <AddReview />
+          <AddReview name={props.name} />
         </div>
       </div>
     </div>

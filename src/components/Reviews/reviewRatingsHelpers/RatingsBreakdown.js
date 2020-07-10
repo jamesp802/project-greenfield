@@ -23,7 +23,7 @@ class RatingsBreakdown extends React.Component {
 
   componentDidMount() {
     axios
-      .get(`http://18.224.200.47/reviews/13/meta?count=30`)
+      .get(`http://18.224.200.47/reviews/${this.props.productId}/meta?count=30`)
       .then(({ data }) => {
         this.setState(
           {
@@ -98,8 +98,10 @@ class RatingsBreakdown extends React.Component {
         />
         <br />
         <div>
-          {this.state.avgRecPercent.toFixed(0)}% of reviews recommend this
-          product
+          {this.state.avgRecPercent.toFixed(0) !== 'NaN'
+            ? this.state.avgRecPercent.toFixed(0)
+            : 0}
+          % of reviews recommend this product
         </div>
         <br />
         <StarBreakdown
