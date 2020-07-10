@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Ratings from 'react-ratings-declarative';
-import { validateEmail, alertModal } from './reviewHelpers';
+import { validateEmail } from './reviewHelpers';
 import { filterLow, filterHigh } from './CharBreakdown';
 
 class AddReview extends React.Component {
@@ -26,31 +26,26 @@ class AddReview extends React.Component {
     this.validateReview = this.validateReview.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.radioChange = this.radioChange.bind(this);
+    this.postReview = this.postReview.bind(this);
   }
 
-  postReview() {}
+  postReview() {
+    console.log('hello!');
+  }
 
   validateReview() {
-    if (
-      this.state.rating === '' ||
-      this.state.recommend === null ||
-      // this.state.characteristics === {} ||
-      this.state.body === '' ||
-      this.state.nickname === '' ||
-      this.state.email === '' ||
-      !validateEmail(this.state.email)
-    ) {
-      alert(
-        `Please properly fill out all fields-- must enter the following: 
-        rating
-        recommend
-        characterstics
-        body
-        nickname
-        email`
-      );
+    if (this.state.rating === '') {
+      alert(`Please properly fill out: rating`);
+    } else if (this.state.recommend === null) {
+      alert('Please properly fill out: recommend');
+    } else if (this.state.body === '' || this.state.body.length < 50) {
+      alert('Please properly fill out: body');
+    } else if (this.state.nickname === '') {
+      alert('Please properly fill out: Nickname');
+    } else if (!validateEmail(this.state.email)) {
+      console.log(' ');
     } else {
-      console.log('hello!!!');
+      this.postReview();
     }
   }
 
@@ -103,7 +98,6 @@ class AddReview extends React.Component {
   }
 
   radioChange(e) {
-    console.log('this is radio value: ', e.target.value);
     if (e.target.value === 'yes') {
       this.setState({
         recommend: 1,
@@ -113,6 +107,9 @@ class AddReview extends React.Component {
         recommend: 0,
       });
     }
+  }
+  handleFormChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -135,14 +132,14 @@ class AddReview extends React.Component {
               overflowY: 'auto',
             }}
           >
-            About the [Product Name Here]
+            About the {this.props.name}
             {/* <Form
               rating={this.state.rating}
               ratingShow={this.state.ratingShow}
               changeRating={this.changeRating}
               ratingDefiniton={this.state.ratingDefiniton}
             /> */}
-            <form onSubmit={(e) => this.handleSubmit(e)}>
+            <form>
               <div>
                 <br />
                 <label>1. Overall rating:* </label>
@@ -197,7 +194,10 @@ class AddReview extends React.Component {
                     (char, i) => {
                       return (
                         <div>
-                          <div>{char}</div>
+                          <div style={{ textDecoration: 'underline' }}>
+                            {char}
+                          </div>
+                          <hr />{' '}
                           <div
                             style={{
                               display: 'flex',
@@ -215,7 +215,8 @@ class AddReview extends React.Component {
                               <input
                                 style={{ float: 'left' }}
                                 type="checkbox"
-                                name="checkboxbutton"
+                                name={char}
+                                value={1}
                               />
                               <label>{filterLow(char)}</label>
                             </span>
@@ -228,7 +229,7 @@ class AddReview extends React.Component {
                                 justifyContent: 'center',
                               }}
                             >
-                              <input type="checkbox" name="checkboxbutton" />
+                              <input type="checkbox" name={char} value={2} />
                               <label>2</label>
                             </span>
 
@@ -240,7 +241,7 @@ class AddReview extends React.Component {
                                 justifyContent: 'center',
                               }}
                             >
-                              <input type="checkbox" name="checkboxbutton" />
+                              <input type="checkbox" name={char} value={3} />
                               <label>3</label>
                             </span>
 
@@ -252,7 +253,7 @@ class AddReview extends React.Component {
                                 justifyContent: 'center',
                               }}
                             >
-                              <input type="checkbox" name="checkboxbutton" />
+                              <input type="checkbox" name={char} value={4} />
                               <label>4</label>
                             </span>
 
@@ -264,7 +265,7 @@ class AddReview extends React.Component {
                                 justifyContent: 'center',
                               }}
                             >
-                              <input type="checkbox" name="checkboxbutton" />
+                              <input type="checkbox" name={char} value={5} />
                               <label style={{ float: 'right' }}>
                                 {filterHigh(char)}
                               </label>
@@ -282,6 +283,9 @@ class AddReview extends React.Component {
                   <textarea
                     maxLength="60"
                     placeholder="Example: Best purchase ever!"
+                    name="summary"
+                    onChange={(e) => this.handleFormChange(e)}
+                    value={this.state.summary}
                   ></textarea>
                 </div>
                 {/* REVIEW BODY */}
@@ -293,7 +297,17 @@ class AddReview extends React.Component {
                     rows="4"
                     cols="50"
                     placeholder="Why did you like the product or not?"
+                    name="body"
+                    onChange={(e) => this.handleFormChange(e)}
+                    value={this.state.body}
                   ></textarea>
+                  <span style={{ fontSize: '10px' }}>
+                    {this.state.body.length < 50
+                      ? `Minimum required characters left: ${
+                          50 - this.state.body.length
+                        }`
+                      : 'Minimum reached'}
+                  </span>
                 </div>
                 <br />
                 {/* photo upload */}
@@ -320,6 +334,9 @@ class AddReview extends React.Component {
                   <textarea
                     maxLength="60"
                     placeholder="Example: jackson11!"
+                    name="nickname"
+                    onChange={(e) => this.handleFormChange(e)}
+                    value={this.state.nickname}
                   ></textarea>
                   <span style={{ display: 'block', fontSize: '12px' }}>
                     For privacy reasons, do not use your full name or email
@@ -333,6 +350,9 @@ class AddReview extends React.Component {
                   <textarea
                     maxLength="60"
                     placeholder="Example: jackson11@email.com"
+                    name="email"
+                    onChange={(e) => this.handleFormChange(e)}
+                    value={this.state.email}
                   ></textarea>
                   <span style={{ display: 'block', fontSize: '12px' }}>
                     For authentication reasons, you will not be emailed

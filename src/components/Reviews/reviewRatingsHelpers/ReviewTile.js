@@ -19,16 +19,9 @@ class ReviewTile extends React.Component {
   }
 
   componentDidMount() {
-    this.setState(
-      {
-        reviewsForHelp: this.props.reviews,
-      },
-      () =>
-        console.log(
-          'THIS IS REVIEWS MERGED INTO REVIEWSHELP: ',
-          this.state.reviewsForHelp
-        )
-    );
+    this.setState({
+      reviewsForHelp: this.props.reviews,
+    });
   }
 
   editState() {

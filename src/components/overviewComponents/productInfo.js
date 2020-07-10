@@ -1,21 +1,20 @@
-
-import React from "react";
+import React from 'react';
 import {
   fetchProductInfoAction,
   fetchProductStyleListAction,
   metaDataAction,
-} from "../../actions/overviewActions/productInfoActions";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { Button, Navbar, Container, Form, FormControl } from "react-bootstrap";
-import { Search } from "react-bootstrap-icons";
+} from '../../actions/overviewActions/productInfoActions';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { Button, Navbar, Container, Form, FormControl } from 'react-bootstrap';
+import { Search } from 'react-bootstrap-icons';
 
-import PhotoGallery from "./productInfoHelpers/photoGallery";
-import Description from "./productInfoHelpers/productDescription";
-import Selectors from "./productInfoHelpers/selectors";
-import PricingNameReviews from "./productInfoHelpers/pricingNameReviews";
-import QuestionsWidget from "../questions/Questions";
-import ReviewsWidget from "../Reviews/RatingsAndReviews";
+import PhotoGallery from './productInfoHelpers/photoGallery';
+import Description from './productInfoHelpers/productDescription';
+import Selectors from './productInfoHelpers/selectors';
+import PricingNameReviews from './productInfoHelpers/pricingNameReviews';
+import QuestionsWidget from '../questions/Questions';
+import ReviewsWidget from '../Reviews/RatingsAndReviews';
 
 class ProductInfo extends React.Component {
   constructor(props) {
@@ -119,7 +118,7 @@ class ProductInfo extends React.Component {
           className="container"
           onClick={(e) => {
             if (e.target.id) {
-              console.log(this.props.metaData)
+              console.log(this.props.metaData);
               return this.props.metaDataAction(e.target.id);
             }
           }}
@@ -139,7 +138,7 @@ class ProductInfo extends React.Component {
             {this.photoDisplayRender()}
             <div
               className={`product-info ${
-                this.state.fullscreen ? "hidden" : ""
+                this.state.fullscreen ? 'hidden' : ''
               }`}
             >
               <PricingNameReviews
@@ -181,7 +180,7 @@ class ProductInfo extends React.Component {
         />
         <ReviewsWidget
           productId={this.props.match.params.id}
-          name={productInfo.name}
+          name={productInfo.name ? productInfo.name : 'hello'}
         />
       </>
     );

@@ -5,7 +5,7 @@ import { getReviews } from '../../../actions/ReviewActions/actions';
 const SortingView = (props) => {
   let sort = (e) => {
     props.getData(
-      `http://18.224.200.47/reviews/13/list?count=30&sort=${e.target.value}`
+      `http://18.224.200.47/reviews/${props.productId}/list?count=30&sort=${e.target.value}`
     );
   };
   return (

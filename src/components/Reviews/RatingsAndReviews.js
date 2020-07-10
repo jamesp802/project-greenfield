@@ -21,7 +21,9 @@ class RatingsAndReviews extends Component {
   }
 
   componentDidMount() {
-    this.props.getData(`http://18.224.200.47/reviews/13/list?count=30`);
+    this.props.getData(
+      `http://18.224.200.47/reviews/${this.props.productId}/list?count=30`
+    );
   }
 
   changeView() {
@@ -49,6 +51,8 @@ class RatingsAndReviews extends Component {
       let reviews = this.props.reviews.slice(0, this.state.numOfReviews);
       return (
         <ReviewsList
+          name={this.props.name}
+          productId={this.props.productId}
           show={this.state.showMore}
           clickHandler={this.loadMoreReviews}
           reviews={reviews}
@@ -99,9 +103,10 @@ class RatingsAndReviews extends Component {
 
   render() {
     return (
-      <div id='anchor' className="ratingsReviewContainer container">
+      <div id="anchor" className="ratingsReviewContainer container">
         <div className="ratingsBreakdown">
           <RatingsBreakdown
+            productId={this.props.productId}
             changeView={this.changeView}
             stars={this.state.starCount}
             filtered={this.state.filtered}
