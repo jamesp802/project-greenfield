@@ -19,8 +19,6 @@ const PricingNameReviews = ({
     price = productStyle.sale_price;
     sale = true;
   }
-
-  console.log(productStyle);
   return (
     <>
       <div className="overview-stars">

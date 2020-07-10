@@ -2,7 +2,6 @@ import React from "react";
 // import { Carousel } from "react-bootstrap";
 
 const SnapshotGallery = ({ styles, changeHandler, styleIndex }) => {
-  console.log(styleIndex)
   return (
     <div className="snapshot-gallery" id='style-selector-click'>
       {styles.map((style, i) => {
