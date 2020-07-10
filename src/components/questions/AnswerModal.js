@@ -15,7 +15,6 @@ class AnswerModal extends React.Component {
     this.addAnswer = this.addAnswer.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.validateAnswer = this.validateAnswer.bind(this);
-    // console.log(props);
   }
 
   addAnswer() {
@@ -29,7 +28,6 @@ class AnswerModal extends React.Component {
         photos: photos,
       })
       .then((res) => {
-        // console.log(res);
         alert("Thank you for submitting your answer");
       })
       .catch((err) => {

@@ -1,44 +1,25 @@
 import React from "react";
-import axios from 'axios';
+import axios from "axios";
+import { Search } from "react-bootstrap-icons";
 
-// import { Container, Row, Col } from "react-bootstrap";
+const Searchbar = (props) => {
+  return (
+    <div>
+      <form>
+        <label for='search questions'/>
+        <input
+          className="search-bar-row"
+          type="text"
+          label="search"
+          onChange={props.handleChange}
+          placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."
+        ></input>
+        <Search id='search-icon'/>
+      </form>
+    </div>
+  );
+};
 
-class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   input: "",
-    // };
-    // this.handleChange = this.handleChange.bind(this);
-  }
-
-  // handleChange(event) {
-  //   const value = event.target.value;
-  //   this.setState({
-  //     input: value,
-  //   });
-  //   if (this.state.input.length >= 3) {
-  //     this.props.searchQuestions(this.state.input);
-  //   }
-  // }
-
-  render() {
-    return (
-      <div>
-        <form>
-          <input  className='search-bar-row'
-            type="text"
-            label="search"
-            onChange={this.props.handleChange}
-            placeholder="  HAVE A QUESTION? SEARCH FOR ANSWERS..."
-          ></input>
-          <img className='search-bar-img' src="https://i.ya-webdesign.com/images/magnifying-glass-3.svg" height="30px" width="40px"/>
-        </form>
-      </div>
-    );
-  }
-}
-
-export default Search;
+export default Searchbar;
 
 //TODO: //render questions relevant to search

@@ -14,14 +14,11 @@ class QuestionModal extends React.Component {
     this.addQuestion = this.addQuestion.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.validateQuestion = this.validateQuestion.bind(this);
-
-    // console.log(this.props);
   }
 
   addQuestion() {
     const { body, name, email } = this.state;
     const { product_id } = this.props;
-    // console.log(product_id);
     axios
       .post(`http://18.224.200.47/qa/${product_id}`, {
         body: body,
