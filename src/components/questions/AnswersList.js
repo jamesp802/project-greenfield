@@ -10,7 +10,6 @@ class AnswersList extends React.Component {
       more: false,
       helpful: [],
       reported: [],
-      qArray: [],
     };
     this.getAnswers = this.getAnswers.bind(this);
     this.pullSeller = this.pullSeller.bind(this);
@@ -19,12 +18,6 @@ class AnswersList extends React.Component {
 
   componentDidMount() {
     this.getAnswers();
-    this.setState(
-      {
-        qArray: this.props.qArray,
-      },
-      console.log(this.state.qArray)
-    );
   }
 
   getAnswers() {
@@ -32,8 +25,8 @@ class AnswersList extends React.Component {
     axios
       .get(`http://18.224.200.47/qa/${question_id}/answers`, {
         params: {
-          count: 10
-        }
+          count: 10,
+        },
       })
       .then(({ data }) => {
         this.setState({

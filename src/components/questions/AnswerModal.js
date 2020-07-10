@@ -23,10 +23,10 @@ class AnswerModal extends React.Component {
     const { body, name, email, photos } = this.state;
     axios
       .post(`http://18.224.200.47/qa/${question_id}/answers`, {
-          body: body,
-          name: name,
-          email: email,
-          photos: photos,
+        body: body,
+        name: name,
+        email: email,
+        photos: photos,
       })
       .then((res) => {
         // console.log(res);
@@ -39,15 +39,20 @@ class AnswerModal extends React.Component {
   }
 
   validateAnswer() {
-    if (
-      this.state.body === "" ||
-      this.state.name === "" ||
-      this.state.email === "" ||
-      !validateEmail(this.state.email)
-    ) {
-      alert("You must enter the following:");
+    const invalid = [];
+    if (this.state.body === "") {
+      invalid.push("answer");
+    }
+    if (this.state.name === "") {
+      invalid.push("nickname");
+    }
+    if (this.state.email === "" || !validateEmail(this.state.email)) {
+      invalid.push("e-mail");
+    }
+    if (invalid.length === 0) {
+      this.addQuestion();
     } else {
-      this.addAnswer();
+      alert("You must enter the following: " + `${invalid[0]}`);
     }
   }
 
@@ -74,68 +79,71 @@ class AnswerModal extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h5>{this.props.product_name}: {this.props.question[0]}</h5>
+          <h5>
+            {this.props.product_name}: {this.props.question[0]}
+          </h5>
           <form>
-            <label>
+            <div>
               <div>
-                <div>
-                  <p>Your Answer*</p>
-                  <textarea
-                    name="body"
-                    minLength="10"
-                    maxLength="1000"
-                    style={{
-                      paddingBottom: "100px",
-                      whiteSpace: "wrap",
-                      width: "85%",
-                    }}
-                    onChange={this.handleChange}
-                  ></textarea>
-                </div>
+                <label for="answer">Your Answer*</label>
                 <br />
-                <div>
-                  <p>What is your nickname*</p>
-                  <input
-                    name="name"
-                    maxLength="60"
-                    placeholder="Example: jack543!"
-                    style={{ width: "85%" }}
-                    onChange={this.handleChange}
-                  ></input>
-                  <br />
-                  <span className="disclaimer">
-                    For privacy reasons, do not use your full name or email
-                    address
-                  </span>
-                  <br />
-                  <br />
-                </div>
-                <div>
-                  <p>Your email*</p>
-                  <input
-                    name="email"
-                    maxLength="60"
-                    placeholder="Example: jack@email.com"
-                    style={{ width: "85%" }}
-                    onChange={this.handleChange}
-                  ></input>
-                  <br />
-                  <span className="disclaimer">
-                    For authentication reasons, you will not be emailed
-                  </span>
-                </div>
+                <textarea
+                  name="body"
+                  minLength="10"
+                  maxLength="1000"
+                  style={{
+                    paddingBottom: "100px",
+                    whiteSpace: "wrap",
+                    width: "85%",
+                  }}
+                  onChange={this.handleChange}
+                ></textarea>
+              </div>
+              <br />
+              <div>
+                <label for="nickname">What is your nickname*</label>
                 <br />
-                <div>
-                  {/* <Form>
+                <input
+                  name="name"
+                  maxLength="60"
+                  placeholder="Example: jack543!"
+                  style={{ width: "85%" }}
+                  onChange={this.handleChange}
+                ></input>
+                <br />
+                <span className="disclaimer">
+                  For privacy reasons, do not use your full name or email
+                  address
+                </span>
+                <br />
+                <br />
+              </div>
+              <div>
+                <label for="email">Your email*</label>
+                <br />
+                <input
+                  name="email"
+                  maxLength="60"
+                  placeholder="Example: jack@email.com"
+                  style={{ width: "85%" }}
+                  onChange={this.handleChange}
+                ></input>
+                <br />
+                <span className="disclaimer">
+                  For authentication reasons, you will not be emailed
+                </span>
+              </div>
+              <br />
+              <div>
+                {/* <Form>
                     <Form.File
                       id="custom-file"
                       label="Add up to 5 photos to your answer"
                       custom
                     />
                   </Form> */}
-                </div>
               </div>
-            </label>
+            </div>
           </form>
           <br />
         </Modal.Body>

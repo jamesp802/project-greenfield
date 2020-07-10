@@ -38,15 +38,20 @@ class QuestionModal extends React.Component {
   }
 
   validateQuestion() {
-    if (
-      this.state.body === "" ||
-      this.state.name === "" ||
-      this.state.email === "" ||
-      !validateEmail(this.state.email)
-    ) {
-      alert("You must enter the following:");
-    } else {
+    const invalid = [];
+    if (this.state.body === "") {
+      invalid.push("question");
+    }
+    if (this.state.name === "") {
+      invalid.push("nickname");
+    }
+    if (this.state.email === "" || !validateEmail(this.state.email)) {
+      invalid.push("e-mail");
+    }
+    if (invalid.length === 0) {
       this.addQuestion();
+    } else {
+      alert("You must enter the following: " + `${invalid[0]}`);
     }
   }
 
@@ -75,56 +80,57 @@ class QuestionModal extends React.Component {
         <Modal.Body>
           <h5>About {this.props.product_name}</h5>
           <form>
-            <label>
+            <div>
               <div>
-                <div>
-                  <p>Your question*</p>
-                  <textarea
-                    name="body"
-                    minLength="10"
-                    maxLength="1000"
-                    style={{
-                      paddingBottom: "100px",
-                      whiteSpace: "wrap",
-                      width: "85%",
-                    }}
-                    onChange={this.handleChange}
-                  ></textarea>
-                </div>
+                <label for="question">Your question*</label>
                 <br />
-                <div>
-                  <p>What is your nickname*</p>
-                  <input
-                    name="name"
-                    maxLength="60"
-                    placeholder="Example: jackson11!"
-                    style={{ width: "85%" }}
-                    onChange={this.handleChange}
-                  ></input>
-                  <br />
-                  <span className="disclaimer">
-                    For privacy reasons, do not use your full name or email
-                    address
-                  </span>
-                  <br />
-                  <br />
-                </div>
-                <div>
-                  <p>Your email*</p>
-                  <input
-                    name="email"
-                    maxLength="60"
-                    placeholder="Example: jackson11@email.com"
-                    style={{ width: "85%" }}
-                    onChange={this.handleChange}
-                  ></input>
-                  <br />
-                  <span className="disclaimer">
-                    For authentication reasons, you will not be emailed
-                  </span>
-                </div>
+                <textarea
+                  name="body"
+                  minLength="10"
+                  maxLength="1000"
+                  style={{
+                    paddingBottom: "100px",
+                    whiteSpace: "wrap",
+                    width: "85%",
+                  }}
+                  onChange={this.handleChange}
+                ></textarea>
               </div>
-            </label>
+              <br />
+              <div>
+                <label for="nickname">What is your nickname*</label>
+                <br />
+                <input
+                  name="name"
+                  maxLength="60"
+                  placeholder="Example: jackson11!"
+                  style={{ width: "85%" }}
+                  onChange={this.handleChange}
+                ></input>
+                <br />
+                <span className="disclaimer">
+                  For privacy reasons, do not use your full name or email
+                  address
+                </span>
+                <br />
+                <br />
+              </div>
+              <div>
+                <label for="email">Your email*</label>
+                <br />
+                <input
+                  name="email"
+                  maxLength="60"
+                  placeholder="Example: jackson11@email.com"
+                  style={{ width: "85%" }}
+                  onChange={this.handleChange}
+                ></input>
+                <br />
+                <span className="disclaimer">
+                  For authentication reasons, you will not be emailed
+                </span>
+              </div>
+            </div>
           </form>
           <br />
         </Modal.Body>
