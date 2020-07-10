@@ -15,7 +15,6 @@ class Questions extends React.Component {
       moreQuestions: 0,
       product_id: this.props.productId || 5,
       input: "",
-      product_name: this.props.name,
     };
     this.getQuestions = this.getQuestions.bind(this);
     this.searchQuestions = this.searchQuestions.bind(this);
@@ -27,15 +26,14 @@ class Questions extends React.Component {
 
   componentDidMount() {
     this.getQuestions();
-    console.log("QUESTIONS", this.state.product_id);
   }
 
   getQuestions() {
     axios
       .get(`http://18.224.200.47/qa/${this.state.product_id}`, {
         params: {
-          count: 10
-        }
+          count: 10,
+        },
       })
       .then(({ data }) => {
         console.log(data.results);
@@ -120,7 +118,7 @@ class Questions extends React.Component {
         <h4 className="main-header">{"QUESTIONS & ANSWERS"} </h4>
         <Search handleChange={this.handleChange} />
         <QuestionsList
-          product_name={this.state.product_name}
+          product_name={this.props.name}
           product_id={this.state.product_id}
           questions={this.state.results}
           moreQuestions={this.moreQuestions}
@@ -131,5 +129,3 @@ class Questions extends React.Component {
 }
 
 export default Questions;
-
-//votes persist in localStorage
