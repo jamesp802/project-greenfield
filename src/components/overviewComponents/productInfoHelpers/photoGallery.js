@@ -92,8 +92,8 @@ class PhotoGallery extends React.Component {
         <Zoom
           img={this.props.photos[this.state.displayIndex].url}
           zoomScale={3}
-          height={300}
-          width={689}
+          height={500}
+          width={1110}
           hidden={this.props.isZoomed}
           fullscreen={this.props.fullscreen}
           changeDisplay={this.props.changeDisplay}

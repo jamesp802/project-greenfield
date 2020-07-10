@@ -177,7 +177,7 @@ class ProductInfo extends React.Component {
         </div>
         <QuestionsWidget
           productId={this.props.match.params.id}
-          name={productInfo.name}
+          name={productInfo.name ? productInfo.name : 'i DiDNt Get My ProPs'}
         />
         <ReviewsWidget
           productId={this.props.match.params.id}

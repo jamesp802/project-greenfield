@@ -114,6 +114,7 @@ class Questions extends React.Component {
   }
 
   render() {
+    console.log(this.props.name)
     return (
       <div className="questions-answers-container container">
         <h4 className="main-header">{"QUESTIONS & ANSWERS"} </h4>
