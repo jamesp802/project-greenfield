@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Ratings from 'react-ratings-declarative';
 import { validateEmail } from './reviewHelpers';
 import { filterLow, filterHigh } from './CharBreakdown';
+import axios from 'axios';
 
 class AddReview extends React.Component {
   constructor(props) {
@@ -30,7 +31,23 @@ class AddReview extends React.Component {
   }
 
   postReview() {
-    console.log('hello!');
+    let post = {
+      rating: this.state.rating,
+      summary: this.state.summary,
+      body: this.state.body,
+      recommend: this.state.recommend,
+      name: this.state.nickname,
+      email: this.state.email,
+      photos: [],
+      characteristics: {},
+    };
+    axios
+      .post(`http://18.224.200.47/reviews/${this.props.productId}`, post)
+      .then((response) => {
+        this.handleShow();
+        this.props.loadMoreReviews();
+      })
+      .catch((err) => console.log(err));
   }
 
   validateReview() {
@@ -133,12 +150,6 @@ class AddReview extends React.Component {
             }}
           >
             About the {this.props.name}
-            {/* <Form
-              rating={this.state.rating}
-              ratingShow={this.state.ratingShow}
-              changeRating={this.changeRating}
-              ratingDefiniton={this.state.ratingDefiniton}
-            /> */}
             <form>
               <div>
                 <br />
@@ -193,7 +204,7 @@ class AddReview extends React.Component {
                   {['Size', 'Width', 'Comfort', 'Quality', 'Length', 'Fit'].map(
                     (char, i) => {
                       return (
-                        <div>
+                        <div key={i}>
                           <div style={{ textDecoration: 'underline' }}>
                             {char}
                           </div>
@@ -301,6 +312,7 @@ class AddReview extends React.Component {
                     onChange={(e) => this.handleFormChange(e)}
                     value={this.state.body}
                   ></textarea>
+                  <br />
                   <span style={{ fontSize: '10px' }}>
                     {this.state.body.length < 50
                       ? `Minimum required characters left: ${
@@ -312,10 +324,6 @@ class AddReview extends React.Component {
                 <br />
                 {/* photo upload */}
                 <div>
-                  {/* <Form.File
-                  id="exampleFormControlFile1"
-                  label="Upload up to 5 pictures! "
-                /> */}
                   <input type="file" onChange={this.handlePhotoChange} />
                   <img
                     className="img-thumbnail"
@@ -381,24 +389,3 @@ class AddReview extends React.Component {
 }
 
 export default AddReview;
-// <div key={i}>
-//   <p style={{ textDecoration: 'underline' }}>{char}</p>
-//   <div className="char-select">
-//     {/* <Radio name="groupOptions">Option 1</Radio>
-// <Radio name="groupOptions">Option 2</Radio>
-// <Radio name="groupOptions">Option 3</Radio> */}
-//     <label>1</label>
-//     <input type="checkbox" name="checkboxbutton" />
-//     <label>2</label>
-//     <input type="checkbox" name="checkboxbutton" />
-//     <label>3</label>
-//     <input type="checkbox" name="checkboxbutton" />
-//     <label>4</label>
-//     <input type="checkbox" name="checkboxbutton" />
-//     <label>5</label>
-//     <input type="checkbox" name="checkboxbutton" />
-//   </div>
-// </div>
-//   );
-// }
-// )}
