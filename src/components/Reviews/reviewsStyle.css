@@ -4,6 +4,7 @@
   width: 80%;
   min-height: 300px;
   margin: 0 auto;
+  margin-top: 20px;
 }
 
 .ratingsBreakdown {
@@ -98,7 +99,6 @@
 
 select {
   border: none;
-  /* text-decoration: underline; */
 }
 
 .sorting {

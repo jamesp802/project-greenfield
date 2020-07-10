@@ -11,7 +11,7 @@ const SortingView = (props) => {
   return (
     <h6 className="sorting">
       {props.reviews.length} reviews, sorted by:
-      <select onChange={(e) => sort(e)}>
+      <select style={{ textDecoration: 'underline' }} onChange={(e) => sort(e)}>
         <option value={'relevant'}>relevance</option>
         <option value={'helpful'}>helpful</option>
         <option value={'newest'}>newest</option>

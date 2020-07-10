@@ -51,6 +51,7 @@ class RatingsAndReviews extends Component {
       let reviews = this.props.reviews.slice(0, this.state.numOfReviews);
       return (
         <ReviewsList
+          loadMoreReviews={this.loadMoreReviews}
           name={this.props.name}
           productId={this.props.productId}
           show={this.state.showMore}
@@ -62,7 +63,9 @@ class RatingsAndReviews extends Component {
       let filtered = this.props.reviews.filter((review) =>
         this.state.starCount.includes(review.rating)
       );
-      return <ReviewsList reviews={filtered} />;
+      return (
+        <ReviewsList reviews={filtered} productId={this.props.productId} />
+      );
     }
   }
 

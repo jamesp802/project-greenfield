@@ -24,7 +24,11 @@ const ReviewsList = (props) => {
           ) : (
             <p></p>
           )}
-          <AddReview name={props.name} />
+          <AddReview
+            loadMoreReviews={props.loadMoreReviews}
+            name={props.name}
+            productId={props.productId}
+          />
         </div>
       </div>
     </div>

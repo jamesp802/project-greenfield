@@ -39,40 +39,46 @@ export const CharBreakdown = (props) => {
     <div className="char-bar-container">
       {props.characteristics.map((char, i) => (
         <React.Fragment key={i}>
-          <label
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              padding: '10px',
-              fontSize: '15px',
-              fontWeight: 'bold',
-            }}
-          >
-            {char[0]}
-          </label>
-          <div style={{ backgroundColor: 'lightgrey' }}>
-            <div
-              className="char-bar-filler"
-              style={{
-                height: '10px',
-                width: `${(char[1].value / 5) * 100}%`,
-              }}
-            >
-              <CaretDownFill style={{ float: 'right' }} />
-            </div>
-          </div>
-          <label style={{ float: 'left' }}>{filterLow(char[0])}</label>
-          <label style={{ float: 'right' }}>{filterHigh(char[0])}</label>
-          {char[0] !== 'Comfort' && char[0] !== 'Quality' ? (
+          <div className="indy-container">
             <label
               style={{
                 display: 'flex',
                 justifyContent: 'center',
+                padding: '10px',
+                fontSize: '15px',
+                fontWeight: 'bold',
               }}
             >
-              Perfect
+              {char[0]}
             </label>
-          ) : null}
+            <div style={{ backgroundColor: 'lightgrey' }}>
+              <div
+                className="char-bar-filler"
+                style={{
+                  height: '10px',
+                  width: `${(char[1].value / 5) * 100}%`,
+                }}
+              >
+                <CaretDownFill style={{ float: 'right' }} />
+              </div>
+            </div>
+            <div
+              className="label-container"
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                width: '100%',
+              }}
+            >
+              <label>{filterLow(char[0])}</label>
+              <label style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {filterHigh(char[0])}
+              </label>
+              {char[0] !== 'Comfort' && char[0] !== 'Quality' ? (
+                <label>Perfect</label>
+              ) : null}
+            </div>
+          </div>
           <br />
         </React.Fragment>
       ))}

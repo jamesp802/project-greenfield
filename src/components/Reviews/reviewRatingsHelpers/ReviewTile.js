@@ -13,9 +13,9 @@ class ReviewTile extends React.Component {
       photo: '',
       reviewsForHelp: [],
     };
+    this.editState = this.editState.bind(this);
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.editState = this.editState.bind(this);
   }
 
   componentDidMount() {
@@ -126,10 +126,16 @@ class ReviewTile extends React.Component {
                     >
                       Yes
                     </span>
-                    ({review.helpfulness + 1})
+                    ({review.helpfulness})
                   </>
                 )}{' '}
-                | <a href="#">Report</a>
+                |{' '}
+                <span
+                  className="add-help"
+                  style={{ textDecoration: 'underline' }}
+                >
+                  Report
+                </span>
               </p>
               <hr />
             </React.Fragment>

@@ -9,7 +9,6 @@ export const getReviews = (url) => (dispatch) => {
   axios
     .get(url)
     .then(({ data }) => {
-      console.log('data from axios: ', data);
       dispatch(reviewAction(data));
     })
     .catch((err) => console.log(err));
