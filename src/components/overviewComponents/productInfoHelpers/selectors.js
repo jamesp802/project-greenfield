@@ -25,11 +25,11 @@ const Selectors = ({
         sizeSelected={size}
       />
       <QuantityDropDown skus={style.skus} size={size} />
-      <Button variant="outline-secondary" className="addToCart" onClick={submitCart} id='cart-click'>
+      <Button variant="outline-secondary" size='lg' className="addToCart" onClick={submitCart} id='cart-click'>
         Add to Bag
         <CartPlus style={{float: 'right', paddingTop: '4px'}}/>
       </Button>
-      <Button variant="outline-secondary" className="favorite-button"           id='favorite-click'>
+      <Button variant="outline-secondary" className="favorite-button"           id='favorite-click' size='lg'>
         <Heart/>
       </Button>
     </>
