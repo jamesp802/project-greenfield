@@ -36,7 +36,6 @@ class Questions extends React.Component {
         },
       })
       .then(({ data }) => {
-        console.log(data.results);
         let resultsSlice = this.sliceQuestions(data.results);
         this.setState({
           questions: data.results,
@@ -107,12 +106,7 @@ class Questions extends React.Component {
     }
   }
 
-  handleClick(target) {
-    console.log(target);
-  }
-
   render() {
-    console.log(this.props.name)
     return (
       <div className="questions-answers-container container">
         <h4 className="main-header">{"QUESTIONS & ANSWERS"} </h4>

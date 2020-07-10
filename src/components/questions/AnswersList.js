@@ -13,7 +13,6 @@ class AnswersList extends React.Component {
     };
     this.getAnswers = this.getAnswers.bind(this);
     this.pullSeller = this.pullSeller.bind(this);
-    // console.log(this.state.questions)
   }
 
   componentDidMount() {
@@ -32,7 +31,6 @@ class AnswersList extends React.Component {
         this.setState({
           answers: data.results,
         });
-        // console.log(this.state.answers);
       })
       .catch((err) => {
         console.error(err);
@@ -86,7 +84,6 @@ class AnswersList extends React.Component {
 
   reportAnswer(event) {
     const answer_id = event.target.getAttribute("value");
-    // console.log(answer_id)
     const reportedArray = this.state.reported;
     if (localStorage.getItem(`${answer_id} reported`)) {
       alert("You have already reported this answer");

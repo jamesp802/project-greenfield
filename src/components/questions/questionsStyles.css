@@ -7,10 +7,9 @@
   height: 50px;
 }
 
-/* .search-bar-img {
-  margin-right: 25%;
-  position: relative;
-} */
+#search-icon {
+  margin-left: -4%;
+}
 
 .questions-container {
   display: flex;
