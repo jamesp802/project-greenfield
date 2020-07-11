@@ -21,8 +21,6 @@ class Questions extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.moreQuestions = this.moreQuestions.bind(this);
     this.sliceQuestions = this.sliceQuestions.bind(this);
-    // this.handleClick = this.handleClick.bind(this);
-  }
 
   componentDidMount() {
     this.getQuestions();
@@ -36,7 +34,7 @@ class Questions extends React.Component {
         },
       })
       .then(({ data }) => {
-        let resultsSlice = this.sliceQuestions(data.results);
+        const resultsSlice = this.sliceQuestions(data.results);
         this.setState({
           questions: data.results,
           results: resultsSlice,
@@ -67,7 +65,7 @@ class Questions extends React.Component {
         if (this.state.input.length >= 3) {
           this.searchQuestions(this.state.input);
         } else if (this.state.input.length < 3) {
-          let resultsSlice = this.sliceQuestions(this.state.questions);
+          const resultsSlice = this.sliceQuestions(this.state.questions);
           this.setState({
             results: resultsSlice,
           });
@@ -77,7 +75,7 @@ class Questions extends React.Component {
   }
 
   searchQuestions(value) {
-    let resultsArray = this.state.questions;
+    const resultsArray = this.state.questions;
     resultsArray = resultsArray.filter(
       (question) =>
         question.question_body.toLowerCase().indexOf(value.toLowerCase()) !== -1

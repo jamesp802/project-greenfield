@@ -48,7 +48,7 @@ class AnswerModal extends React.Component {
       invalid.push("e-mail");
     }
     if (invalid.length === 0) {
-      this.addQuestion();
+      this.addAnswer();
     } else {
       alert("You must enter the following: " + `${invalid[0]}`);
     }
@@ -133,13 +133,13 @@ class AnswerModal extends React.Component {
               </div>
               <br />
               <div>
-                {/* <Form>
-                    <Form.File
-                      id="custom-file"
-                      label="Add up to 5 photos to your answer"
-                      custom
-                    />
-                  </Form> */}
+                <Form>
+                  <Form.File
+                    id="custom-file"
+                    label="Add up to 5 photos to your answer"
+                    custom
+                  />
+                </Form>
               </div>
             </div>
           </form>

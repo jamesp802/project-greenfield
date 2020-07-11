@@ -20,17 +20,6 @@ class QuestionsList extends React.Component {
     this.addAnswer = this.addAnswer.bind(this);
   }
 
-  componentDidMount() {
-    const result = localStorage.getItem(`${this.props.questions.question_id}`);
-    // console.log(result);
-    // this.setState(
-    //   {
-    //     helpful: result,
-    //   }
-    // );
-    // console.log(this.props)
-  }
-
   setQuestionModalShow() {
     this.state.showQuestionModal
       ? this.setState({ showQuestionModal: false })
@@ -44,10 +33,9 @@ class QuestionsList extends React.Component {
   }
 
   addAnswer(event) {
-    let question = [];
+    const question = [];
     question.push(event.target.getAttribute("question_body"));
     question.push(event.target.getAttribute("question_id"));
-    console.log(question);
     this.setState(
       {
         question: question,
@@ -57,7 +45,6 @@ class QuestionsList extends React.Component {
   }
 
   markHelpful(event) {
-    // console.log(event.target.getAttribute("value"));
     const question_id = event.target.getAttribute("value");
     const helpfulArray = this.state.helpful;
     if (localStorage.getItem(`${question_id} helpful`)) {
@@ -173,10 +160,10 @@ export default QuestionsList;
 
 // reportQuestion(event) {
 //   event.preventDefault();
-//   // let value = event.target.value;
+//   const question_id = event.target.getAttribute("value");
 //   axios.put(`http://18.224.200.47/qa/question/${question_id}/report`)
 //   .then(() => {
-//     console.log('reported')
+//     alert('Question reported - thank you')
 //   })
 //   .catch(err => {
 //     console.error(err);
