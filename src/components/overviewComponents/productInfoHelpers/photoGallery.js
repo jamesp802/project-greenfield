@@ -5,7 +5,7 @@ import {
   ChevronCompactDown,
   ChevronCompactUp,
   ArrowsFullscreen,
-} from "react-bootstrap-i";
+} from "react-bootstrap-icons";
 import Zoom from "./zoom";
 import Thumbnails from "./thumbnails";
 
