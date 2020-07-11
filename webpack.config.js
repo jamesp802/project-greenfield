@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
 
 const config = {
   entry: "./src/index.js", //identify entry point for webpack
@@ -34,7 +35,14 @@ const config = {
     extensions: [".js", ".jsx"],
   },
   plugins: [
-    new BundleAnalyzerPlugin()
+    new BundleAnalyzerPlugin(),
+    new CompressionPlugin({
+      filename: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.8,
+    }),
   ]
 };
 
