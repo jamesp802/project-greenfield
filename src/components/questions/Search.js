@@ -6,7 +6,7 @@ const Searchbar = (props) => {
   return (
     <div>
       <form>
-        <label for='search questions'/>
+        <label htmlFor='search questions'/>
         <input
           className="search-bar-row"
           type="text"

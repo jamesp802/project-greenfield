@@ -108,7 +108,7 @@ class AnswersList extends React.Component {
   pullSeller(array) {
     for (let i = array.length - 1; i >= 0; i--) {
       if (array[i].answerer_name === "Seller") {
-        let result = array.splice(i, 1);
+        const result = array.splice(i, 1);
         array.unshift(result[0]);
       }
     }
@@ -127,18 +127,21 @@ class AnswersList extends React.Component {
           return (
             <div key={index} id="answer-body">
               {answer.body}
-              {/* <div>
+              <div>
                 {answer.photos.map((photo) => {
                   return (
                     <img
                       key={photo.id}
                       src={photo.url}
-                      width="50px"
-                      height="50px"
+                      style={{
+                        width: "50px",
+                        height: "35px",
+                        marginLeft: "5%",
+                      }}
                     ></img>
                   );
                 })}
-              </div> */}
+              </div>
               <div className="answerer-info">
                 by{" "}
                 {answer.answerer_name === "Seller" ? (
