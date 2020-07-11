@@ -21,7 +21,6 @@ class Questions extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.moreQuestions = this.moreQuestions.bind(this);
     this.sliceQuestions = this.sliceQuestions.bind(this);
-  }
 
   componentDidMount() {
     this.getQuestions();

@@ -2,7 +2,6 @@ import React from "react";
 import { Form } from "react-bootstrap";
 
 const QuantityDropDown = ({ skus, size }) => {
-  // {XS: 8, S: 16, M: 17, L: 10, XL: 15, …}
   let quantity = [];
   for (let i = 1; i <= skus[size]; i++) {
     if (i >= 15) {
