@@ -18,18 +18,18 @@ const Thumbnails = (props) => {
     return (
       <div className="fullscreen-thumbnails">
         {photos.map((photo, i) => {
-          if (i === displayIndex) {
+          if (i === displayIndex && photo.thumbnail_url) {
             return (
               <img
-                src={photo.url}
+                src={photo.thumbnail_url}
                 id="photo-click"
                 className="fullscreen-selected-thumbnail"
               />
             );
-          } else {
+          } else if (photo.thumbnail_url) {
             return (
               <img
-                src={photo.url}
+                src={photo.thumbnail_url}
                 className="fullscreen-nonselected-thumbnail"
                 onClick={() => changeDisplayIndex(i)}
                 id="photo-click"
@@ -49,24 +49,25 @@ const Thumbnails = (props) => {
           />
         </li>
         {photos.slice(extend, extend + 8).map((photo, i) => {
+          console.log(photo, i);
           if (i < 7) {
-            if (displayIndex === i) {
+            if (displayIndex === i && photo.thumbnail_url) {
               return (
                 <li key={i}>
                   <img
-                    onClick={() => changeDisplayIndex(i)}
+                    onClick={() => changeDisplayIndex(i + extend)}
                     className={"thumbnail-gallery-item selected"}
-                    src={photo.url}
+                    src={photo.thumbnail_url}
                   />
                 </li>
               );
-            } else if (displayIndex !== i) {
+            } else if (displayIndex !== i && photo.thumbnail_url) {
               return (
                 <li key={i}>
                   <img
-                    onClick={() => changeDisplayIndex(i)}
+                    onClick={() => changeDisplayIndex(i + extend)}
                     className={"thumbnail-gallery-item"}
-                    src={photo.url}
+                    src={photo.thumbnail_url}
                   />
                 </li>
               );
