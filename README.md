@@ -82,8 +82,7 @@ Progress of performance optimization is documentated below, using Google Lightho
 ## **Live Demo**
 <b>The FPS and Quality of this demo have been significantly reduced to be formatted in this document, please see optimization for accurate data on load times and smoothness of application.</b>
 
-
-<img src='https://i.imgur.com/P31fhAJ.gif'/>
+[**Imgur link to demo GIF**](https://i.imgur.com/P31fhAJ.gif')
 
 ## Main features:
 
