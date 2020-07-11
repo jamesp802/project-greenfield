@@ -23,8 +23,4 @@ app.get('*.js', function(req, res, next) {
    res.sendFile(path.join( __dirname, '../public/index.html'));
  });
 
-// app.get('*', function (req, res) {
-//   res.sendFile(path.join(__dirname, '../public', 'index.html'));
-// });
-
 app.listen(process.env.PORT || 8080, console.log(`Server is listening on port 8080`));
